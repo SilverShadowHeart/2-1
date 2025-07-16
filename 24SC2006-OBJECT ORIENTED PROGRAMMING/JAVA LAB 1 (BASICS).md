@@ -152,7 +152,7 @@ hellooo.java
 > 💡 It must be saved in a folder named `neww` (same as the package).
 
 ---
-# 📘 Java Data Types (Beginner Notes)
+# 📘 Java Data Types
 
 ---
 
