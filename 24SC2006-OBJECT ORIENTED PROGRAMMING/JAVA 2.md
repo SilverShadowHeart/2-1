@@ -23,7 +23,7 @@ void - remove()
       -  tostring()
       -
 write a java program to read the details of the employee and print them
-	employee id 
+employee id nextint
 employee name next
 employee department next
 employee experience float
