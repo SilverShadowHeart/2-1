@@ -30,3 +30,18 @@ employee experience float
 employee salary double
 employee full time or not bool
 employee contact number long
+
+
+what is an experssions
+operandsa nd operatiors
+
+opertaor def
+
+operators
+arthimetiv  
+inc dec ment 
+post ince pre incre
+bitwise
+relation
+logical
+assignemnt
