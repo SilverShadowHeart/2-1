@@ -45,3 +45,17 @@ bitwise
 relation
 logical
 assignemnt
+ternary operatorrs
+instanceof
+
+operator precedence
+
+
+associativity a = a +b ltr  a += b rtl
+
+
+write a java program an employee payroll system by reading the empid basic salary
+hra 30 percent da 50 % and pf  12% -16 % of the employee and calculating the hra percent da percent add calculate the gross salary (basic + hra +da - pf) and add a fixed bonus 1000 rs and print gross salary and check whether is he eligible for a loan or not if the gross is > 20000 and pf > 1000 .
+
+id
+double salary
