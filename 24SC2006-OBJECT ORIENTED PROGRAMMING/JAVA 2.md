@@ -21,4 +21,12 @@ short -nextshort()
 void - remove()
       - skip()
       -  tostring()
-      - 
+      -
+write a java program to read the details of the employee and print them
+	employee id 
+employee name next
+employee department next
+employee experience float
+employee salary double
+employee full time or not bool
+employee contact number long
