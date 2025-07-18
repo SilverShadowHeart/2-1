@@ -19,5 +19,9 @@ print(result)
 ```python
 input = list(map(str,input().split()))
 order = input()
-for i in range()
+max_len = 0
+for i in range(len(input()))
+ if max_len > len(input[i]):
+   max_len = len(input[i]) 
+for 
 ```
