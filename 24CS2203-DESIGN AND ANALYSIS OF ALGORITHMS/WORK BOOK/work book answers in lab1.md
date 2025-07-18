@@ -16,6 +16,8 @@ print(result)
 
 ```
 
-
-
-
+```python
+input = list(map(str,input().split()))
+order = input()
+for i in range()
+```
