@@ -5,7 +5,7 @@ narrowing conversion typecasting it is also known as manual conversion
 it is a method of converting big to small data type like double to int 
 
 
-write a java program to display sum of squares of number from 1 to n
+write a java program to display sum of squares6666 of number from 1 to n
 write a java program to display the following pattern
 
 12345
