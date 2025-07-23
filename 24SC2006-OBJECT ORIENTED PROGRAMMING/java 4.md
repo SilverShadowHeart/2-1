@@ -429,4 +429,19 @@ length() returns the length of a specified string
 toUpperCase() will convert the string into upper case
 toLowerCase() will convert the string into lower case 
 charAt() index always starts at 0 not 1 it will give char
-compareTo()
+compareTo() will try to give some val does asccii calculations every time a mismatch is found
+compareToIgnoreCase() it will ignore the casing unlike compareto which is case sensitive 
+concat() it will attach two strings together and give us the new combined string
+contains() it will check if the string is there or not it will check for sequence eg
+if hello is a string and i have hel in the contains the it will look for hel if string is holel it will return false  
+contentEquals() it will 
+endsWith()
+equals()
+compares two strings returns true or false if they are equal strings then true else it will be false 
+indexOf("") it will find the first occurrence of the given element
+	equalsIgnoreCase()
+	isEmpty()
+	join()
+	lastIndex()
+matches() it gives true or false tries to see if given things are there are not if all are not present then it will give false
+replace()
