@@ -446,7 +446,7 @@ join()
 matches() it gives true or false tries to see if given things are there are not if all are not present then it will give false
 replace()
 replaceFirst()
-startsWith()s
+startsWith()
 subSequence(strindex,endindex)
 trim()
 valueOf()
