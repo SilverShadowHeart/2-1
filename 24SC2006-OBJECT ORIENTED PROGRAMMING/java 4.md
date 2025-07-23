@@ -420,3 +420,13 @@ hour (24-hour clock 10
 |`Calendar.getFirstDayOfWeek()`|Usually returns `1 (Sunday)` or `2 (Monday)`|Locale-dependent|
 |`getTime()`|Converts `Calendar` to `Date`|
 
+
+
+
+functions present in string class 
+the string class has a set of built in methods that you can use on strings 
+length() returns the length of a specified string
+toUpperCase() will convert the string into upper case
+toLowerCase() will convert the string into lower case 
+charAt() index always starts at 0 not 1 it will give char
+compareTo()
