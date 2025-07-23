@@ -344,3 +344,6 @@ CopyEdit
 |`np.full(..., 0, dtype=bool)`|All `False`|
 |`np.full(..., 99, dtype=bool)`|All `True`|
 |`np.empty(..., dtype=bool)`|Random `True` / `False`|
+
+
+[[numpy1]]
