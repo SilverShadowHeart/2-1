@@ -440,8 +440,13 @@ equals()
 compares two strings returns true or false if they are equal strings then true else it will be false 
 indexOf("") it will find the first occurrence of the given element
 	equalsIgnoreCase()
-	isEmpty()
-	join()
-	lastIndex()
+isEmpty()
+join()
+	lastIndexOf()
 matches() it gives true or false tries to see if given things are there are not if all are not present then it will give false
 replace()
+replaceFirst()
+subSequence(strindex,endindex)
+trim()
+valueOf()
+toCharArr()
