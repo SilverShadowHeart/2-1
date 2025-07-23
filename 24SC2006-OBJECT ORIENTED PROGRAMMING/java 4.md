@@ -71,9 +71,6 @@ Legacy classes like `java.util.Date` and `java.util.Calendar` often return confu
 - So if you see:
 month = 6 → it means July
 
-yaml
-Copy
-Edit
 - ⚠️ **Misleading** because normal human indexing starts from 1.
 
 ---
