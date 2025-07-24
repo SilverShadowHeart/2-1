@@ -99,13 +99,14 @@ Use `resize()` with caution — it can cause data loss or unwanted 0-filling.
 
 ### 📌 Recap Visual:
 
-|Operation|Purpose|Key Effect|
-|---|---|---|
-|`reshape()`|Change shape|New shape, same data|
-|`flatten()`|2D → 1D (copy)|Flattens to 1D|
-|`ravel()`|2D → 1D (view)|Faster flatten if possible|
-|`transpose()`|Rearrange axes|Rows ↔ Cols or N-D axes|
-|`swapaxes()`|Swap 2 specific axes|Used in N-D array reshuffling|
-|`resize()`|Change shape in-place|May pad with 0s|
-|`expand_dims()`|Add a dimension|Prepares for broadcasting|
-|`squeeze()`|Remove 1-size dimensions|Useful after indexing/slicing|
+| Operation       | Purpose                  | Key Effect                    |
+| --------------- | ------------------------ | ----------------------------- |
+| `reshape()`     | Change shape             | New shape, same data          |
+| `flatten()`     | 2D → 1D (copy)           | Flattens to 1D                |
+| `ravel()`       | 2D → 1D (view)           | Faster flatten if possible    |
+| `transpose()`   | Rearrange axes           | Rows ↔ Cols or N-D axes       |
+| `swapaxes()`    | Swap 2 specific axes     | Used in N-D array reshuffling |
+| `resize()`      | Change shape in-place    | May pad with 0s               |
+| `expand_dims()` | Add a dimension          | Prepares for broadcasting     |
+| `squeeze()`     | Remove 1-size dimensions | Useful after indexing/slicing |
+|                 |                          |                               |
