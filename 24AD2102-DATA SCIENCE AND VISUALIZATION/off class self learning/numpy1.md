@@ -345,5 +345,73 @@ CopyEdit
 |`np.full(..., 99, dtype=bool)`|All `True`|
 |`np.empty(..., dtype=bool)`|Random `True` / `False`|
 
+### 🔹 `np.eye(N, M=None, k=0, dtype=float)`
+
+Returns a 2D array with **ones on a specified diagonal** and zeros elsewhere.
+
+
+`np.eye(3) # Output: # [[1. 0. 0.] #  [0. 1. 0.] #  [0. 0. 1.]]`
+
+**Parameters:**
+
+- `N`: int → Number of rows.
+    
+- `M`: int (optional) → Number of columns. Defaults to `N`.
+    
+- `k`: int → Index of the diagonal:
+    
+    - `k=0`: main diagonal
+        
+    - `k>0`: above the main diagonal
+        
+    - `k<0`: below the main diagonal
+        
+- `dtype`: optional → Data type of the array (default is `float`).
+    
+
+**Use Case:**  
+Useful for creating **identity-like matrices**, or when you want **offset diagonal structures**.
+
+---
+
+### 🔹 `np.identity(n, dtype=None)`
+
+Returns a **square identity matrix** of size `n x n`.
+
+
+`np.identity(3) # Output: # [[1. 0. 0.] #  [0. 1. 0.] #  [0. 0. 1.]]`
+
+**Parameters:**
+
+- `n`: int → Number of rows and columns (always square).
+    
+- `dtype`: optional → Data type of the array.
+    
+
+**Use Case:**  
+Shortcut for generating square identity matrices. Equivalent to `np.eye(n)` with default settings.
+
+---
+
+### 🔹 `np.diag(v, k=0)`
+
+- If `v` is a 1D array: returns a 2D matrix with `v` on the specified diagonal.
+    
+- If `v` is a 2D array: extracts the specified diagonal values.
+
+`# Construct diagonal matrix: np.diag([1, 2, 3]) # Output: # [[1 0 0] #  [0 2 0] #  [0 0 3]]  # Extract diagonal from 2D matrix: A = np.array([[1,2,3], [4,5,6], [7,8,9]]) np.diag(A) # Output: [1 5 9]`
+
+**Parameters:**
+
+- `v`: 1D or 2D array
+    
+- `k`: int → Diagonal offset (same as in `eye()`)
+    
+
+**Use Case:**
+
+- Convert 1D vectors into diagonal matrices
+    
+- Extract diagonals for trace, eigenvalue prep, or analysis
 
 [[numpy1]]
