@@ -29,9 +29,7 @@ These **flatten the array** first → operate on 1D.
 
 #### ➤ Example:
 
-python
 
-CopyEdit
 
 `a = np.array([[1, 2], [3, 4]]) # shape: (2, 2)  np.sum(a, axis=0)  # [4 6] # column-wise: [1+3, 2+4]  np.sum(a, axis=1)  # [3 7] # row-wise: [1+2, 3+4]`
 
@@ -48,9 +46,7 @@ CopyEdit
 
 Operate progressively element-by-element:
 
-python
 
-CopyEdit
 
 `a = np.array([1, 2, 3, 4])  np.cumsum(a)     # [1 3 6 10] np.cumprod(a)    # [1 2 6 24]`
 
@@ -62,9 +58,6 @@ Also works row-wise or column-wise with 2D arrays using `axis=`.
 
 Prevents dimension from being removed (good for broadcasting).
 
-python
-
-CopyEdit
 
 `a = np.array([[1, 2], [3, 4]])  np.sum(a, axis=1, keepdims=True) # Output: [[3] #          [7]]   → shape stays (2,1)`
 
@@ -76,9 +69,6 @@ Without `keepdims=True`, it would be just `[3, 7]` (shape = (2,)).
 
 #### ➤ If you have NaN or inf:
 
-python
-
-CopyEdit
 
 `a = np.array([1, 2, np.nan, 4])  np.sum(a)         # nan np.nansum(a)      # 7.0 np.nanmean(a)     # 7 / 3 = 2.33`
 
@@ -96,9 +86,7 @@ Use `np.nan*` functions to **ignore NaNs safely**.
 
 #### Example:
 
-python
 
-CopyEdit
 
 `a = np.array([[1, 0], [0, 1]])  np.any(a)  # True  (at least one non-zero) np.all(a)  # False (not all non-zero)`
 
