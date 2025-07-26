@@ -8,9 +8,6 @@ A **boolean mask** is a condition applied to a NumPy array, returning a new arra
 
 ### 🔹 1. Basic Usage
 
-python
-
-CopyEdit
 
 `import numpy as np  a = np.array([1, 2, 3, 4, 5, 6])  mask = a > 3              # Creates a boolean array print(mask)               # [False False False  True  True  True]  print(a[mask])            # [4 5 6] — values where mask is True`
 

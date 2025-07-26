@@ -1,8 +1,6 @@
 ### Using `np.ix_()` for Cartesian Indexing
 
-python
 
-CopyEdit
 
 `x = np.array([[10, 20, 30],               [40, 50, 60]])  rows = [0, 1] cols = [0, 2]  submatrix = x[np.ix_(rows, cols)] print(submatrix) # [[10 30] #  [40 60]]`
 
@@ -32,9 +30,6 @@ CopyEdit
 
 ### 🔹 2D Example
 
-python
-
-CopyEdit
 
 `a = np.array([[11, 12, 13],               [21, 22, 23],               [31, 32, 33]])  rows = [0, 2] cols = [1, 2]  # Cartesian index combo: (0,1), (0,2), (2,1), (2,2) sub = a[np.ix_(rows, cols)] print(sub)  # Output: # [[12 13] #  [32 33]]`
 
@@ -44,9 +39,6 @@ CopyEdit
 
 If `a` is 3D:
 
-python
-
-CopyEdit
 
 `a = np.arange(3*4*5).reshape(3, 4, 5)  x = [0, 2]    # depth y = [1, 3]    # rows z = [2, 4]    # cols  # Cartesian combination: all (x, y, z) sub = a[np.ix_(x, y, z)]`
 
