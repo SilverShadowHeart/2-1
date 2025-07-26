@@ -13,9 +13,6 @@ A **boolean mask** is a condition applied to a NumPy array, returning a new arra
 
 You can write it more compactly:
 
-python
-
-CopyEdit
 
 `print(a[a > 3])           # Same result: [4 5 6]`
 
@@ -23,9 +20,6 @@ CopyEdit
 
 ### 🔹 2. Combine Multiple Conditions
 
-python
-
-CopyEdit
 
 `a = np.array([10, 20, 30, 40, 50])  print(a[(a > 15) & (a < 45)])   # [20 30 40]`
 
@@ -35,9 +29,6 @@ CopyEdit
 
 ### 🔹 3. Modify Values Using Mask
 
-python
-
-CopyEdit
 
 `a[a < 25] = 0 print(a)   # [ 0  0 30 40 50]`
 
@@ -47,29 +38,18 @@ CopyEdit
 
 Acts like a ternary operator:
 
-python
-
-CopyEdit
-
 `a = np.array([10, 15, 20, 25, 30]) result = np.where(a > 20, 1, 0) print(result)   # [0 0 0 1 1]`
 
 ---
 
 ### 🔹 5. `np.nonzero()` – Get Indices of True Values
 
-python
-
-CopyEdit
 
 `a = np.array([0, 1, 0, 3]) indices = np.nonzero(a) print(indices)   # (array([1, 3]),) print(a[indices]) # [1 3]`
 
 ---
 
 ### 🔹 6. Use with 2D Arrays
-
-python
-
-CopyEdit
 
 `b = np.array([[1, 2, 3],               [4, 5, 6]])  print(b[b > 3])    # [4 5 6]`
 
