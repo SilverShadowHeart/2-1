@@ -70,6 +70,7 @@ While `np.take()` retrieves values by index, `np.put()` does the **opposite** â€
     - You're building transformation or mutation logic
 
 if you dont understand the above here a dummy version simple words
+
 raise will throw an error if that index is occupied similar to u not going into a locked bathroom stall and standing still
 
 wrap will overwrite the value if its occupied  similar to a maniac blasting through a bathroom stall and kicking out that person who is already in
