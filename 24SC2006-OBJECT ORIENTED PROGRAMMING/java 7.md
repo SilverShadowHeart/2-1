@@ -17,6 +17,7 @@ it is also called as compile time polymorphism or static polymorphism or early b
 write a java program to implement a payment gateway with different ways of doing payment
 1.Through cash double amount 
 2.Through card long / string amount card number
-3Through upi wt is selected upi transaction/number phone pay gpay 
+3.Through upi wt is selected upi transaction/number phone pay gpay 
 
+keep the name of the method as pay
 
