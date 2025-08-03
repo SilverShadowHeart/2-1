@@ -453,3 +453,376 @@ valueOf()
 toCharArray()
 .trim()
 .valueOf()
+
+
+### **1. length()**
+
+- **Purpose**: Returns the number of characters in the string.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `int len = str.length();`
+    
+
+---
+
+### 🔹 **2. toUpperCase()**
+
+- **Purpose**: Converts all characters of the string to **uppercase**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String upper = str.toUpperCase();`
+    
+
+---
+
+### 🔹 **3. toLowerCase()**
+
+- **Purpose**: Converts all characters to **lowercase**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String lower = str.toLowerCase();`
+    
+
+---
+
+### 🔹 **4. charAt(int index)**
+
+- **Purpose**: Returns the **character at a specified index** (starts from 0).
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `char ch = str.charAt(2);`
+    
+
+---
+
+### 🔹 **5. compareTo(String anotherString)**
+
+- **Purpose**: Lexicographically compares two strings (ASCII difference).
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `int result = str1.compareTo(str2);`
+    
+
+---
+
+### 🔹 **6. compareToIgnoreCase(String anotherString)**
+
+- **Purpose**: Compares two strings **ignoring case**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `int result = str1.compareToIgnoreCase(str2);`
+    
+
+---
+
+### 🔹 **7. concat(String str)**
+
+- **Purpose**: Concatenates two strings.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String result = str1.concat(str2);`
+    
+
+---
+
+### 🔹 **8. contains(CharSequence seq)**
+
+- **Purpose**: Returns `true` if the string contains the specified **sequence**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.contains("hel");`
+    
+
+---
+
+### 🔹 **9. contentEquals(CharSequence seq)**
+
+- **Purpose**: Checks if **entire content matches** with another string or sequence.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.contentEquals("Hello");`
+    
+
+---
+
+### 🔹 **10. endsWith(String suffix)**
+
+- **Purpose**: Checks if the string **ends with** the specified suffix.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.endsWith("end");`
+    
+
+---
+
+### 🔹 **11. equals(Object anotherObject)**
+
+- **Purpose**: Compares if two strings have **exact same characters** (case-sensitive).
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.equals("hello");`
+    
+
+---
+
+### 🔹 **12. equalsIgnoreCase(String anotherString)**
+
+- **Purpose**: Compares two strings ignoring case.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.equalsIgnoreCase("HELLO");`
+    
+
+---
+
+### 🔹 **13. indexOf(String str)**
+
+- **Purpose**: Returns the **index of the first occurrence** of the specified string.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `int index = str.indexOf("lo");`
+    
+
+---
+
+### 🔹 **14. isEmpty()**
+
+- **Purpose**: Checks if the string is **empty** (length == 0).
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.isEmpty();`
+    
+
+---
+
+### 🔹 **15. join(CharSequence delimiter, CharSequence... elements)**
+
+- **Purpose**: Joins strings with a specified **delimiter**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String result = String.join("-", "a", "b", "c");  // a-b-c`
+    
+
+---
+
+### 🔹 **16. lastIndexOf(String str)**
+
+- **Purpose**: Returns the **last index** where the string occurs.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `int index = str.lastIndexOf("a");`
+    
+
+---
+
+### 🔹 **17. matches(String regex)**
+
+- **Purpose**: Returns true if the string **matches the regex** pattern.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean match = str.matches("[a-zA-Z]+");`
+    
+
+---
+
+### 🔹 **18. replace(char oldChar, char newChar)**
+
+- **Purpose**: Replaces all occurrences of `oldChar` with `newChar`.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String replaced = str.replace('a', 'e');`
+    
+
+---
+
+### 🔹 **19. replaceFirst(String regex, String replacement)**
+
+- **Purpose**: Replaces **first match** of regex with replacement.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String result = str.replaceFirst("is", "was");`
+    
+
+---
+
+### 🔹 **20. startsWith(String prefix)**
+
+- **Purpose**: Checks if the string **starts with** the specified prefix.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `boolean result = str.startsWith("pre");`
+    
+
+---
+
+### 🔹 **21. subSequence(int start, int end)**
+
+- **Purpose**: Returns a **CharSequence** from `start` to `end-1`.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `CharSequence cs = str.subSequence(1, 4);`
+    
+
+---
+
+### 🔹 **22. substring(int beginIndex[, int endIndex])**
+
+- **Purpose**: Extracts a portion of the string.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String part = str.substring(2);           // from index 2 to end String part = str.substring(2, 5);        // from index 2 to 4`
+    
+
+---
+
+### 🔹 **23. trim()**
+
+- **Purpose**: Removes **leading and trailing spaces**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String clean = str.trim();`
+    
+
+---
+
+### 🔹 **24. valueOf(...)**
+
+- **Purpose**: Converts **any type to String** (int, float, char, etc.).
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `String val = String.valueOf(123);  // "123"`
+    
+
+---
+
+### 🔹 **25. toCharArray()**
+
+- **Purpose**: Converts the string into a **character array**.
+    
+- **Syntax**:
+    
+    java
+    
+    CopyEdit
+    
+    `char[] chars = str.toCharArray();`
