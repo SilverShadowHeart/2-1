@@ -60,3 +60,29 @@ plus
 minus
 multipliedby
 
+
+duration class
+
+it takes hours min sec as the differnce
+tohours
+tominutes
+toseconds
+getnano()
+
+
+period is based on dates and duration is on time
+period is for local date and duration wiht localdatetime and localtime
+
+
+
+date time formatterclass
+yyyy 4 digi 
+mm
+dd
+HH
+mm
+ss
+a
+hh 12hr
+EEEE day
+
