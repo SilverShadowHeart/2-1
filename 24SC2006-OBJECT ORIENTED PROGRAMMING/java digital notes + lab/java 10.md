@@ -1,0 +1,1 @@
+write a java program to print the age of a person taking as input his birth date
