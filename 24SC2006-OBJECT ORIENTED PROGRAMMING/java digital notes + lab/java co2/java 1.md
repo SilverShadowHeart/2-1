@@ -41,3 +41,11 @@ it has no return type
 it is automatically called on object creation
 
 used to set initial values for object attributes
+
+write a java program to define a class named student with the class members name roll and marks
+
+with 4 constructors
+1st one default name which will take default name roll and marks
+2nd name 
+third cons name roll
+4th name roll marks
