@@ -29,4 +29,15 @@ identity
 
 
 object instantiation 
-new operator instantiates by a class by allocating memory for a new object and returningg a reference to that memory the new operator also invokes the class constr
+new operator instantiates by a class by allocating memory for a new object and returning a reference to that memory the new operator also invokes the class constructor
+
+java constructors
+
+constructor is a block of code that is called when an object is created
+characteristics of a constructor
+same name as the class name
+it has no return type
+
+it is automatically called on object creation
+
+used to set initial values for object attributes
