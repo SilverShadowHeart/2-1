@@ -15,3 +15,17 @@ key rules
 3. infinite loops caused by circular calls should be avoided
 
 
+static keyword in java
+what is a static keyword?
+the static keyword is a non access modifier used for 
+- variable (class-level , shared across instances)
+- methods (called without object creation)
+- block (executed once when the class loads)
+- nested classes (static inner classes)
+here are some characteristics of the static keyword in java:
+- static variables and methods use memory only once when the program runs and this memory is shared by all the objects of the class
+- we do not need to create objects of the class to use the static methods 
+- we can call static member using  the class name directly 
+- static members belong to the class to any specified object 
+- static member can not access non static members
+- static methods cannot be over ridden in the sub classes because they belong to the class not to an object
