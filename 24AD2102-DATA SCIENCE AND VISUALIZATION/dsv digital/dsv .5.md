@@ -55,6 +55,7 @@ data pre processing overview (short or long) (1.1)
 
 co2 session 2
 dirty data (skipped)
+
 forms of data preprocessing  (above 1.1)
 
 data integrity example used amazon sales for iphones
@@ -62,8 +63,86 @@ file formats ? source systems and operating systems?? locations ?? dbms ? data c
 pre fetched data by storing what might be fetched ? repos and data ware houses
 
 data transformations
- -1 32 100 59 48 -0.02 0.32 1.0 0.
+ -1 32 100 59 48 -> -0.02 0.32 1.0 0.59 0.48
+	
+	data reduction   attributes 
+         xx a1 a2 a3.....................    transations 
+        t1
+        t2
+        t3
+		.
+		.
+		.
+		.
+		
+data reduction techniques 
+importance of removal of non used attributes
+no matter what both give same results( non reduced ds , reduced ds)
+dirty data mentioned (revisited )
+incomplete only aggregate data lack attributes value lacking certain attributes of interest
+noisy containing error or outliers
+ - collection
+ - entry 
+inconsistent containing discrepancies in code or names
 
 
+Multi dimensional measure of data quality (may get a question on this)
+
+accuracy
+completeness
+consistency
+timeliness
+believability 
+value added
+interpretability
+accessibility
+
+data cleaning tasks
+- data acquisition and meta data
+- fill in missing values
+- unified date format
+(more are there)
+
+field types
+- binary - two possible values 0 and 1
+- nominal (categorical) - named categories without order
+- ordinal - category with a specific order (eg low mid high)
+- numeric - quantitative data
+- nominal field handling - often includes a tables that map codes to full description (eg 1= male 2 = female)
+field roles
+- input  -
+- target
+- id/auxiliary - identifier or helpers
+- ignore - fields excluded from modeling
+
+reformatting
+convert data to standard format
+handle missing values
+unified date format
+binning of numeric data
+fix errors
 
 
+filling missing values and other slides skipped 
+
+unified date format
+conversion ordered to numeric etc
+
+handling noisy data
+binning method 
+clustering 
+combined computer and human inspection
+regression 
+
+
+sorted values 4 8 9 15 21 21 24 25 26 28 29 34
+partitions into (equi-de depth bins
+ bin 1 4 8 9 15
+ bin2  21 21 24 25
+ bin3 26 28 29 34
+smoothing by bins
+bin 1  9 9 9 9 
+bin2 23 23 23 23
+bin3 29 29 29 29
+
+smoothing bin by bin boundaries
