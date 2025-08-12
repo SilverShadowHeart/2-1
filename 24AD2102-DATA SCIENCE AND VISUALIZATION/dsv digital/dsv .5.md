@@ -134,15 +134,34 @@ clustering
 combined computer and human inspection
 regression 
 
+binning methods for data smoothing (vvi)
 
 sorted values 4 8 9 15 21 21 24 25 26 28 29 34
-partitions into (equi-de depth bins
+partitions into (equi-depth) depth bins:
  bin 1 4 8 9 15
  bin2  21 21 24 25
  bin3 26 28 29 34
-smoothing by bins
+smoothing by bin means:
 bin 1  9 9 9 9 
 bin2 23 23 23 23
 bin3 29 29 29 29
 
-smoothing bin by bin boundaries
+smoothing bin by bin boundaries:
+bin1 1 4 4 4 15
+bin2 21 21 25 25
+bin3 26 26 26 34
+
+data smoothing regression
+linear regression involves finding the best line to fit two attributes or variables so that attributes can be used
+
+multiple regression
+
+outlier analysis
+outliers maybe detected by clustering for example where similar values are organized into groups or clusters
+
+intuitively values that are outside of the    set of all ..................
+
+correct inconsistent data
+
+
+why how and what abstract
