@@ -15,6 +15,7 @@ data collection strategies (slide 4 or 5)
 
 Data collection strategies in the context of data science and visualization
 1. define clear objective
+ def for all (skipped by sir)
 2. identify relevant data sources
 3. data quality assessment
 4. consider structured and unstructured data
@@ -24,5 +25,45 @@ Data collection strategies in the context of data science and visualization
 8. surveys and questionnaires
 9. collaboration with stake holders
 10. data integration
+
+
+data security issues
+
+data security is a critical concern in the field of data analysis and visualization as organization collect the .......
+1. data breaches
+2. data privacy
+3. data access control
+4. data encryption
+5. data masking and redaction
+6. data integrity
+7. secure data sharing
+8. compliance with regulation
+9. awareness and training
+10. data life cycle management
+
+data pre processing overview (short or long) (1.1)
+
+- data cleaning
+		|
+- data integration
+		|
+- data transformations
+		|
+- data reductions
+		|
+- data discretization
+
+co2 session 2
+dirty data (skipped)
+forms of data preprocessing  (above 1.1)
+
+data integrity example used amazon sales for iphones
+file formats ? source systems and operating systems?? locations ?? dbms ? data cubes? aggregated/summarized information text files extracting and loading data
+pre fetched data by storing what might be fetched ? repos and data ware houses
+
+data transformations
+ -1 32 100 59 48 -0.02 0.32 1.0 0.
+
+
 
 
