@@ -712,6 +712,68 @@ print(arr[indices])     # [40 50 60]
     
 - Useful for filtering arrays without loops.
 
+#### Filtering a NumPy Array
+
+Filtering an array means selecting elements that meet a certain condition using **boolean indexing**.
+
+Example
+
+```python
+import numpy as np
+
+arr = np.array([10, 25, 30, 45, 60])
+
+# Create a boolean mask for elements greater than 30
+mask = arr > 30
+print(mask)        # [False False False  True  True]
+
+# Use the mask to filter elements
+filtered = arr[mask]
+print(filtered)    # [45 60]
+```
+#### Checking Whether a NumPy Array is Empty
+
+You can check if an array is empty by using the `.size` attribute, which returns the total number of elements.
+
+Example 1 – Non-empty array
+```python
+import numpy as np
+
+arr = np.array([1, 2, 3, 4, 5])
+
+if arr.size == 0:
+    print("Array is empty")
+else:
+    print("Array is not empty")
+
+print(arr)
+```
+Output:
+```
+Array is not empty
+[1 2 3 4 5]
+```
+Example 2 – Empty array
+```python
+import numpy as np
+arr = np.array([])
+if arr.size == 0:
+    print("Array is empty")
+else:
+    print("Array is not empty")
+print(arr)
+```
+Output:
+
+```
+Array is empty
+[]
+```
+Key Point:
+
+- .size returns the number of elements in the array; 0 means the array is empty.
+
+
 
 ---
 
