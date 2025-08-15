@@ -36,6 +36,7 @@ flowchart TD
 
 ```
 
+
 **Data Collection:** Gathering raw data from various sources, such as databases, sensors, or user interactions.
 
 **Data Cleaning:** Ensuring the data is accurate, complete, and ready for analysis.
@@ -238,4 +239,6 @@ flowchart TD
 <p align="center" style="font-size:24px">holistic approach to data science</p>
 
 ![[Pasted image 20250815123547.png]]
+
+
 
