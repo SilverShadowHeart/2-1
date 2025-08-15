@@ -491,10 +491,7 @@ The `numpy.array()` function is used to create a NumPy array from a Python list,
 
 
 Syntax 
-(you dont need all)
-```python
-numpy.array(object, dtype=None, copy=True, order='K', subok=False, ndmin=0)
-```
+
 
 ```python
 
@@ -516,7 +513,204 @@ for item in arr:
     print (item)
 ```
 
+#### Understanding NumPy Array Indexing
 
+In NumPy, you can access array elements using **positive indices** (from start) or **negative indices** (from end).
+
+ Example
+
+```python
+import numpy as np
+
+arr = np.array([10, 25, 13, 64, 57])
+
+# Positive indexing
+print(arr[0])  # 10
+print(arr[1])  # 25
+print(arr[2])  # 13
+print(arr[3])  # 64
+print(arr[4])  # 57
+
+# Negative indexing
+print(arr[-1])  # 57
+print(arr[-2])  # 64
+print(arr[-3])  # 13
+print(arr[-4])  # 25
+print(arr[-5])  # 10
+
+
+# Access all elements using a loop
+for index in range(len(arr)):
+    print(arr[index])
+
+```
+**output:**
+
+```
+10
+25
+13
+64
+57
+
+57
+64
+13
+25
+10
+
+10
+25
+13
+64
+57
+
+```
+#### Creating Arrays of Zeros and Ones in NumPy
+
+- `np.zeros(n)` → Creates a NumPy array of size `n` filled with zeros (`0.0`).
+    
+- `np.ones(n)` → Creates a NumPy array of size `n` filled with ones (`1.0`).
+    
+
+> Both are basic array-creation functions used for initializing arrays quickly, often for placeholders or computations.
+
+```python
+import numpy as np
+
+# Create an array with five zeros
+zeros_array = np.zeros(5)
+
+# Create an array with five ones
+ones_array = np.ones(5)
+
+print(zeros_array)  # [0. 0. 0. 0. 0.]
+print(ones_array)   # [1. 1. 1. 1. 1.]
+
+```
+
+**Key Point:**
+    
+- Both return arrays of type `float` by default.
+    
+You can also specify a different `dtype` if needed, e.g., `np.zeros(5, dtype=int)`.
+
+
+#### Slicing of an Array in NumPy
+
+Slicing allows you to **access a subset of elements** from a NumPy array.
+
+ Syntax
+ 
+```python
+
+array[start:stop:step]
+
+```
+
+start: Index to begin the slice (inclusive, default 0)
+
+stop: Index to end the slice (exclusive)
+
+step: Step size between elements (default 1)
+
+Examples
+```python
+import numpy as np
+
+arr = np.array([10, 20, 30, 40, 50, 60])
+
+# Slice from index 1 to 4 (excluding 4)
+print(arr[1:4])  # [20 30 40]
+
+# Slice from start to index 3
+print(arr[:3])   # [10 20 30]
+
+# Slice from index 2 to end
+print(arr[2:])   # [30 40 50 60]
+
+# Slice every 2nd element
+print(arr[::2])  # [10 30 50]
+
+# Reverse array
+print(arr[::-1]) # [60 50 40 30 20 10]
+
+```
+
+Key Points:
+
+- Omitting start assumes 0.
+
+- Omitting stop goes to the end.
+
+- Negative step reverses the order.
+
+
+#### Mathematical Operations on NumPy Arrays
+
+NumPy allows element-wise mathematical operations directly on arrays.
+
+ Example
+```python
+import numpy as np
+
+k = np.array([1, 2, 3, 4, 5])
+print("Original array:", k)
+
+# Addition
+k = k + 5
+print("After addition operation:", k)
+
+# Subtraction
+k = k - 5
+print("After subtraction operation:", k)
+
+# Multiplication
+k = k * 5
+print("After multiplication:", k)
+
+# Division
+k = k / 5
+print("After division:", k)
+```
+
+output:
+```
+Original array: [1 2 3 4 5]
+After addition operation: [ 6  7  8  9 10]
+After subtraction operation: [1 2 3 4 5]
+After multiplication: [ 5 10 15 20 25]
+After division: [1. 2. 3. 4. 5.]
+
+
+```
+
+#### Searching Elements in a NumPy Array
+
+You can use `np.where()` to find the indices of elements that meet a condition.
+
+Example
+```python
+import numpy as np
+
+arr = np.array([10, 20, 30, 40, 50, 60])
+
+# Find indices where element is greater than 30
+indices = np.where(arr > 30)
+print(indices)          # (array([3, 4, 5]),)
+
+# Get the matching elements
+print(arr[indices])     # [40 50 60]
+
+```
+
+**Key Points:**
+
+- `np.where(condition)` returns a tuple of index arrays.
+    
+- You can use these indices to directly extract matching elements.
+    
+- Useful for filtering arrays without loops.
 
 
 ---
