@@ -65,14 +65,147 @@ Q Difference Between Data Science and Data Visualization?
 
 ---
 
-<p align="center" style="font-size:24px">Importance of Data science</p>
+<p align="center" style="font-size:24px"><b>IMPORTANCE OF DATA SCIENCE</b></p>
 
 
 
 
-<p align="center" style="font-size:24px">roles in data science</p>
+<p align="center" style="font-size:24px"><b>ROLES IN DATA SCIENCE<b></p>
 
-<p align="center" style="font-size:24px">Data science work flow and life cycle</p>
+### 1. Data Scientist
+
+**Responsibilities:**
+
+- Analyze and interpret complex data sets to extract insights
+    
+- Build predictive models and machine learning algorithms
+    
+- Preprocess, clean, and engineer features
+    
+- Communicate findings to non-technical stakeholders
+    
+
+### 2. Machine Learning Engineer
+
+**Responsibilities:**
+
+- Develop and deploy machine learning models
+    
+- Optimize models for performance and scalability
+    
+- Collaborate with data scientists to operationalize work
+    
+- Manage and maintain model infrastructure
+    
+
+### 3. Data Analyst
+
+**Responsibilities:**
+
+- Analyze data to provide actionable insights
+    
+- Create visualizations and reports for decision-making
+    
+- Identify trends and patterns in data
+    
+- Collaborate with business stakeholders to understand data needs
+    
+
+### 4. Data Engineer
+
+**Responsibilities:**
+
+- Build and maintain data pipelines and ETL processes
+    
+- Manage data infrastructure and databases
+    
+- Ensure data quality, reliability, and availability
+    
+- Support data scientists and analysts with clean, accessible data
+    
+
+### 5. Business Intelligence (BI) Analyst
+
+**Responsibilities:**
+
+- Create dashboards and reports for business performance tracking
+    
+- Design data visualization tools for end-users
+    
+- Identify key performance indicators (KPIs) and metrics
+    
+- Collaborate with business teams to support decision-making
+    
+
+### 6. Data Architect
+
+**Responsibilities:**
+
+- Design and maintain data architectures
+    
+- Define data storage, integration, and processing strategies
+    
+- Ensure data security and compliance
+    
+- Collaborate with data engineers to implement data solutions
+    
+
+### 7. Statistician
+
+**Responsibilities:**
+
+- Apply statistical techniques to analyze data
+    
+- Conduct hypothesis testing and experiments
+    
+- Design surveys and experiments to gather data
+    
+- Provide statistical insights to support decision-making
+    
+
+### 8. AI/ML Researcher
+
+**Responsibilities:**
+
+- Conduct research to advance machine learning and AI
+    
+- Develop novel algorithms and models
+    
+- Publish research papers and contribute to conferences
+    
+- Collaborate with data scientists and engineers on cutting-edge solutions
+    
+
+### 9. Quantitative Analyst (Quant)
+
+**Responsibilities:**
+
+- Apply quantitative and mathematical methods to financial data
+    
+- Develop trading strategies and risk models
+    
+- Analyze market data to inform investment decisions
+    
+- Implement algorithms for trading and risk management
+    
+
+### 10. Chief Data Officer (CDO)
+
+**Responsibilities:**
+
+- Set organizational data strategy and governance
+    
+- Oversee data management, privacy, and compliance
+    
+- Align data initiatives with business goals
+    
+- Manage data-related teams and resources
+
+---
+
+<p align="center" style="font-size:24px"><b>DATA SCIENCE WORK FLOW AND LIFE CYCLE</b></p>
+
+The Data Science lifecycle is designed for Big Data problems and data science projects. The cycle is iterative to represent real project. To address the distinct requirements for performing analysis on Big Data, step – by – step methodology is needed to organize the activities and tasks involved with acquiring, processing, analyzing, and repurposing data
 
 
 ```mermaid
@@ -105,7 +238,46 @@ flowchart TD
 - **Deployment:** Integrate model into production or decision-making systems.
     
 - **Monitoring & Maintenance:** Track performance, update models with new data, ensure reliability.
-<p align="center" style="font-size:24px">difference between data science and big data</p>
+
+<p align="center" style="font-size:18px">(or)</p>
+
+![[Pasted image 20250815131505.png]]
+
+# Data Science Project Workflow
+
+## 1. Understanding the Problem
+- The data science team learns and investigates the problem.
+- Develops context and understanding.
+- Identifies data sources needed and available for the project.
+- Formulates initial hypotheses that can be later tested with data.
+
+## 2. Gathering Relevant Data
+- Steps to explore, preprocess, and condition data prior to modeling and analysis.
+- Requires an analytic sandbox where the team executes, loads, and transforms data.
+- Data preparation tasks are iterative and not necessarily in a fixed order.
+- **Common tools:** Hadoop, Alpine Miner, OpenRefine, etc.
+
+## 3. Data Preparation
+- Team explores data to learn relationships between variables.
+- Selects key variables and the most suitable models.
+- Develops datasets for training, testing, and production purposes.
+- Builds and executes models based on planning.
+- **Common tools:** MATLAB, STATISTICA.
+
+## 4. Feature Engineering and Feature Extraction
+- Develops datasets for testing, training, and production.
+- Assesses whether existing tools suffice or if a more robust environment is needed.
+- **Free/Open-source tools:** R, PL/R, Octave, WEKA.
+- **Commercial tools:** MATLAB, STATISTICA.
+
+## 5. Model Building and Deployment
+- Executes models and compares outcomes against success/failure criteria.
+- Articulates findings and outcomes to team members and stakeholders, considering warnings and assumptions.
+- Identifies key findings, quantifies business value, and develops a narrative to summarize and convey results.
+
+---
+
+<p align="center" style="font-size:24px"><b>DIFFERENCE BETWEEN DATA SCIENCE AND BIG DATA</b></p>
 
 - **Data Science:** Focused on **analyzing data** to extract insights, build models, and make decisions. Uses statistics, ML, and visualization.
     
@@ -134,9 +306,15 @@ flowchart TD
     
 4. Infrastructure-centric; insights require additional tools like data science.
 
-<p align="center" style="font-size:24px">data science and artificial intelligence</p>
+---
+
+<p align="center" style="font-size:24px"><b>DATA SCIENCE AND ARTIFICIAL INTELLIGENCE</b></p>
+
 ![[Pasted image 20250815123836.png]]
-<p align="center" style="font-size:24px">data science tools and technologies</p>
+
+---
+
+<p align="center" style="font-size:24px"><b>DATA SCIENCE TOOLS AND TECHNOLOGIES</b></p>
 
 - **Programming Languages:** Python, R, SQL, Julia.
     
@@ -153,6 +331,8 @@ flowchart TD
 - **Collaboration & Versioning:** Git, Jupyter Notebooks, VS Code.
     
 - **ETL & Data Pipelines:** Apache Airflow, Talend, Luigi.
+
+---
 
 <p align="center" style="font-size:24px"><b>DATA SCIENCE APPLICATIONS</b></p>
 
@@ -236,7 +416,7 @@ flowchart TD
 
 ---
 
-<p align="center" style="font-size:24px">holistic approach to data science</p>
+<p align="center" style="font-size:24px"><b.holistic approach to data science</b></p>
 
 ![[Pasted image 20250815123547.png]]
 
