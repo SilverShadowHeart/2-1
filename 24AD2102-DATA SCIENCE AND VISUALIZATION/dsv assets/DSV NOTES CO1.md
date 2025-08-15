@@ -332,6 +332,18 @@ flowchart TD
     
 - **ETL & Data Pipelines:** Apache Airflow, Talend, Luigi.
 
+| Toolbox        | Purpose                          | Example Use Case                           |
+|----------------|----------------------------------|-------------------------------------------|
+| NumPy          | Numerical computing              | Fast array operations, linear algebra     |
+| Pandas         | Data manipulation and analysis   | DataFrames for tabular data               |
+| Matplotlib     | Data visualization (2D plots)    | Line graphs, bar charts, scatter plots   |
+| Seaborn        | Statistical data visualization   | Boxplots, correlation graphs              |
+| Scikit-learn   | Machine learning                 | Classification, regression, clustering   |
+| TensorFlow     | Deep learning                     | Neural networks and deep learning models |
+| Statsmodels    | Statistical modeling             | Regression, hypothesis testing           |
+| Plotly         | Interactive visualization        | Dashboards, real-time plots               |
+
+
 ---
 
 <p align="center" style="font-size:24px"><b>DATA SCIENCE APPLICATIONS</b></p>
@@ -416,9 +428,98 @@ flowchart TD
 
 ---
 
-<p align="center" style="font-size:24px"><b.holistic approach to data science</b></p>
+<p align="center" style="font-size:24px"><b>HOLISTIC APPROACH TO DATA SCIENCE</b></p>
 
 ![[Pasted image 20250815123547.png]]
 
 
+
+---
+
+### import
+In Python, the `import` statement brings external modules or libraries into your code, giving access to their functions, classes, and variables so you don’t have to rewrite common functionality.
+
+Examples:
+
+```python
+import math         # full module 
+from math import pi # specific item 
+import numpy as np   # alias for convenience
+```
+
+It’s essential for code reuse, modularity, and leveraging Python’s ecosystem.
+
+---
+
+### dir Function in Python
+
+The `dir()` function is used to list all the attributes (variables, functions, classes, etc.) of a module or object. It helps you explore what a module contains.
+
+Example with the `math` module
+
+```python
+import math
+print(dir(math))
+```
+
+---
+
+<p align="center" style="font-size:24px"><b>NUMPY</b></p>
+
+What is NumPy?
+
+NumPy (short for Numerical Python ) is one of the most fundamental libraries in Python for scientific computing. It provides support for large, multi-dimensional arrays and matrices along with a collection of mathematical functions to operate on arrays.
+
+<p align="center" style="font-size:16px">(or)</p>
+
+NumPy provides high-performance tools for working with arrays and matrices. Unlike standard Python lists, it supports multi-dimensional data and a rich collection of mathematical operations, making it a foundational library in the data science ecosystem.
+
+It provides support for:
+
+- Multi-dimensional arrays (called ndarray)
+
+- Mathematical operations (linear algebra, statistics, etc.)
+
+- Vectorization for fast computation (avoids Python loops)
+
+
+#### CREATING AN ARRAY 
+
+ NumPy `array()` Function
+
+The `numpy.array()` function is used to create a NumPy array from a Python list, tuple, or other sequence-like objects. It converts data into an `ndarray` for efficient numerical operations.
+
+
+Syntax 
+(you dont need all)
+```python
+numpy.array(object, dtype=None, copy=True, order='K', subok=False, ndmin=0)
+```
+
+```python
+
+import numpy as np                                       
+arr = np.array ( [1,2,3,4,5])  
+# Displaying ID array
+print (arr)
+```
+**output:**
+```
+[1 2 3 4 5]
+```
+
+```python
+import numpy as np
+arr = np.array ( [1,2,3,4,5])
+# Displaying ID array
+for item in arr:
+    print (item)
+```
+
+
+
+
+---
+
+<p align="center" style="font-size:24px"><b>PANDAS</b></p>
 
