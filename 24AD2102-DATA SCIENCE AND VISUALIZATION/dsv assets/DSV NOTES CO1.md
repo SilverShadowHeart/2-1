@@ -772,7 +772,7 @@ Array is empty
 Key Point:
 
 - .size returns the number of elements in the array; 0 means the array is empty.
-
+::
 
 
 ---
