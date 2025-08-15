@@ -72,6 +72,38 @@ Q Difference Between Data Science and Data Visualization?
 <p align="center" style="font-size:24px">roles in data science</p>
 
 <p align="center" style="font-size:24px">Data science work flow and life cycle</p>
+
+
+```mermaid
+flowchart TD
+    A[Problem Definition] --> B[Data Collection]
+    B --> C[Data Cleaning and Preprocessing]
+    C --> D[Exploratory Data Analysis]
+    D --> E[Feature Engineering]
+    E --> F[Modeling]
+    F --> G[Evaluation]
+    G --> H[Deployment]
+    H --> I[Monitoring and Maintenance]
+```
+
+
+- **Problem Definition:** Clarify business/analytical objective.
+    
+- **Data Collection:** Gather data from internal and external sources.
+    
+- **Data Cleaning & Preprocessing:** Handle missing values, outliers, formatting, and normalization.
+    
+- **Exploratory Data Analysis (EDA):** Understand distributions, correlations, patterns, and anomalies.
+    
+- **Feature Engineering:** Create, select, or transform features to improve model performance.
+    
+- **Modeling:** Apply statistical or ML algorithms to build predictive or descriptive models.
+    
+- **Evaluation:** Assess model performance using metrics, cross-validation, and testing.
+    
+- **Deployment:** Integrate model into production or decision-making systems.
+    
+- **Monitoring & Maintenance:** Track performance, update models with new data, ensure reliability.
 <p align="center" style="font-size:24px">difference between data science and big data</p>
 
 - **Data Science:** Focused on **analyzing data** to extract insights, build models, and make decisions. Uses statistics, ML, and visualization.
@@ -104,6 +136,22 @@ Q Difference Between Data Science and Data Visualization?
 <p align="center" style="font-size:24px">data science and artificial intelligence</p>
 ![[Pasted image 20250815123836.png]]
 <p align="center" style="font-size:24px">data science tools and technologies</p>
+
+- **Programming Languages:** Python, R, SQL, Julia.
+    
+- **Data Handling & Analysis:** Pandas, NumPy, Spark, Hadoop.
+    
+- **Visualization:** Matplotlib, Seaborn, Tableau, Power BI, Plotly.
+    
+- **Machine Learning & AI:** Scikit-learn, TensorFlow, PyTorch, XGBoost, Keras.
+    
+- **Big Data & Cloud:** Hadoop, Spark, AWS, Azure, Google Cloud.
+    
+- **Databases:** MySQL, PostgreSQL, MongoDB, Cassandra.
+    
+- **Collaboration & Versioning:** Git, Jupyter Notebooks, VS Code.
+    
+- **ETL & Data Pipelines:** Apache Airflow, Talend, Luigi.
 
 <p align="center" style="font-size:24px"><b>DATA SCIENCE APPLICATIONS</b></p>
 
