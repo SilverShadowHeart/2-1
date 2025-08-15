@@ -7,4 +7,3 @@ okay people idk if its really helpful or not but leave a star or fork so i dont 
 #FILE A PR IF YOU WANT TO ADD STUFF TO THIS 
 
 
-hallo after two weeks of visiting my repo 
