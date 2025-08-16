@@ -646,6 +646,55 @@ Key Points:
 - Negative step reverses the order.
 
 
+#### Negative Indexing to Access Elements in a 2D Array
+
+Negative indices count from the end (`-1` = last element, `-2` = second last, etc.).
+
+ Example:
+```python
+import numpy as np
+
+a = np.array([[10, 20, 30],
+              [40, 50, 60],
+              [70, 80, 90]])
+
+print("Matrix a:\n", a)
+
+# Last row
+print("Last row:", a[-1])
+
+# Last element of last row
+print("Last element of last row:", a[-1, -1])
+
+# Second last row
+print("Second last row:", a[-2])
+
+# Second last element of first row
+print("Second last element of first row:", a[0, -2])
+````
+
+ Output:
+
+```
+Matrix a:
+[[10 20 30]
+ [40 50 60]
+ [70 80 90]]
+
+Last row: [70 80 90]
+Last element of last row: 90
+Second last row: [40 50 60]
+Second last element of first row: 20
+```
+
+ Dummy Version:
+
+Think of **`-1` as pointing from the back**.  
+So `a[-1]` = last row, `a[-1, -1]` = bottom-right corner.
+
+
+
+
 #### Mathematical Operations on NumPy Arrays
 
 NumPy allows element-wise mathematical operations directly on arrays.
@@ -773,8 +822,482 @@ Key Point:
 
 - .size returns the number of elements in the array; 0 means the array is empty.
 
+#### Creating and Displaying a 2D NumPy Array
+
+ Example 1 – Direct print
+```python
+import numpy as np
+
+# Create a 2D array
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Display entire 2D array
+print(arr)
+```
+
+output;
+```
+[[1 2 3]
+ [4 5 6]]
+```
+
+Example 2 – Row by row
+
+``` python
+import numpy as np
+
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Display each row
+for row in arr:
+    print(row)
+
+```
+
+output:
+```
+[1 2 3]
+[4 5 6]
+
+```
+
+**Key Point:**
+
+- Printing the array directly shows it in matrix form.
+    
+- Iterating with a loop prints each row separately.
+
+#### NumPy `ndim` Attribute
+
+The `.ndim` attribute returns the **number of dimensions** (axes) of a NumPy array.
+
+ Example
+```python
+import numpy as np
+
+# 1D array
+A = np.array([1, 2, 3, 4])
+print("Dimension of A is:", A.ndim)
+
+# 2D array
+B = np.array([[1, 2, 3], [4, 5, 6]])
+print("Dimension of B is:", B.ndim)
+
+```
+
+output:
+```
+Dimension of A is: 1
+Dimension of B is: 2
+
+```
+
+**Key Point:**
+
+- `.ndim` gives how many dimensions an array has.
+    
+- Example: 1D (vector), 2D (matrix), 3D (tensor).
+
+
+#### NumPy `size` Attribute
+
+The `.size` attribute returns the **total number of elements** in a NumPy array.
+
+Example 1 – 1D array
+```python
+import numpy as np
+
+Arr = np.array([1, 2, 3, 4])
+print(Arr.size)
+
+```
+
+output:
+```
+4
+```
+
+ Example 2 – 2D array
+
+```python
+import numpy as np 
+
+Arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8]]) 
+print("Number of elements are:", Arr.size)
+```
+
+output:
+```
+8
+```
+
+#### Shape and Reshape in NumPy
+
+`.shape` Attribute
+- Returns the **dimensions (rows, columns, …)** of an array as a tuple.
+
+`.reshape()` Method
+- Changes the shape of an array **without changing its data**.
+
+
+
+Example
+```python
+import numpy as np
+
+# Create a 2D array
+Arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12]])
+
+print("Original shape:", Arr.shape)   # (3, 4)
+
+# Reshape to 2 rows × 6 columns
+Arr1 = Arr.reshape(2, 6)
+print("Reshaped to (2,6):")
+print(Arr1)
+
+# Reshape to 1 row × 12 columns
+Arr2 = Arr.reshape(1, 12)
+print("Reshaped to (1,12):")
+print(Arr2)
+
+# Reshape to 12 rows × 1 column
+Arr3 = Arr.reshape(12, 1)
+print("Reshaped to (12,1):")
+print(Arr3)
+
+```
+output:
+
+```
+Original shape: (3, 4)
+
+Reshaped to (2,6):
+[[ 1  2  3  4  5  6]
+ [ 7  8  9 10 11 12]]
+
+Reshaped to (1,12):
+[[ 1  2  3  4  5  6  7  8  9 10 11 12]]
+
+Reshaped to (12,1):
+[[ 1]
+ [ 2]
+ [ 3]
+ [ 4]
+ [ 5]
+ [ 6]
+ [ 7]
+ [ 8]
+ [ 9]
+ [10]
+ [11]
+ [12]]
+
+```
+
+**Key Points:**
+
+- `.shape` shows the current dimensions.
+    
+- `.reshape(a, b)` rearranges elements into the given dimensions.
+    
+- The total number of elements must remain the same (`rows × cols = total elements`).
+
+
+#### Creating an Identity Matrix
+
+```python
+import numpy as np
+
+# Creates an identity matrix (must be square)
+x = np.eye(5)
+print(x)
+```
+
+**Output:**
+
+```
+[[1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1.]]
+```
+
+
+#### Using `np.arange()`
+
+`np.arange()` works like Python’s built-in `range()`, but returns a NumPy array.
+
+**Syntax:**
+
+```python
+np.arange([start,] stop[, step], dtype=None)
+```
+
+
+
+ Example 1 – Default step (1)
+
+```python
+import numpy as np
+
+x = np.arange(1, 10)   # from 1 to 9
+print(x)
+```
+
+**Output:**
+
+```
+[1 2 3 4 5 6 7 8 9]
+```
+
+
+
+ Example 2 – Custom step (2)
+
+```python
+import numpy as np
+
+x = np.arange(1, 10, 2)   # from 1 to 9 with step 2
+print(x)
+```
+
+**Output:**
+
+```
+[1 3 5 7 9]
+```
+
+
+#### linspace()
+
+- Returns evenly spaced numbers over a specified interval.  
+- Unlike `arange()`, you **specify the number of points**, not the step.
+
+ Syntax
+```python
+numpy.linspace(start, stop, num=50, endpoint=True, dtype=None)
+````
+
+- `start` → starting value
+    
+- `stop` → ending value
+    
+- `num` → number of evenly spaced samples (default = 50)
+    
+- `endpoint` → if True (default), includes `stop`; if False, excludes it.
+    
+- `dtype` → output array type
+    
+
+
+
+ Example 1 – Default `num=50`
+
+```python
+import numpy as np
+
+x = np.linspace(1, 15)  
+print(x)
+```
+
+**Output (truncated):**
+
+```
+[ 1.          1.28571429  1.57142857 ... 14.71428571 15.        ]
+```
+
+
+
+ Example 2 – Custom number of points
+
+```python
+x = np.linspace(1, 15, 5)
+print(x)
+```
+
+**Output:**
+
+```
+[ 1.   4.5   8.   11.5  15. ]
+```
+
+
+
+Example 3 – Excluding endpoint
+
+```python
+x = np.linspace(1, 15, 5, endpoint=False)
+print(x)
+```
+
+**Output:**
+
+```
+[ 1.   3.8  6.6  9.4  12.2 ]
+```
+
+
+#### Random Array and Random Matrix
+
+We can create arrays filled with random numbers using `np.random.rand()`.  
+This generates numbers uniformly between **0 and 1**.
+
+```python
+import numpy as np
+
+# 1D Random Array
+x = np.random.rand(5)
+print(x)
+````
+
+**Example Output:**
+
+```
+[0.56384794 0.22602629 0.44806777 0.8582133  0.90928771]
+```
+
+
+
+```python
+# 2D Random Matrix (3 rows, 2 columns)
+x = np.random.rand(3, 2)
+print(x)
+```
+
+**Example Output:**
+
+```
+[[0.74546836 0.5458692 ]
+ [0.62195462 0.68303793]
+ [0.91000309 0.37147617]]
+```
+
+
+
+```python
+# 3D Random Matrix (2 × 2 × 3)
+x = np.random.rand(2, 2, 3)
+print(x)
+```
+
+**Example Output:**
+
+```
+[[[0.35227776 0.82447525 0.47650569]
+  [0.78307986 0.54879399 0.49727558]]
+
+ [[0.14251969 0.69900492 0.55307993]
+  [0.54046539 0.42103462 0.88256667]]]
+```
+
+
+
+#### Computing Trace of a Matrix
+
+The **trace** of a matrix is the sum of its diagonal elements.
+
+Example:
+```python
+import numpy as np  
+
+a = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])
+
+print("Given matrix is:\n", a)
+
+# Using .trace()
+print("Trace of the given matrix is:", a.trace())
+
+# Equivalent: using diagonal() + sum()
+print("Trace:", sum(a.diagonal()))
+````
+
+ Output:
+
+```
+Given matrix is:
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+
+Trace of the given matrix is: 15  
+Trace: 15
+```
+
+
+#### Finding Transpose of a Matrix
+
+The **transpose** of a matrix is obtained by swapping its rows with columns.
+
+Example:
+```python
+import numpy as np
+
+a = np.array([[3, 4],
+              [5, 6]])
+
+print("Matrix a is:\n", a)
+
+# Using np.transpose()
+print("Transpose of matrix a is:\n", np.transpose(a))
+
+# Using .T attribute
+print("Transpose of matrix a is:\n", a.T)
+
+# Using .transpose() method
+print("Transpose of matrix a is:\n", a.transpose())
+````
+
+Output:
+
+```
+Matrix a is:
+[[3 4]
+ [5 6]]
+
+Transpose of matrix a is:
+[[3 5]
+ [4 6]]
+
+Transpose of matrix a is:
+[[3 5]
+ [4 6]]
+
+Transpose of matrix a is:
+[[3 5]
+ [4 6]]
+```
+
+### PRACTICE QUESTIONS
+
+1.Compare and analyze memory usage and speed of NumPy arrays vs Python lists with a simple numerical example.
+
+2.Analyze a given array and write Python code to:
+
+3.Replace all elements greater than 10 with 10
+
+4.Find the number of elements equal to 10
+
+5.Write a code to perform the following:
+
+6.Create two 1D arrays a and b
+
+7.Add, subtract, and multiply them element-wise
+
+8.Explain what happens when shapes are incompatible
+
+9.Analyze the effect of broadcasting in array operations with an example involving 2D and 1D arrays.
+
+10.Describe how different data types (int, float, bool) behave in NumPy and how to check them.
+
 
 ---
+
+
 
 <p align="center" style="font-size:24px"><b>PANDAS</b></p>
 
