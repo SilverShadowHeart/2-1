@@ -4,13 +4,12 @@ This repo contains **general notes** for all KLH 2-1 subjects. Anything importan
 
 ## 📖 Subjects
 
-- **23UC0013** – Global Logic Building Contest Practicum  
+- **23UC0013** – Global Logic Building Contest Practicum  (NOT YET ADDED OR CREATED
 - **24AD2102** – Data Science and Visualization  
 - **24CS2203** – Design and Analysis of Algorithms  
 - **24MT2019** – Probability and Statistics  
 - **24SC2006** – Object Oriented Programming  
 - **24SDCS01** – Front End Development Frameworks  
-- **24UC0022** – Social Immersive Learning  
 
 ## 🔄 Updates & Follow-ups
 
