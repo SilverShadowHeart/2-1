@@ -2713,10 +2713,15 @@ pip install scikit-learn
 
 ##### Importing and Loading the Dataset
 
-```from sklearn.datasets import load_iris
+```python
+from sklearn.datasets import load_iris
 # Load the Iris dataset iris = load_iris()
-# Print dataset description print(iris.DESCR)  
-# Print shape of features and target print("Features shape:", iris.data.shape) print("Target shape:", iris.target.shape)`
+# Print dataset description 
+print(iris.DESCR)  
+# Print shape of features and target 
+print("Features shape:", iris.data.shape) 
+print("Target shape:", iris.target.shape)
+```
 
 - **Explanation:**
     
@@ -2735,7 +2740,10 @@ pip install scikit-learn
 - **Import Libraries**
     
 
-`import numpy as np import scipy as sp`
+```python
+import numpy as np 
+import scipy as sp
+```
 
 - **Load or Generate Dataset**  
     Use **NumPy** or **pandas** to create or import your data.
@@ -3145,3 +3153,176 @@ print(mean_val)  # Output: 3
     
     - Here: `(3, 3)`
 
+#### Understanding Models in Machine Learning
+
+##### What is a Model?
+
+- A **model** is a **mathematical representation** that learns patterns from data.
+    
+- It can make **predictions or decisions** on new, unseen data.
+    
+- Essentially, it is a **trained algorithm** adapted for tasks like image classification or customer behavior prediction.
+    
+
+##### Popular Modelling Toolkits
+
+1. **Statsmodels** – Focused on **statistical inference**, providing **uncertainty estimates** and **p-values** for parameters.
+    
+2. **Scikit-learn** – Focused on **prediction**, offering a wide range of **supervised** and **unsupervised** learning models.
+    
+
+##### Scikit-learn Models
+
+- **Supervised Learning:** Linear Regression, Logistic Regression, Decision Trees, Random Forests, SVM
+    
+- **Unsupervised Learning:** Clustering algorithms like KMeans
+    
+
+##### Scikit-learn Estimator API
+
+- Required to work with all Scikit-learn models
+    
+- Provides a **consistent interface**: `fit()`, `predict()`, `score()` methods for training, prediction, and evaluation
+
+- The values of the hyperparameters used to configure the model
+
+- The values of the parameters learned after training
+
+   - By convention these attributes end with an underscore
+
+The methods to train the model and make inference
+
+Scikit-learn models are provided with sensible defaults for the hyperparameters
+
+
+#### Scikit-learn Estimator API (cont'd)
+
+##### Workflow Pattern
+
+1. **Import the Model**
+    
+
+`from sklearn.linear_model import LinearRegression`
+
+2. **Build the Model**
+    
+
+- Instantiate the class and set **hyperparameters**
+    
+
+`model = LinearRegression(fit_intercept=True)`
+
+3. **Train the Model**
+    
+
+- Fit parameters on your dataset using:
+    
+
+`model.fit(X_train, y_train)`
+
+4. **Make Predictions / Transform Data**
+    
+
+- Use the trained model for inference:
+    
+
+`predictions = model.predict(X_test)`
+
+- **Note:**
+    
+    - Some classes combine **fit** and **predict/transform** in the same method.
+        
+    - The shared API ensures **uniformity across all Scikit-learn models**.
+
+#### Preprocessing in Machine Learning
+
+##### Importance
+
+- Preprocessing **prepares raw data** for machine learning models.
+    
+- Addresses **missing values, inconsistencies, and irrelevant features** that can degrade performance.
+    
+- Ensures data is **clean, accurate, and algorithm-ready**.
+    
+
+##### Scikit-learn Preprocessing Tools
+
+- **`StandardScaler`** – Standardizes features (mean=0, variance=1)
+    
+- **`MinMaxScaler`** – Scales features to a specific range (e.g., 0–1)
+    
+- **`LabelEncoder`** – Converts categorical labels to numeric values
+    
+- **`OneHotEncoder`** – Converts categorical variables into **one-hot encoded arrays**
+    
+- **`SimpleImputer`** – Handles missing values using **mean, median, or constant** replacement
+    
+- **Purpose:** These tools improve **model performance and stability** by ensuring input data is consistent and appropriately scaled.
+
+
+#### Example: Simple Linear Regression with Scikit-learn
+
+##### Steps
+
+1. **Import Necessary Libraries**
+    
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+```
+
+2. **Define and Split the Dataset**
+    
+
+```python
+# Sample dataset
+
+X = [[1], [2], [3], [4], [5]]
+y = [1, 2, 3, 3, 5]
+
+# Split into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+3. **Create and Train the Linear Regression Model**
+    
+
+```python
+# Create and train the model
+model = LinearRegression().fit(X_train, y_train)
+```
+
+4. **Visualize the Result**
+    
+
+```python
+
+# Plot actual vs predicted
+
+plt.scatter(X, y, label='Actual')
+
+plt.plot(X, model.predict(X), color='red', label='Predicted')
+
+plt.title("Simple Linear Regression")
+
+plt.xlabel("X")
+
+plt.ylabel("y")
+
+plt.legend()
+
+plt.show()
+```
+
+- **Explanation:**
+    
+    - `LinearRegression()` creates the model.
+        
+    - `fit()` trains it on the data.
+        
+    - `predict()` generates predictions for new inputs.
+        
+    - Visualization compares **actual vs predicted** values.
