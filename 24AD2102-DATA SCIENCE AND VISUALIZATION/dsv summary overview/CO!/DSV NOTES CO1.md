@@ -2419,3 +2419,125 @@ $$
    $$
 
 - A distance measure that satisfies these three properties is called a **metric**.
+
+
+
+
+### Distance Matrices
+
+### Data Points
+
+![[Pasted image 20250816210618.png]]
+
+| Point | Attribute 1 | Attribute 2 |
+|-------|------------|------------|
+| x1    | 1          | 2          |
+| x2    | 3          | 5          |
+| x3    | 2          | 0          |
+| x4    | 4          | 5          |
+
+
+#### Manhattan Distance (L1)
+|   | x1 | x2 | x3 | x4 |
+|---|----|----|----|----|
+| x1| 0  | 5  | 3  | 6  |
+| x2| 5  | 0  | 6  | 1  |
+| x3| 3  | 6  | 0  | 7  |
+| x4| 6  | 1  | 7  | 0  |
+
+#### Euclidean Distance (L2)
+|   | x1  | x2  | x3  | x4  |
+|---|-----|-----|-----|-----|
+| x1| 0   | 3.61| 2.24| 4.24|
+| x2| 3.61| 0   | 5.10| 1   |
+| x3| 2.24| 5.10| 0   | 5.39|
+| x4| 4.24| 1   | 5.39| 0   |
+
+#### Supremum Distance (L∞)
+|   | x1 | x2 | x3 | x4 |
+|---|----|----|----|----|
+| x1| 0  | 3  | 2  | 3  |
+| x2| 3  | 0  | 5  | 1  |
+| x3| 2  | 5  | 0  | 5  |
+| x4| 3  | 1  | 5  | 0  |
+
+---
+
+#### Document Representation and Cosine Similarity
+
+#### Document-Term Representation
+
+A document can be represented by thousands of attributes, each recording the frequency of a particular word (such as keywords) or phrase in the document.
+
+Example attributes (terms) across documents:
+
+|Document|teamcoach|hockey|baseball|soccer|penalty|score|win|loss|season|
+|---|---|---|---|---|---|---|---|---|---|
+|Document|5 0|3|0|2|0|0|2|0|0|
+|Document2|3 0|2|0|1|1|0|1|0|1|
+|Document3|0 7|0|2|1|0|0|3|0|0|
+|Document4|0 1|0|0|1|2|2|0|3|0|
+
+#### Other Vector Objects
+
+- Gene features in micro-arrays
+    
+- Other high-dimensional data objects
+    
+
+#### Applications
+
+- Information retrieval
+    
+- Biologic taxonomy
+    
+- Gene feature mapping
+    
+
+#### Cosine Similarity
+
+If **d1** and **d2** are two vectors (e.g., term-frequency vectors), then:
+$$
+cos(d1,d2)=d1⋅d2∥d1∥∥d2∥\text{cos}(d_1, d_2) = \frac{d_1 \cdot d_2}{\|d_1\| \|d_2\|}
+$$
+
+Where:
+
+- *⋅* indicates the vector dot product
+    
+- ∥d∥ is the length (magnitude) of vector **d**
+    
+
+####  Example
+
+##### Term-Frequency Table
+
+|Document|teamcoach|hockey|baseball|soccer|penalty|score|win|loss|season|
+|---|---|---|---|---|---|---|---|---|---|
+|Document|5|0|3|0|2|0|0|2|0|
+|Document2|3|0|2|0|1|1|0|1|0|
+
+##### Cosine Similarity Calculation Example
+
+###### Vectors
+$$
+d1=[5,0,3,0,2,0,0,2,0],d2=[3,0,2,0,1,1,0,1,0]
+$$
+###### Dot Product
+$$
+d1⋅d2=5∗3+0∗0+3∗2+0∗0+2∗1+0∗1+0∗0+2∗1+0∗0=25 
+$$
+###### Magnitudes
+
+$$
+\|d_1\| = \sqrt{5^2 + 0^2 + 3^2 + 0^2 + 2^2 + 0^2 + 0^2 + 2^2 + 0^2} = \sqrt{42} \approx 6.48 $$
+
+$$\|d_2\| = \sqrt{3^2 + 0^2 + 2^2 + 0^2 + 1^2 + 1^2 + 0^2 + 1^2 + 0^2} = \sqrt{16} = 4
+$$
+###### Cosine Similarity
+$$
+\cos(d_1, d_2) = \frac{25}{6.48 * 4} \approx 0.964
+$$
+###### Interpretation
+
+The two documents are highly similar (~0.96 cosine similarity).
