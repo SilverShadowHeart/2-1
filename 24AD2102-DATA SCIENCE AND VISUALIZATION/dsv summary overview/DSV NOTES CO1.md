@@ -1297,7 +1297,278 @@ Transpose of matrix a is:
 
 ---
 
-
-
 <p align="center" style="font-size:24px"><b>PANDAS</b></p>
 
+
+
+### What is Pandas?
+
+- **Pandas** is an open-source Python library for data manipulation and analysis.  
+- Built on top of **NumPy**.  
+- Provides two main data structures:  
+  - **Series** → One-dimensional labeled array  
+  - **DataFrame** → Two-dimensional labeled data structure (like a table)  
+- Used for **cleaning, transforming, and analyzing** datasets.  
+- Integrates with other libraries like **NumPy** and **Matplotlib**.
+
+
+### Pandas Basic Operations
+
+Pandas simplifies data handling by enabling efficient preprocessing, cleaning, transformation, and visualization.
+
+1. **Data Preprocessing**  
+   - Handle missing values  
+
+2. **Data Cleaning**  
+   - Remove duplicates  
+   - Fix inconsistencies  
+
+3. **Data Transformation**  
+   - Filter, sort, and modify data  
+
+4. **Data Visualization**  
+   - Represent data graphically  
+
+#### Data Preprocessing  
+
+Handle missing values and clean raw data for analysis.  
+
+**Before (Table with Missing Values):**  
+
+| Name  | Age | Salary_Amount |
+|-------|-----|---------------|
+| Aryan | 25  | NaN           |
+| Harsh | NaN | 5000          |
+| Kunal | NaN | 7000          |
+
+**After (Missing Values Filled):**  
+
+| Name  | Age | Salary_Amount |
+|-------|-----|---------------|
+| Aryan | 25  | 6000          |
+| Harsh | 28  | 5000          |
+| Kunal | 30  | 7000          |
+
+**Operation Applied:**  
+Filled missing values with `0` or average using `fillna()`.  
+
+#### Data Cleaning  
+
+Remove duplicates and fix column inconsistencies.  
+
+**Before (Duplicate Rows & Bad Column Names):**  
+
+| Name   | Age | Salary_Amount |
+|--------|-----|---------------|
+| Aryan  | 25  | 5000          |
+| Ha rsh | 25  | 7000          |
+| Aryan  | 25  | 5000          |
+
+**After (Cleaned Data):**  
+
+| Name  | Age | Salary |
+|-------|-----|--------|
+| Aryan | 25  | 5000   |
+| Harsh | 25  | 7000   |
+
+**Operation Applied:**  
+Removed duplicates using `drop_duplicates()`,  
+renamed columns using `rename()`.
+
+#### Data Transformation  
+
+Filter and sort data for better insights.  
+
+**Before (Unfiltered Data):**  
+
+| Product    | Category     | Price |
+|------------|-------------|-------|
+| Laptop     | Electronics | 800   |
+| Hoodie     | Clothing    | 20    |
+| Smartphone | Electronics | 1000  |
+| Jeans      | Clothing    | 40    |
+
+**After (Filtered & Sorted Data):**  
+
+| Product    | Category     | Price |
+|------------|-------------|-------|
+| Laptop     | Electronics | 800   |
+| Smartphone | Electronics | 1000  |
+
+**Operation Applied:**  
+Filtered *Electronics* using `query()`,  
+sorted by price using `sort_values()`. 
+
+#### Data Visualization  
+
+Represent data graphically for insights.  
+
+**Before (Raw Data Table):**  
+
+| Category    | Price |
+|-------------|-------|
+| Electronics | 5000  |
+| Clothing    | 2000  |
+| Furniture   | 3000  |
+
+**After (Bar Chart Visual):**  
+
+  ![[Pasted image 20250816193724.png]]
+
+**Operation Applied:**  
+Plotted sales data using `matplotlib`.  
+
+#### Pandas DataFrame  
+
+A **Pandas DataFrame** is a two-dimensional table-like structure in Python where data is arranged in rows and columns.  
+It is widely used for organizing, analyzing, and manipulating data, and can hold different types (numbers, text, dates) across columns.  
+
+**Main parts of a DataFrame:**  
+- **Data:** Actual values in the table.  
+- **Rows:** Labels that identify each row.  
+- **Columns:** Labels that define each data category.  
+
+**Example DataFrame:**  
+
+
+![[Pasted image 20250816193552.png]]
+
+#### Creating a Pandas DataFrame
+
+Pandas allows us to create a **DataFrame** from many data sources. We can create DataFrames directly from **Python objects** like lists and dictionaries or by reading data from external files like **CSV, Excel, or SQL databases**.
+
+
+
+#### 1. Creating DataFrame using a List
+
+If we have a simple list of data, we can easily create a **DataFrame** by passing that list to the `pd.DataFrame()` function.
+
+```python
+import pandas as pd  
+
+lst = ['klu', 'is', 'Good', 'for', 'education', 'for', 'green campus']  
+
+df = pd.DataFrame(lst)  
+print(df)
+```
+
+
+
+#### Output
+
+||0|
+|---|---|
+|0|klu|
+|1|is|
+|2|Good|
+|3|for|
+|4|education|
+|5|for|
+|6|green campus|
+
+
+
+#### Pandas `read_csv()` in Python
+
+CSV (**Comma Separated Values**) files are used to store **tabular data**. Pandas provides the `read_csv()` function to load CSV files into a **DataFrame**, which is a powerful structure for data manipulation and analysis.
+
+
+
+Example – Using `pandas.read_csv()`
+
+```python
+import pandas as pd  
+
+# Read CSV file into a DataFrame
+df = pd.read_csv("students.csv")  
+
+# Display first 5 rows
+print(df.head())
+```
+
+
+
+ Explanation
+
+- **`df`** → the DataFrame that stores the loaded data.
+    
+- **`'students.csv'`** → path to the CSV file you want to read.
+    
+- **`df.head()`** → shows the first 5 rows of the DataFrame.
+    
+
+#### Reading a CSV File with Custom Options
+
+You can customize how Pandas reads a CSV file using parameters like `index_col` and `usecols`.
+
+ Example – Using `index_col` and `usecols`
+
+```python
+import pandas as pd  
+
+df = pd.read_csv(
+    "students.csv",
+    index_col="ID",               # Use 'ID' column as index
+    usecols=["ID", "Name", "Marks"]  # Only read specific columns
+)  
+
+print(df.head())
+```
+
+
+
+ Explanation
+
+- **`index_col="ID"`** → sets the `"ID"` column as the DataFrame index.
+    
+- **`usecols=["ID", "Name", "Marks"]`** → loads only these columns from the CSV file.
+    
+
+
+
+#### Handling Missing Data in Pandas
+
+You can deal with missing values using functions like `dropna()` and `fillna()`.
+
+ Example:
+
+```python
+import pandas as pd  
+
+# Example DataFrame with missing values
+data = {
+    "Name": ["Alex", "Bob", "Charlie", None],
+    "Marks": [85, None, 92, 88]
+}  
+
+df = pd.DataFrame(data)  
+
+# Drop rows with missing values
+df_drop = df.dropna()  
+
+# Fill missing values
+df_fill = df.fillna({"Name": "Unknown", "Marks": 0})  
+
+print("Original:\n", df)
+print("\nAfter dropna:\n", df_drop)
+print("\nAfter fillna:\n", df_fill)
+```
+
+---
+
+### Reading CSV Directly from a URL
+
+Pandas can read data from online sources if the file is accessible via a direct link.
+
+```python
+import pandas as pd  
+
+url = "https://example.com/data.csv"  
+df = pd.read_csv(url)  
+
+print(df.head())
+```
+
+---
+
+Do you want me to also include a **table comparing `dropna()` vs `fillna()`** (with short explanations) for quick reference?
