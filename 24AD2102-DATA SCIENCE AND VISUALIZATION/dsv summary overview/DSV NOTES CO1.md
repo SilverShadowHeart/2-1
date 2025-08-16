@@ -1896,3 +1896,249 @@ Objects have **spatial locations** (coordinates).
 - **Example:**  
   - A point: `(latitude, longitude)` → `(17.385, 78.4867)`  
   - A region: polygon boundaries of a city
+
+#### Categorical Data
+**Definition:** Data that represents categories or groups.  
+**Characteristics:**  
+- No inherent numeric meaning  
+- Arithmetic operations are not meaningful  
+**Examples:**  
+- Gender (Male, Female)  
+- Color (Red, Blue, Green)  
+- Department (HR, Sales, IT)  
+
+#### Numerical Data
+**Definition:** Data that consists of numbers and can be measured.  
+**Types:**  
+- **Discrete:** Countable values (e.g., number of children)  
+- **Continuous:** Measurable quantities (e.g., height, weight)  
+**Examples:**  
+- Age = 25  
+- Salary = $50,000  
+
+#### Ordinal Data
+**Definition:** Categorical data with a clear ordering or ranking.  
+**Characteristics:**  
+- Order matters, but the difference between values is not meaningful  
+**Examples:**  
+- T-shirt size (Small < Medium < Large)  
+- Customer satisfaction (Poor < Fair < Good < Excellent)  
+
+#### Binary Data
+**Definition:** Data with only two possible values.  
+**Types:**  
+- **Symmetric:** Both outcomes are equally important (e.g., Male/Female)  
+- **Asymmetric:** One outcome is more important (e.g., Disease: Yes/No)  
+**Examples:**  
+- Yes/No  
+- True/False  
+
+
+```mermaid
+graph TD
+    A["Types of Data"] --> B["Categorical / Qualitative"]
+    A --> C["Numerical / Quantitative"]
+
+    B --> B1["Nominal: Letters, Hair Color, Symbols, Words"]
+    B --> B2["Ordinal: Opinion - Agree, Mostly Agree, Neutral, Mostly Disagree, Disagree"]
+    B --> B3["Interval: Time of Day - Morning, Noon, Night"]
+    B --> B4["Ordinal: Tumour Grade"]
+
+    C --> C1["Discrete / Interval: Dates 200,1000,1500; Temperature 30°C,45°C,60°C; Other 1.2,4.5,7.2"]
+    C --> C2["Continuous / Ratio: Temperature Range, Distance Travelled, Time Interval, Age Range"]
+
+    %% Class definitions
+    classDef mainNode fill:#89CFF0,stroke:#333,stroke-width:2px,font-size:20px;
+    classDef categorical fill:#FFB6C1,stroke:#333,stroke-width:1.5px,font-size:16px;
+    classDef numerical fill:#90EE90,stroke:#333,stroke-width:1.5px,font-size:16px;
+
+    %% Assign classes
+    class A mainNode;
+    class B,B1,B2,B3,B4 categorical;
+    class C,C1,C2 numerical;
+
+```
+if you cant see that
+
+![[Pasted image 20250816200822.png]]
+
+
+###Attributes & its Types
+
+#### Attribute (or dimensions, features, variables)
+**Definition:** A data field representing a characteristic or feature of a data object  
+**Examples:** Customer ID, name, address  
+
+#### Nominal Attributes
+**Definition:** Names or labels with no ordering  
+**Operations:** Equality comparison  
+**Examples:** Colors, ZIP codes  
+
+#### Ordinal Attributes
+**Definition:** Ordered categories  
+**Operations:** Comparisons such as `<`, `>`  
+**Examples:** Rankings, grades  
+
+#### Interval Attributes
+**Definition:** Ordered, and differences are meaningful. No true zero  
+**Operations:** `+`, `−`  
+**Examples:** Temperature in Celsius  
+
+#### Ratio Attributes
+**Definition:** Ordered, differences and ratios are meaningful. Has a true zero  
+**Operations:** All arithmetic operations  
+**Examples:** Age, weight, height, salary  
+
+
+### Introduction to Similarity and Dissimilarity
+
+#### Similarity
+Numerical measure of how alike two data objects are.  
+- Value is higher when objects are more alike.  
+- Often falls in the range \([0, 1]\).
+
+**What it is:** A number that tells us how much two data points are alike.  
+- Higher value → more alike.  
+- Usually ranges from 0 (not alike) to 1 (exactly alike).
+
+#### Dissimilarity (e.g., distance)
+Numerical measure of how different two data objects are.  
+- Lower when objects are more alike.  
+- Minimum dissimilarity is often 0.  
+- Upper limit varies.
+
+**What it is:** A number that tells us how different two data points are.  
+- Lower value → more alike.  
+- Minimum = 0 (identical points).  
+- Maximum can vary.
+
+**Proximity** refers to a similarity or dissimilarity.
+**Proximity** is just a general term for either similarity or dissimilarity.
+
+---
+
+#### Data matrix
+Let there be \(n\) data points with \(p\) dimensions. Two modes:
+
+Imagine a table where each **row** is a data point (like a person) and each **column** is a feature (like age or height).  
+
+- **n** = number of data points (rows)  
+- **p** = number of features (columns)  
+
+**1. Multi-dimensional representation (full data matrix)**  
+$$
+X = 
+\begin{bmatrix}
+x_{11} & x_{12} & \dots & x_{1p} \\
+x_{21} & x_{22} & \dots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \dots & x_{np} \\
+\end{bmatrix}
+$$
+
+- Each$$ x_{ij}$$ is the value of feature \(j\) for data point \(i\).
+
+**2. Dissimilarity matrix**  
+- \(n\) data points, but registers only the distance between points.  
+- Often stored as a triangular matrix:  
+
+Instead of keeping all features, sometimes we just care about **distances between data points**.  
+
+- Only stores how far apart points are.  
+- Often stored as a **triangular matrix** (because distance from A→B is same as B→A):
+
+
+$$
+D = 
+\begin{bmatrix}
+0 & d_{12} & \dots & d_{1n} \\
+d_{21} & 0 & \dots & d_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+d_{n1} & d_{n2} & \dots & 0 \\
+\end{bmatrix}
+$$
+- Single mode: \(d(n,1)\)
+
+- Each $$ d_{ij} $$ = distance between point i and point j. 
+- This is useful when we want to see which points are close or far from each other.
+
+
+#### Binary Attributes
+- Binary attributes are features that **only have 2 possible values**.  
+  Example: Yes/No, True/False, Male/Female.
+
+---
+
+#### Method 1: Simple Matching
+- Used for **binary attributes**.  
+- Count how many attributes **match** between two data points.  
+- Formula:
+
+$$
+\text{Similarity} = \frac{m}{p}
+$$
+
+Where:  
+- \(m\) = number of matches  
+- \(p\) = total number of attributes  
+
+- Can also generalize this to attributes with **more than 2 states** (e.g., colors: red, yellow, blue, green).
+
+---
+
+#### Method 2: Convert Nominal Attributes to Binary
+- If an attribute has multiple categories, create **one binary attribute for each category**.  
+- Example:  
+  Original attribute: Color = {Red, Yellow, Blue}  
+  Converted to binary attributes:  
+  - IsRed? (0/1)  
+  - IsYellow? (0/1)  
+  - IsBlue? (0/1)  
+- Then, simple matching can be applied to these binary attributes.
+
+$$d(i,j)=(p-m)/p$$
+
+#### Contingency Table for Binary Data
+
+A **contingency table** helps summarize how two objects compare over binary variables.  
+
+|           | Object j = 1 | Object j = 0 | Row Sum |
+|-----------|--------------|--------------|---------|
+| Object i = 1 | q          | r            | ?       |
+| Object i = 0 | s          | t            | ?       |
+| Column Sum   | ?          | ?            | ?       |
+
+Where:  
+- \(q\) = count of attributes where both i and j are 1  
+- \(r\) = count where i = 1, j = 0  
+- \(s\) = count where i = 0, j = 1  
+- \(t\) = count where both are 0  
+
+---
+
+#### Distance Measures
+
+- **Symmetric binary variables**: All matches/mismatches are equally important.  
+- **Asymmetric binary variables**: Only the presence (1) counts; absence (0) may be ignored.  
+
+---
+
+#### Jaccard Coefficient (for asymmetric binary variables)
+
+A **similarity measure** that focuses only on positive matches:
+
+$$
+\text{Sim}_{\text{Jaccard}}(i, j) = \frac{\text{sup}(i,j)}{\text{sup}(i) + \text{sup}(j) - \text{sup}(i,j)}
+$$
+
+Where:  
+$$
+\(\text{sup}(i,j)\) = number of attributes where both i and j are 1  
+ \(\text{sup}(i)\) = total number of attributes where i = 1  
+ \(\text{sup}(j)\) = total number of attributes where j = 1  
+$$
+> Note: Jaccard coefficient is also called **coherence** in some texts:
+
+$$
+\text{coherence}(i, j) = \text{Sim}_{\text{Jaccard}}(i, j)
+$$
