@@ -1311,6 +1311,13 @@ Transpose of matrix a is:
 - Used for **cleaning, transforming, and analyzing** datasets.  
 - Integrates with other libraries like **NumPy** and **Matplotlib**.
 
+#### What is a DataFrame?
+- A DataFrame is like a table or spreadsheet.  
+- Contains:  
+  - Rows and columns  
+  - Labeled axes (row index and column names)  
+- Supports mixed data types.  
+
 
 ### Pandas Basic Operations
 
@@ -1467,6 +1474,49 @@ print(df)
 |6|green campus|
 
 
+#### Creating a DataFrame from a List of Lists
+
+```python
+import pandas as pd
+
+data = [['Alice', 25], ['Bob', 30], ['Charlie', 35]]
+df = pd.DataFrame(data, columns=['Name', 'Age'])
+print(df)
+````
+
+**Output:**
+
+```
+      Name  Age
+0    Alice   25
+1      Bob   30
+2  Charlie   35
+```
+
+
+#### Creating a DataFrame from a List of Dictionaries
+
+```python
+import pandas as pd
+
+data = [
+    {'Name': 'Alice', 'Age': 25},
+    {'Name': 'Bob', 'Age': 30, 'City': 'London'}
+]
+
+df = pd.DataFrame(data)
+print(df)
+```
+
+**Output (missing values filled with NaN):**
+
+```
+   Name  Age   City
+0  Alice   25    NaN
+1    Bob   30  London
+```
+
+
 
 #### Pandas `read_csv()` in Python
 
@@ -1495,7 +1545,34 @@ print(df.head())
 - **`'students.csv'`** → path to the CSV file you want to read.
     
 - **`df.head()`** → shows the first 5 rows of the DataFrame.
-    
+
+
+
+#### Creating a DataFrame from a Dictionary
+
+```python
+import pandas as pd
+
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['New York', 'London', 'Paris']
+}
+
+df = pd.DataFrame(data)
+print(df)
+````
+
+**Output:**
+
+```
+      Name  Age      City
+0    Alice   25  New York
+1      Bob   30   London
+2  Charlie   35    Paris
+```
+
+
 
 #### Reading a CSV File with Custom Options
 
@@ -1535,7 +1612,7 @@ You can deal with missing values using functions like `dropna()` and `fillna()`.
 ```python
 import pandas as pd  
 
-# Example DataFrame with missing values
+ Example DataFrame with missing values
 data = {
     "Name": ["Alex", "Bob", "Charlie", None],
     "Marks": [85, None, 92, 88]
@@ -1554,9 +1631,9 @@ print("\nAfter dropna:\n", df_drop)
 print("\nAfter fillna:\n", df_fill)
 ```
 
----
 
-### Reading CSV Directly from a URL
+
+#### Reading CSV Directly from a URL
 
 Pandas can read data from online sources if the file is accessible via a direct link.
 
@@ -1569,6 +1646,253 @@ df = pd.read_csv(url)
 print(df.head())
 ```
 
----
 
-Do you want me to also include a **table comparing `dropna()` vs `fillna()`** (with short explanations) for quick reference?
+#### Read Specific Columns using `read_csv`
+
+The `usecols` parameter allows loading **only specific columns** from a CSV file.  
+This saves memory and speeds up processing by importing only required data.
+
+ Example:
+
+```python
+import pandas as pd  
+
+df = pd.read_csv("students.csv", usecols=["First Name", "Email"])  
+print(df)
+```
+
+ Output:
+
+||First Name|Email|
+|---|---|---|
+|1|Shelby|[elijahS7@example.net](mailto:elijahS7@example.net)|
+|2|Phillip|[bethany14@example.com](mailto:bethany14@example.com)|
+|3|Kristine|[bthompson@example.com](mailto:bthompson@example.com)|
+|4|Yesenia|[kaitlinkaiser@example.com](mailto:kaitlinkaiser@example.com)|
+|5|Lori|[buchananmanuel@example.net](mailto:buchananmanuel@example.net)|
+
+
+#### Setting an Index Column using `read_csv`
+
+The `index_col` parameter sets one or more columns as the **DataFrame index**,  
+making the specified column(s) act as row labels for easier referencing.
+
+ Example:
+
+```python
+import pandas as pd  
+
+df = pd.read_csv("students.csv", index_col="First Name")  
+print(df)
+```
+
+ Output:
+
+|First Name|Last Name|Sex|Email|Date of birth|Job Title|
+|---|---|---|---|---|---|
+|Shelby|Summers|Male|[elijah57@example.net](mailto:elijah57@example.net)|1945-10-26|Games developer|
+|Phillip|Travis|Male|[bethany14@example.com](mailto:bethany14@example.com)|1910-03-24|Phytotherapist|
+|Kristine|Martinez|Female|[bthompson@example.com](mailto:bthompson@example.com)|1992-07-08|Homeopath|
+|Yesenia|Todd|Male|[kaitlinkaiser@example.com](mailto:kaitlinkaiser@example.com)|2017-08-03|Market researcher|
+|Terrell|Buchanan|Male|[buchananmanuel@example.net](mailto:buchananmanuel@example.net)|1938-12-01|Veterinary surgeon|
+
+#### handling missing values (`na_values`) and reading CSV files with different delimiters (`sep`):
+
+```python
+import pandas as pd
+
+# Example 1: Handling Missing Values
+df_missing = pd.read_csv(
+    "students.csv",
+    na_values=["N/A", "Unknown"]  # Replace these strings with NaN
+)
+print("=== Handling Missing Values ===")
+print(df_missing)
+
+# Example 2: Reading CSV with Different Delimiters
+# Sample data with mixed delimiters
+data = """totalbill;tip;sex;smoker;day;time;size
+16.99;1.01;Female;No;Sun;Dinner;2
+10.34;1.66;Male;No;Sun;Dinner;3
+21.01;3.50;Male;No;Sun;Dinner;3
+23.68;3.31;Male;No;Sun;Dinner;2
+24.59;3.61;Female;No;Sun;Dinner;4
+25.29;4.71;Male;No;Sun;Dinner;4
+"""
+
+# Save the data to a CSV file
+with open("sample.csv", "w") as file:
+    file.write(data)
+
+# Read CSV with custom delimiter (;)
+df_delim = pd.read_csv("sample.csv", sep=";")
+
+print("\n=== Reading with Custom Delimiter ===")
+print(df_delim)
+```
+
+### Output (cleaned):
+
+**Handling Missing Values:**
+
+```
+      ID      Name  Marks
+0   101    Shelby   88.0
+1   102   Phillip   NaN      <- "Unknown" replaced with NaN
+2   103  Kristine   91.0
+3   104   Yesenia   NaN      <- "N/A" replaced with NaN
+```
+
+**Custom Delimiter Read:**
+
+```
+   totalbill   tip     sex smoker  day    time  size
+0      16.99  1.01  Female     No  Sun  Dinner     2
+1      10.34  1.66    Male     No  Sun  Dinner     3
+2      21.01  3.50    Male     No  Sun  Dinner     3
+3      23.68  3.31    Male     No  Sun  Dinner     2
+4      24.59  3.61  Female     No  Sun  Dinner     4
+5      25.29  4.71    Male     No  Sun  Dinner     4
+```
+
+ Key points:
+
+- Use **`na_values`** to replace strings with `NaN`.
+    
+- Use **`sep=";"`** (or any other symbol like `:` or `|`) when reading CSVs with non-comma delimiters.
+
+Here’s a **clean Markdown version** of your notes with proper syntax:
+
+
+#### Basic Operations
+
+#### Adding a Column
+```python
+df['Salary'] = [50000, 60000, 55000]
+````
+
+#### Deleting a Column
+
+```python
+df.drop('Salary', axis=1, inplace=True)
+```
+
+#### Filtering Data
+
+```python
+df[df['Age'] > 28]
+```
+
+
+
+### Viewing Data
+
+```python
+df.head()      # First 5 rows
+df.tail()      # Last 5 rows
+df.info()      # Summary of DataFrame
+df.describe()  # Statistics for numeric columns
+```
+
+
+
+### Accessing Columns and Rows
+
+#### Access a Column
+
+```python
+df['Name']
+```
+
+#### Access Multiple Columns
+
+```python
+df[['Name', 'City']]
+```
+
+#### Access Rows
+
+```python
+df.loc[1]   # label-based
+df.iloc[1]  # position-based
+```
+
+### Modifying Data
+
+#### Updating Values
+```python
+df.at[0, 'Age'] = 26
+````
+
+#### Renaming Columns
+
+```python
+df.rename(columns={'Age': 'Years'}, inplace=True)
+```
+
+
+
+### 👉 [CLICK ME FOR MORE PANDAS — *requires Jupyter installed*](introduction-to-pandas.ipynb)
+
+
+---
+### Data Objects and Attribute Types
+
+**Data** are raw alphanumeric values or raw facts obtained through different acquisition methods.  
+**Data objects** are collections of attributes or features that represent real-world entities.  
+
+### Types of Data:
+1. Record Data  
+2. Transaction Data  
+3. Graph Data (Network Data)  
+4. Spatial Data  
+5. Time-Series Data  
+6. Text Data  
+7. Sequence Data  
+8. Hierarchical Data  
+
+
+### Record Data  
+A collection of records, each with the same set of attributes.  
+
+- **Examples:** Relational databases, Excel spreadsheets  
+- **Format:** Rows = objects, Columns = attributes  
+
+**Example Table:**  
+
+| Name  | Age | Dept |
+|-------|-----|------|
+| Alice | 20  | CSE  |
+| Bob   | 22  | ECE  |
+
+### Transaction Data
+A set of transactions where each transaction is a set of items.
+
+- **Examples:** Market basket data, Online purchase logs  
+
+**Example Table:**
+
+| TID | Items                |
+|-----|---------------------|
+| 1   | Milk, Bread, Butter |
+| 2   | Bread, Eggs         |
+| 3   | Milk, Eggs, Diaper  |
+
+### Graph Data (Network Data)
+Consists of **nodes** (objects) and **edges** (relationships).
+
+- **Used for:** Social networks, web analysis, communication networks  
+- **Example (Social Network):**  
+  - Nodes: People (e.g., Alice, Bob, Carol)  
+  - Edges: Friendships (e.g., Alice ↔ Bob, Bob ↔ Carol)
+
+
+
+### Spatial Data
+Objects have **spatial locations** (coordinates).
+
+- **Use Case:** Google Maps, satellite imagery, urban planning  
+- **Used for:** Maps, GPS, GIS (Geographic Information Systems)  
+- **Example:**  
+  - A point: `(latitude, longitude)` → `(17.385, 78.4867)`  
+  - A region: polygon boundaries of a city
