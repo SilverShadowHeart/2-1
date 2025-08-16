@@ -2302,15 +2302,15 @@ Let:
 
 ---
 
-## 1. Mean of Feature $f$
+#### 1. Mean of Feature $f$
 
 $$
 m_f = \frac{1}{n} \sum_{i=1}^{n} x_{if}
 $$
 
----
 
-## 2. Absolute Mean Deviation (MAD)
+
+#### 2. Absolute Mean Deviation (MAD)
 
 $$
 s_f = \frac{1}{n} \sum_{i=1}^{n} |x_{if} - m_f|
@@ -2319,15 +2319,103 @@ $$
 - Uses absolute differences from the mean  
 - More robust to outliers than standard deviation  
 
----
 
-## 3. Z-Score Using MAD
+#### 3. Z-Score Using MAD
 
 $$
 z_{if} = \frac{x_{if} - m_f}{s_f}
 $$
 
-- Measures how far $x_{if}$ is from the mean in units of MD  
+- Measures how far $x_{if}$ is from the mean in units of MAD  
 - $z_{if} > 0$ → above mean  
 - $z_{if} < 0$ → below mean
 
+---
+
+### Data Matrix and Dissimilarity Matrix Example
+
+#### 1. Dissimilarity Matrix (Euclidean Distance)
+
+|       | x1   | x2   | x3   | x4   |
+|-------|------|------|------|------|
+| x1    | 0    | 3.61 | 2.2  | 4.24 |
+| x2    | 3.61 | 0    | 5.1  | 1    |
+| x3    | 2.2  | 5.1  | 0    | 5.39 |
+| x4    | 4.24 | 1    | 5.39 | 0    |
+
+- Diagonal = 0 (distance of object with itself)  
+- Off-diagonal = Euclidean distance between objects  
+
+#### 2. Original Data Matrix (Attributes)
+
+| Object | Attribute 1 | Attribute 2 |
+|--------|-------------|-------------|
+| x1     | 1           | 2           |
+| x2     | 3           | 5           |
+| x3     | 2           | 0           |
+| x4     | 4           | 5           |
+
+![[Pasted image 20250816205340.png]]
+
+
+#### 3. Notes
+
+- Euclidean distance formula:
+
+$$
+d(x_i, x_j) = \sqrt{(x_{i1}-x_{j1})^2 + (x_{i2}-x_{j2})^2 + \dots + (x_{ip}-x_{jp})^2}
+$$
+
+- $x_i, x_j$ = objects  
+- $p$ = number of attributes  
+- Dissimilarity matrix is **symmetric**: $d(x_i, x_j) = d(x_j, x_i)$  
+- Useful for clustering or similarity analysis
+
+### Minkowski Distance
+
+A **popular distance measure** in multi-dimensional space.
+
+#### 1. Definition
+
+Let:  
+- $i = (x_{i1}, x_{i2}, \dots, x_{ip})$  
+- $j = (x_{j1}, x_{j2}, \dots, x_{jp})$  
+
+The **Minkowski distance** of order $h$ is:
+
+$$
+d(i, j) = \sqrt[h]{\,|x_{i1} - x_{j1}|^h + |x_{i2} - x_{j2}|^h + \dots + |x_{ip} - x_{jp}|^h\,}
+$$
+
+<p align="center" style="font-size:18px">(or)</p>
+
+
+$$
+d(i, j) = \lim_{h \to \infty} \left( \sum_{f=1}^{p} |x_{if} - x_{jf}|^h \right)^{\frac{1}{h}} = \max_f |x_{if} - x_{jf}|
+$$
+
+
+- $h$ = order of the distance (also called **L-h norm**)  
+- Special cases:  
+  - $h = 1$ → **Manhattan distance**  
+  - $h = 2$ → **Euclidean distance**  
+  - $h \to \infty$ → **supremum distance**
+
+#### 2. Properties
+
+1. **Positive definiteness:**  
+   $$
+   d(i, j) > 0 \text{ if } i \neq j, \quad d(i, i) = 0
+   $$
+
+2. **Symmetry:**  
+   $$
+   d(i, j) = d(j, i)
+   $$
+
+3. **Triangle inequality:**  
+   $$
+   d(i, j) \le d(i, k) + d(k, j)
+   $$
+
+- A distance measure that satisfies these three properties is called a **metric**.
