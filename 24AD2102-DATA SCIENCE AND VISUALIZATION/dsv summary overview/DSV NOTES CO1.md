@@ -2100,45 +2100,234 @@ $$d(i,j)=(p-m)/p$$
 
 #### Contingency Table for Binary Data
 
-A **contingency table** helps summarize how two objects compare over binary variables.  
+A contingency table summarizes how two objects, **i** and **j**, compare across binary attributes (0 or 1):
 
 |           | Object j = 1 | Object j = 0 | Row Sum |
 |-----------|--------------|--------------|---------|
-| Object i = 1 | q          | r            | ?       |
-| Object i = 0 | s          | t            | ?       |
-| Column Sum   | ?          | ?            | ?       |
+| Object i = 1 | q          | r            | q + r   |
+| Object i = 0 | s          | t            | s + t   |
+| Column Sum   | q + s      | r + t        | p       |
 
 Where:  
-- \(q\) = count of attributes where both i and j are 1  
-- \(r\) = count where i = 1, j = 0  
-- \(s\) = count where i = 0, j = 1  
-- \(t\) = count where both are 0  
+- **q** = number of attributes where both i and j are 1  
+- **r** = number of attributes where i = 1, j = 0  
+- **s** = number of attributes where i = 0, j = 1  
+- **t** = number of attributes where both are 0  
+- **p** = total number of attributes  
 
 ---
 
-#### Distance Measures
+#### 1. Distance Measure for Symmetric Binary Variables
 
-- **Symmetric binary variables**: All matches/mismatches are equally important.  
-- **Asymmetric binary variables**: Only the presence (1) counts; absence (0) may be ignored.  
+For symmetric binary variables, both 1s and 0s matter equally. The distance between objects i and j is:
+
+$$
+d(i,j) = \frac{r + s}{q + r + s + t}
+$$
+
+Explanation:  
+- **Numerator (r + s):** Number of mismatches between i and j  
+- **Denominator (q + r + s + t):** Total number of attributes  
+
+> Higher distance → more dissimilar objects.  
+> Lower distance → more similar objects.  
 
 ---
 
-#### Jaccard Coefficient (for asymmetric binary variables)
+#### 2. Distance Measure for Asymmetric Binary Variables
 
-A **similarity measure** that focuses only on positive matches:
+For asymmetric binary variables, only the presence (1) matters. Absences (0) are ignored:
 
 $$
-\text{Sim}_{\text{Jaccard}}(i, j) = \frac{\text{sup}(i,j)}{\text{sup}(i) + \text{sup}(j) - \text{sup}(i,j)}
+d(i,j) = \frac{r + s}{q + r + s}
+$$
+
+Explanation:  
+- **Numerator (r + s):** Number of mismatches where at least one object has 1  
+- **Denominator (q + r + s):** Only consider attributes where at least one object has 1  
+
+---
+
+#### 3. Jaccard Coefficient (Similarity Measure for Asymmetric Binary Variables)
+
+The **Jaccard coefficient** measures similarity rather than distance:
+
+$$
+\text{Sim}_{\text{Jaccard}}(i, j) = \frac{q}{q + r + s}
+$$
+
+Explanation:  
+- **Numerator (q):** Number of attributes where both i and j are 1  
+- **Denominator (q + r + s):** Attributes where at least one object has 1  
+
+> Value ranges from 0 (completely different) to 1 (identical).  
+
+---
+
+#### 4. Coherence
+
+The Jaccard coefficient is also called **coherence**:
+
+$$
+\text{coherence}(i, j) = \frac{\text{sup}(i,j)}{\text{sup}(i) + \text{sup}(j) - \text{sup}(i,j)} = \frac{q}{(q+r) + (q+s) - q} = \frac{q}{q + r + s}
 $$
 
 Where:  
-$$
-\(\text{sup}(i,j)\) = number of attributes where both i and j are 1  
- \(\text{sup}(i)\) = total number of attributes where i = 1  
- \(\text{sup}(j)\) = total number of attributes where j = 1  
-$$
-> Note: Jaccard coefficient is also called **coherence** in some texts:
+- **sup(i,j) = q** = number of positive matches  
+- **sup(i) = q + r** = total positives in object i  
+- **sup(j) = q + s** = total positives in object j  
+
+> Coherence = Jaccard similarity.
+
+---
+
+### Dissimilarity Between Binary Variables
+
+We calculate dissimilarity between objects when attributes are binary, considering **symmetric** and **asymmetric** cases.
+
+---
+
+#### 1. Data Example
+
+| Name | Gender | Fever | Cough | Test-1 | Test-2 | Test-3 | Test-4 |
+|------|--------|-------|-------|--------|--------|--------|--------|
+| Jack | M      | N     | N     | N      | N      | N      | N      |
+| Mary | F      | N     | N     | N      | N      | N      | N      |
+| Jim  | M      | N     | N     | N      | N      | N      | N      |
+
+- **Symmetric attribute:** `Gender` (both outcomes are equally important)  
+- **Asymmetric attributes:** `Fever`, `Cough`, `Test-1` … `Test-4` (presence matters, absence does not)
+
+##### Identifying Symmetric vs Asymmetric Binary Attributes
+
+| Attribute Type | Definition | Count 0? | Example |
+|----------------|-----------|----------|---------|
+| Symmetric      | Both outcomes are equally meaningful | Yes | Gender (M/F), Yes/No survey response |
+| Asymmetric     | Only one outcome is meaningful; 0 carries little/no info | No (ignore 0-0 matches) | Fever presence, Positive test result |
+
+**Rule of Thumb:**  
+- Ask: “Does absence (0) carry information?”  
+  - Yes → Symmetric  
+  - No → Asymmetric
+
+
+Binary encoding:  
+- $Y$ or $P$ → 1  
+- $N$ → 0
+
+---
+
+### 2. Dissimilarity Formula
+
+#### 2.1 Symmetric Binary Attribute
+For objects $i$ and $j$, the dissimilarity is defined as:
 
 $$
-\text{coherence}(i, j) = \text{Sim}_{\text{Jaccard}}(i, j)
+d(i, j) = \frac{\text{Number of mismatches}}{\text{Total number of attributes considered}}
 $$
+
+#### 2.2 Asymmetric Binary Attribute
+For asymmetric attributes, where double-zeros are ignored:
+
+$$
+d(i, j) = \frac{\text{Number of mismatches where at least one value = 1}}{\text{Number of attributes where at least one value = 1}}
+$$
+
+---
+
+### 3. Example Calculations
+
+#### 3.1 Symmetric Attribute: Gender
+- Jack (M) vs Mary (F) → mismatch → $d = 1/1 = 1.0$  
+- Jack (M) vs Jim (M) → match → $d = 0/1 = 0.0$  
+- Mary (F) vs Jim (M) → mismatch → $d = 1/1 = 1.0$
+
+#### 3.2 Asymmetric Attributes: Fever, Cough, Tests
+- All attributes are $N$ (0) → no mismatches counted, denominator = 0 → handle as **0 or undefined**  
+- If some values were 1, we would count mismatches where at least one = 1.
+
+**Given example results (approximated from your notes):**
+
+| Pair         | Dissimilarity |
+|--------------|---------------|
+| Jack–Mary    | 0.33          |
+| Jack–Jim     | 0.67          |
+| Mary–Jim     | 0.75          |
+
+> These values consider mismatches over asymmetric attributes only.
+
+---
+
+### 4. Notes
+- Symmetric attributes contribute equally to dissimilarity.  
+- Asymmetric attributes only count when at least one object has a positive value (1).  
+- This method is commonly used in clustering and similarity analysis for binary datasets.
+
+---
+
+### Z-Score
+
+A **Z-score** measures how far a raw score is from the mean in units of standard deviation.
+
+---
+
+#### 1. Definition
+
+Let:  
+- $X$ = raw score  
+- $\mu$ = mean of the population  
+- $\sigma$ = standard deviation of the population  
+
+The Z-score is calculated as:
+
+$$
+z = \frac{X - \mu}{\sigma}
+$$
+
+- **Interpretation:**  
+  - $z > 0$: score above the mean  
+  - $z < 0$: score below the mean  
+
+It represents the distance of the raw score from the mean in **standard deviation units**.
+
+---
+
+### 2. Alternative:  Z-Score Using  Mean Absolute Deviation
+
+Let:  
+- **$n$** is the **total number of observations** for that feature
+- $x_{if}$ = raw score of observation $i$ for feature $f$  
+- $m_f$ = mean of feature $f$  
+- $s_f$ = absolute mean deviation of feature $f$  
+
+---
+
+## 1. Mean of Feature $f$
+
+$$
+m_f = \frac{1}{n} \sum_{i=1}^{n} x_{if}
+$$
+
+---
+
+## 2. Absolute Mean Deviation (MAD)
+
+$$
+s_f = \frac{1}{n} \sum_{i=1}^{n} |x_{if} - m_f|
+$$
+
+- Uses absolute differences from the mean  
+- More robust to outliers than standard deviation  
+
+---
+
+## 3. Z-Score Using MAD
+
+$$
+z_{if} = \frac{x_{if} - m_f}{s_f}
+$$
+
+- Measures how far $x_{if}$ is from the mean in units of MD  
+- $z_{if} > 0$ → above mean  
+- $z_{if} < 0$ → below mean
+
