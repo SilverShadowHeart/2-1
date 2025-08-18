@@ -35,3 +35,5 @@ multiple inheritance
 class b <- class a ->  class c
 java does not support multiple inheritance
 
+write a java program to create a super class and perform sum of two numbers in that class
+create a sub class  caladv for the calc class and perform multiplication of the two numbers taking the input from the super class
