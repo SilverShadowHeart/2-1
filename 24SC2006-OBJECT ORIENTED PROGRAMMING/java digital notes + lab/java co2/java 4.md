@@ -1,4 +1,4 @@
-Inheritance 
+ Inheritance 
 
 Inheritance is taking the properties of superclass in the subclass.
 
