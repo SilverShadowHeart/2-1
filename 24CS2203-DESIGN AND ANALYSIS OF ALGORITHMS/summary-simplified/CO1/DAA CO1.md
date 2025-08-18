@@ -137,7 +137,7 @@ Programmers also use visual or structured representations:
 
 10. **Procedure/Algorithm Definition**  
     - Only one type: `Algorithm Name(<Parameter list>)`
-    - 
+    
 ### Do's and Don'ts for Writing Pseudo-Code
 
 #### Do's
@@ -371,7 +371,7 @@ They describe the **limiting behavior** of a function as input size becomes very
   $$  
   This means **quadratic grows strictly faster than linear** as input size increases.  
 
-- **Intuition:** If \(f(n) = \omega(g(n))\), then \(g(n)\) grows asymptotically slower than \(f(n)\) as \(n \to \infty\).
+- **Intuition:** If $ \(f(n) = \omega(g(n))\)$, then $\(g(n)\)$ grows asymptotically slower than $\(f(n)\) $ as $\(n \to \infty0\$.
 
 
 ---
@@ -727,7 +727,7 @@ $$
 - **a ≥ 1** → number of subproblems  
 - **b > 1** → factor by which problem size shrinks  
 - **f(n)** → cost of dividing/combining  
-- **p = \(\log_b a\)** → critical exponent (baseline for comparison)  
+- **p = $\(\log_b a\)$** → critical exponent (baseline for comparison)  
 
 ---
 
