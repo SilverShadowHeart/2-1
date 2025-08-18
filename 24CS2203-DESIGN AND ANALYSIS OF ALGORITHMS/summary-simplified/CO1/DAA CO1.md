@@ -248,7 +248,7 @@ dummy questions :
 2. write an algorithm to check if a given string is a palindrome
 
 
-# Asymptotic Notations
+### Asymptotic Notations
 
 Asymptotic notations are tools to describe how an algorithm’s running time or space requirement grows with input size. They help analyze **efficiency** in terms of:
 
@@ -259,7 +259,7 @@ They describe the **limiting behavior** of a function as input size becomes very
 
 ---
 
-## Why We Use Them
+#### Why We Use Them
 
 1. Express the **growth trend** of algorithms.  
 2. Compare algorithms **independently of hardware**.  
@@ -267,7 +267,7 @@ They describe the **limiting behavior** of a function as input size becomes very
 
 ---
 
-## Common Types of Time Complexity
+#### Common Types of Time Complexity
 
 | Complexity | Description | Example |
 |------------|------------|---------|
@@ -419,7 +419,7 @@ They describe the **limiting behavior** of a function as input size becomes very
 
 ### Linear Search (O(n))
 
-```
+```pyhton
 
 for i = 0 to n-1:  
 if array[i] == target:  
@@ -437,7 +437,7 @@ return -1
 
 ### Binary Search (O(log n))
 
-```
+```python
 
 low = 0  
 high = n - 1  
@@ -463,7 +463,7 @@ return -1
 
 ### Bubble Sort (O(n²))
 
-```
+```python
 
 for i = 0 to n-1:  
 for j = 0 to n-i-1:  
@@ -483,7 +483,7 @@ swap(array[j], array[j+1])
 
 ### Insertion Sort (O(n²))
 
-```
+```python
 
 for i = 1 to n-1:  
 key = array[i]  
@@ -500,3 +500,348 @@ array[j+1] = key
 - **Time Complexity:**  
   - Best case: O(n) (already sorted)  
   - Worst case: O(n²) (reverse sorted)
+
+
+### Performance Analysis of Algorithms
+
+The efficiency of an algorithm is measured by its **time** and **space** requirements.
+
+We mainly concentrate on:
+- **Space Complexity**
+- **Time Complexity**
+
+---
+
+#### Space Complexity
+
+Space complexity can be defined as the total memory required by the algorithm during execution.
+
+It consists of:
+1. **Constant part (C)** – fixed space required (instructions, variables, identifiers, inputs/outputs).
+2. **Variable part (Sp)** – space dependent on instance characteristics (e.g., input size).
+
+ Formula:
+$$
+S(p) = C + Sp
+$$
+
+---
+
+ Example 1:
+```cpp
+// a, b, c are floating type
+return a + b + c;
+````
+
+- `a, b, c` each require 1 word.
+    
+- Total size = 3.
+    
+
+So,
+
+S(p)=3
+
+For an array of size `n`,
+
+S(p)=n
+
+---
+
+Example 2:
+
+**Algorithm Add(x, n):**
+
+```pseudo
+sum := 0.0
+for i = 1 to n do
+    sum := sum + x[i]
+return sum
+```
+
+**Space required:**
+
+- `x[i]` → `n` space
+    
+- `n` → 1 space
+    
+- `i` → 1 space
+    
+- `sum` → 1 space
+    
+
+Therefore,
+
+S(p)=n+3
+
+### [CLICK ME YOUTUBEE](https://www.youtube.com/watch?v=oQ5sAfT_3V4)
+
+### Time Complexity
+
+Time complexity is the **amount of time required to execute an algorithm**.  
+It is mainly measured in terms of **execution time (run time)**.
+
+---
+
+#### Methods to Compute Time Complexity
+1. **Step Count Method**
+2. **Tabular Method**
+
+---
+
+**note there are many videos on youtube i just used these to learn them there are websites you can put chatgpt on cold prompts to learn as well**
+
+### [step count method](https://www.youtube.com/watch?v=6cv5Quw3JGE)
+
+### [tabular method](https://www.youtube.com/watch?v=GIv-Uux9xs4&t=1760s)
+
+
+
+
+#### Step Count 
+
+#### 1) Message(n)
+```
+for i = 1 to n do        -> loop control: n + 1
+    write("Hello")       -> n
+return                    -> 0  (implicit / ignored)
+
+Total steps = (n + 1) + n = 2n + 1  ⇒  O(n)
+```
+
+
+#### 2) Add(x, n)
+```
+sum := 0.0               -> 1
+for j = 1 to n do        -> loop control: n + 1
+    sum := sum + x[j]    -> n
+return sum               -> 1
+```
+
+Total steps = 1 + (n + 1) + n + 1 = 2n + 3  ⇒  O(n)
+
+
+
+#### 3) Nested loops Add(a, b, c, m, n)
+```
+for i = 1 to m do            -> outer loop control: m + 1
+    for j = 1 to n do        -> inner loop control per i: n + 1  ⇒ total: m(n + 1) = mn + m
+        // constant work     -> mn
+
+Total steps = (m + 1) + (mn + m) + mn = 2mn + 2m + 1  ⇒  O(mn)
+```
+
+#### 4) RSum(a, n)   // Recursive sum
+```
+if (n == 0)              -> base check: 1
+    return 0             -> base return: 1
+else
+    return RSum(a,n-1) + a[n]  -> per recursive call (n>0): check 1 + add 1 = 2
+
+Recurrence:
+T(0) = 2
+T(n) = T(n-1) + 2  (for n > 0)
+
+Unroll:
+T(n) = 2n + T(0) = 2n + 2  ⇒  O(n)
+```
+
+**Rule of thumb used (so you can replicate fast):** loop control = iterations + 1; each simple statement = 1; nested loops multiply bodies; recursion → write the recurrence and unroll.
+
+
+
+
+### Iterative Sum of n numbers
+
+#### Algorithm
+
+```
+Sum(a, n) {
+  s := 0;
+  for i := 1 to n do {
+    s := s + a[i];
+  }
+  return s;
+}
+```
+
+#### Tabular Method — Step-by-Step
+
+|Statement|s/e|Frequency|Total|Why|
+|---|---|---|---|---|
+|`Sum(a, n) {` (function start)|0|1|0|Structural only; no runtime work.|
+|`s := 0;`|1|1|1|One-time initialization.|
+|`for i := 1 to n do {` (loop ctrl)|1|n+1|n+1|Count condition checks: n true + 1 false to exit (init/increment folded into control).|
+|`s := s + a[i];`|1|n|n|Executes once per iteration.|
+|`}` (loop end)|0|n|0|Block delimiter; no work.|
+|`return s;`|1|1|1|Single return.|
+|`}` (function end)|0|1|0|Structural only.|
+|**Total**|||**2n + 3**|Matches standard step-count convention.|
+
+> Notes: We treat the **loop control** as the single place where check/init/increment costs are aggregated → `n+1` checks; this keeps totals consistent with the classic `2n+3`.
+> **DONT RIGHT WHY PART ITS JUST FOR YOU**
+
+---
+
+### Recursive Sum of n numbers
+
+#### Algorithm
+
+```
+RSum(a, n) {
+  if (n == 0) {
+    return 0;
+  } else {
+    return RSum(a, n-1) + a[n];
+  }
+}
+```
+
+#### Tabular Method — Step-by-Step
+
+|Statement|s/e|Frequency|Total|Why|
+|---|---|---|---|---|
+|`RSum(a, n) {` (function start)|0|n+1|0|Structural for each call; no work.|
+|`if (n == 0)` (condition check)|1|n+1|n+1|Every call checks the base case (for n…1 and for 0).|
+|`return 0;` (base case)|1|1|1|Executes once when `n == 0`.|
+|`return RSum(a, n-1) + a[n];` (recursive)|1|n|n|**Counts only the addition** per non-base call; the recursive work is in the next call.|
+|`}` (function end)|0|n+1|0|Structural only.|
+|**Total**|||**2n + 2**|`n+1` checks + `n` additions + `1` base return.|
+
+> Notes: We **don’t** charge an extra step for the call itself (its cost is the next frame’s work); returns in non-base cases aren’t double-counted (their value is the addition’s result).
+> **DONT RIGHT WHY PART ITS JUST FOR YOU**
+
+
+---
+
+## Parallel vs Sequential Computers
+
+| Type                | Algorithm Used   | Processor Used | Parallelism |
+|---------------------|------------------|----------------|-------------|
+| **Parallel Computer**   | Multiple algorithms | Multiple processors | Yes (0 → simultaneous execution) |
+| **Sequential Computer** | Single algorithm    | Single processor    | No (0 → one step at a time)     |
+
+---
+
+#### What is a Parallel Algorithm?
+
+A **parallel algorithm** executes **instructions simultaneously** on different processors (e.g., multiple CPUs).  
+After processing, their outputs are combined to produce the **final result**.
+
+- **Goal**: Improve computation speed.  
+- **Key parameters** when analyzing:
+  1. **Time Complexity (Execution Time)** → how long it takes to finish.  
+  2. **Number of Processors Used** → more processors = faster but more costly.  
+  3. **Total Cost** = (Time Complexity) × (Number of Processors).  
+  4. **Efficiency** = (Sequential Execution Time) ÷ (Parallel Execution Time).
+
+---
+
+#### Time Complexity in Parallel Computing
+
+- In sequential: execution time = time from start to finish of the single processor.  
+- In parallel: if processors **start/stop at different times**, execution time =  
+  **first processor start → last processor stop**.
+
+---
+
+### Speedup
+
+$$
+\text{Speedup (S)} = \frac{T_{seq}}{T_{par}}
+$$
+
+- $T_{seq}$ Time taken by the **fastest sequential algorithm**.  
+- $T_{par}$ Time taken by the **parallel algorithm**.  
+- A speedup of **2×** means parallel is **twice as fast** as sequential.  
+
+---
+
+### Total Cost
+
+$$
+\text{Cost} = T_{par} \times P
+$$
+
+- $T_{par}$ Execution time in parallel.  
+- $P$: Number of processors used.  
+- More processors = more expensive solution.
+
+---
+
+### Efficiency
+
+$$
+\text{Efficiency (E)} = \frac{T_{seq}}{P \times T_{par}}
+$$
+
+- If $E = 1$ → perfect efficiency (rare in practice).  
+- If $E < 1$ → some processor power is **wasted**.  
+
+---
+
+### Example: Matrix Addition
+
+Suppose we want to add two $N \times N$ matrices.
+
+1. **Sequential Execution (Single Processor):**  
+   - Each of the $N^2$ elements must be added one after another.  
+   - Time Complexity = $O(N^2)$.
+
+2. **Parallel Execution (P Processors):**  
+   - Each processor handles a chunk of additions.  
+   - Time Complexity = $O(N^2 / P)$.
+
+3. **Speedup:**  
+
+$$
+S = \frac{T_{seq}}{T_{par}} = \frac{N^2}{N^2 / P} = P
+$$
+
+   → Speedup is equal to the number of processors.
+
+4. **Total Cost:**  
+
+$$
+\text{Cost} = T_{par} \times P = \frac{N^2}{P} \times P = N^2
+$$
+
+   → Cost same as sequential, but faster execution.
+
+5. **Efficiency:**  
+
+$$
+E = \frac{S}{P} = \frac{P}{P} = 1
+$$
+
+   → Perfect efficiency if processors are fully utilized.
+---
+### Flynn's Classification in Parallel Algorithms
+
+Proposed by **Michael J. Flynn (1966)**.  
+It classifies computer systems based on the multiplicity of **instruction streams** and **data streams**.
+
+- **Instruction stream** → sequence of instructions executed by a computer.
+    
+- **Data stream** → sequence of data (input or intermediate results).
+    
+
+#### Four categories:
+
+- **SISD (Single Instruction, Single Data)** → Single CPU (Von Neumann model)
+    
+- **SIMD (Single Instruction, Multiple Data)** → Vector processors, parallel computers
+    
+- **MISD (Multiple Instruction, Single Data)** → Pipelined computers
+    
+- **MIMD (Multiple Instruction, Multiple Data)** → Multiprocessors, multicomputers
+    
+
+#### Matrix View
+
+||**One Data Stream**|**Many Data Streams**|
+|---|---|---|
+|**One Instruction Stream**|SISD|SIMD|
+|**Many Instruction Streams**|MISD|MIMD|
+
+
