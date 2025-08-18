@@ -906,4 +906,188 @@ It classifies computer systems based on the multiplicity of **instruction stream
 |**One Instruction Stream**|SISD|SIMD|
 |**Many Instruction Streams**|MISD|MIMD|
 
+---
 
+
+## Odd-Even Merge Sort
+
+#### [YOUTUBE](https://youtu.be/oIXKITGGk84?si=aIKjvS0QZIbIu1Ih)
+#### Steps
+1. Divide
+   - Split the input array into two sub-arrays: one containing elements at odd indices and the other containing elements at even indices.
+2. Recursively Sort
+   - Recursively apply Odd-Even Merge Sort to both sub-arrays until the base case is reached (usually when the sub-array has one element).
+3. Merge
+   - Merge the two sorted sub-arrays back together in a sorted manner.
+
+#### Merge Process
+1. Initial Merge  
+   - Compare and swap elements from the two sorted sub-arrays that have the same relative positions in their respective sub-arrays.
+2. Odd-Even Comparisons  
+   - Perform a series of comparisons and swaps on odd and even indexed pairs of elements in the combined array until the entire array is sorted.
+
+#### Steps
+
+**Step 0:**  
+If `m = 1`, merge the sequence with one comparison.  
+
+**Step 1:**  
+Partition `X1` and `X2` into their odd and even parts.  
+- `X1(odd) = k1, k3, k5, …, km-1`  
+- `X1(even) = k2, k4, k6, …, km`  
+- Similarly partition `X2` into `X2(odd)` and `X2(even)`.  
+
+**Step 2:**  
+Recursively merge:  
+- Merge `X1(odd)` with `X2(odd)` using `m` processors → result = `L1`.  
+- Merge `X1(even)` with `X2(even)` using `m` processors → result = `L2 = l(m+1), l(m+2), …, l(2m)`  
+
+**Step 3:**  
+Shuffle `L1` and `L2` as follows:  
+`L = l1, l(m+1), l2, l(m+2), …, lm, l(2m)`  
+
+Then perform pairwise comparisons:  
+- Compare `(l(m+1), l2)` and swap if out of order.  
+- Compare `(l(m+2), l3)` and swap if out of order.  
+- Continue until the end.  
+
+**Output:**  
+The resulting sequence after all swaps.  
+
+#### Complexity
+- **Space Complexity:** `O(n)`
+
+---
+
+#### Example Walkthrough
+
+![[Pasted image 20250818194113.png]]
+---
+
+## Applications
+
+Odd-Even Merge Sort is particularly useful in scenarios where parallel processing can be leveraged to sort large datasets efficiently, such as:
+
+- Sorting in database management systems  
+- Real-time data processing  
+- Parallel computing environments  
+
+## Advantages
+- Well-suited for parallel processing.  
+- Deterministic structure (fixed sequence of comparisons).  
+- Good for hardware implementation in sorting networks.  
+
+## Disadvantages
+- Higher constant factors compared to simpler algorithms.  
+- Not practical for sequential execution (slower than quicksort/mergesort).  
+- Complexity of implementation is higher than basic sorting algorithms.  
+
+---
+
+## Tower of Hanoi
+[YOUTUBE](https://youtu.be/R6fQRMy2-BY?si=Xy3K4CBUbxOGuti4)
+#### Rules
+1. Only one disk can be moved at a time.  
+2. A disk can only be placed on top of a larger disk or an empty rod.  
+3. The objective is to move all disks from the source rod to the destination rod with the minimum number of moves.  
+
+#### Recursive Solution
+1. Move the top \(n-1\) disks from the source rod to the auxiliary rod.  
+2. Move the \(n\)-th (largest) disk from the source rod to the destination rod.  
+3. Move the \(n-1\) disks from the auxiliary rod to the destination rod.  
+
+#### Recurrence Relation
+$$
+T(n) = 2T(n-1) + 1, \quad T(0) = 0
+$$  
+
+##### Base Case
+$$
+T(1) = 1
+$$  
+(one disk → one move).  
+
+---
+
+#### Substitution Method (Derivation)
+
+Start with the recurrence:  
+$$
+T(n) = 2T(n-1) + 1
+$$  
+
+Expand step by step:  
+$$
+T(n) = 2[2T(n-2) + 1] + 1 = 2^2 T(n-2) + 2 + 1
+$$  
+
+$$
+T(n) = 2^3 T(n-3) + 2^2 + 2 + 1
+$$  
+
+After \(k\) steps:  
+$$
+T(n) = 2^k T(n-k) + (2^{k-1} + 2^{k-2} + \dots + 2 + 1)
+$$  
+#### Summation of Geometric Series
+
+In the substitution step we got:  
+$$
+S = 2^{k-1} + 2^{k-2} + \dots + 2^1 + 2^0
+$$  
+
+This is a finite geometric series with:  
+- First term \(a = 1\)  
+- Common ratio \(r = 2\)  
+- Number of terms \(k\)  
+
+The sum of a finite geometric series is:  
+$$
+S = a \frac{r^k - 1}{r - 1}
+$$  
+
+Substitute \(a = 1, r = 2\):  
+$$
+S = \frac{2^k - 1}{2 - 1} = 2^k - 1
+$$  
+
+So the series simplifies to:  
+$$
+2^{k-1} + 2^{k-2} + \dots + 2 + 1 = 2^k - 1
+$$
+
+The summation is a geometric series:  
+$$
+2^k - 1
+$$  
+
+
+
+So:  
+$$
+T(n) = 2^k T(n-k) + (2^k - 1)
+$$  
+
+Now, set \(k = n\):  
+$$
+T(n) = 2^n T(0) + (2^n - 1)
+$$  
+
+Since \(T(0) = 0\):  
+$$
+T(n) = 2^n - 1
+$$  
+
+---
+
+#### Time Complexity
+- Number of moves =  
+$$
+2^n - 1
+$$  
+- Hence, time complexity is:  
+$$
+T(n) \in O(2^n)
+$$  
+
+![[Pasted image 20250818200340.png]]
