@@ -714,6 +714,68 @@ RSum(a, n) {
 
 ---
 
+### Master Theorem
+
+Master Theorem is a tool to quickly solve recurrence relations that appear in **divide-and-conquer algorithms**.  
+
+For recurrences of the form:
+$$
+T(n) = aT\!\left(\frac{n}{b}\right) + f(n)
+$$
+
+**Definitions:**  
+- **a ≥ 1** → number of subproblems  
+- **b > 1** → factor by which problem size shrinks  
+- **f(n)** → cost of dividing/combining  
+- **p = \(\log_b a\)** → critical exponent (baseline for comparison)  
+
+---
+
+#### Cases
+
+1. **Case 1 (Recursion dominates):**  
+   If  
+   $$
+   f(n) = O(n^{p - \epsilon}), \quad \epsilon > 0
+   $$  
+   then  
+   $$
+   T(n) = \Theta(n^p)
+   $$
+
+2. **Case 2 (Balanced):**  
+   If  
+   $$
+   f(n) = \Theta(n^p \cdot \log^k n), \quad k \geq 0
+   $$  
+   then  
+   $$
+   T(n) = \Theta(n^p \cdot \log^{k+1} n)
+   $$
+
+3. **Case 3 (Combine dominates):**  
+   If  
+   $$
+   f(n) = \Omega(n^{p + \epsilon}), \quad \epsilon > 0
+   $$  
+   and **regularity condition** holds:  
+   $$
+   a f(n/b) \leq c f(n), \quad \text{for some } c < 1
+   $$  
+   then  
+   $$
+   T(n) = \Theta(f(n))
+   $$
+
+---
+
+#### Quick Examples
+
+- $$T(n) = 2T(n/2) + O(n) \quad \Rightarrow \quad \Theta(n \log n) \quad (\text{Case 2})$$  
+- $$T(n) = 4T(n/2) + O(n) \quad \Rightarrow \quad \Theta(n^2) \quad (\text{Case 1})$$  
+- $$T(n) = T(n/2) + O(n) \quad \Rightarrow \quad \Theta(n) \quad (\text{Case 3})$$
+
+
 ## Parallel vs Sequential Computers
 
 | Type                | Algorithm Used   | Processor Used | Parallelism |
