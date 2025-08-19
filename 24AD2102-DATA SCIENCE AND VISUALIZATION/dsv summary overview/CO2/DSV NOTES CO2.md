@@ -208,9 +208,31 @@ flowchart TD
 ---
 
 #### 1) Data Cleaning
-- Process of detecting and correcting **incomplete, inaccurate, inconsistent, or irrelevant data**.  
-- Techniques: modification or removal of corrupt/unusable records.  
-- Goal: ensure data quality before further processing.  
+
+
+- Process of detecting and correcting **incomplete, inaccurate, inconsistent, or irrelevant data**.
+    
+- Techniques: modify or remove corrupt/unusable records.
+    
+- **Goal:** Ensure high-quality data before further processing.
+    
+
+**Importance:**
+
+- "Data cleaning is one of the three biggest problems in data processing." — _Ralph Kimball_
+    
+- "Data cleaning is the number one problem in data processing." — _DCI Survey_
+    
+
+**Typical Tasks:**
+
+- Fill in **missing values** (e.g., mean, median, interpolation).
+    
+- Identify **outliers** and smooth noisy data (e.g., binning, regression).
+    
+- Correct **inconsistent data** (e.g., conflicting codes, formats).
+    
+- Resolve **redundancy** from data integration (e.g., duplicates).
 
 ---
 
@@ -262,14 +284,14 @@ Data in the real world is **dirty**:
 - **Time mismatch between collection and analysis** → Sales data collected daily, but product prices updated monthly → mismatch.  
 - **Human, hardware, or software errors** → Sensor stops recording halfway; missing half of temperature readings.  
 
----
+
 
 ### Noisy Data
 - **Errors in collection** → Microphone picks up static noise instead of clear speech.  
 - **Data entry mistakes** → Typing `50000O` instead of `500000` for salary.  
 - **Transmission issues** → GPS location gets scrambled during satellite signal loss.  
 
----
+
 
 ### Inconsistent Data
 - **Conflicts between multiple data sources** → One database has `DOB = 1999-05-10`, another has `DOB = 1998-10-05`.  
@@ -281,4 +303,42 @@ Data in the real world is **dirty**:
 - Quality decisions demand quality data  
   - Duplicate/missing values → Incorrect or misleading statistics  
 - Data warehouse requires consistent integration of quality data 
-- Extraction, cleaning, and transformation = **majority of the work** in building a data warehouse  
+- Data Extraction, cleaning, and transformation = **majority of the work** in building a data warehouse  
+
+
+---
+
+## Multi-Dimensional Measure of Data Quality
+
+### Core Dimensions
+- **Accuracy** → Value correctly represents the real-world fact.  
+  *Ex: Recorded temperature = 25°C, actual = 25°C.*  
+
+- **Completeness** → All required data is present.  
+  *Ex: Customer record missing phone number → incomplete.*  
+
+- **Consistency** → No contradictions across datasets.  
+  *Ex: `DOB = 2000-01-01` in one table, `DOB = 1999-12-31` in another → inconsistent.*  
+
+- **Timeliness** → Data is up-to-date.  
+  *Ex: Stock price updated hourly vs real-time feed.*  
+
+- **Believability** → Data is credible and trustworthy.  
+  *Ex: Sales data from official ERP vs. an unverified Excel sheet.*  
+
+- **Value Added** → Data contributes to decision-making.  
+  *Ex: Adding “Customer Lifetime Value” helps marketing strategy.*  
+
+- **Interpretability** → Data is easy to understand.  
+  *Ex: Column named `salary_in_usd` vs. `sal1`.*  
+
+- **Accessibility** → Data is available when needed.  
+  *Ex: Secure API access vs. locked in a local machine file.*  
+
+---
+
+### Broad Categories
+- **Intrinsic** → Accuracy, Believability, Objectivity.  
+- **Contextual** → Completeness, Timeliness, Value Added, Relevance.  
+- **Representational** → Interpretability, Consistency, Ease of understanding.  
+- **Accessibility** → Accessibility, Security. 
