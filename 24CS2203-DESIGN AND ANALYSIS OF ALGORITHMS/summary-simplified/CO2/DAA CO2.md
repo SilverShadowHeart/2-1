@@ -1,4 +1,4 @@
-### Convex Hull Problem
+## Convex Hull Problem
 
 #### Definition
 - A polygon \(P\) is **convex** if, for every pair of points \(x\) and \(y\) in \(P\), the line segment \(xy\) also lies inside \(P\).  
