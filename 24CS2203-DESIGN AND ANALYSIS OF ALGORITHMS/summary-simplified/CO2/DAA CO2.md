@@ -60,3 +60,6 @@ $$
 
 #### Final
 ![[Pasted image 20250818210700.png]]
+
+
+<p align="center" style="font-size:24px"><b>Types of data</b></p>
