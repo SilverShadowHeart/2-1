@@ -914,3 +914,111 @@ Divide and Conquer algorithm. Pick a pivot, partition the array around it, then 
 	- ![[Pasted image 20250820201941.png]] 
 - **Worst Case:** The pivot is always the smallest or largest element, leading to highly unbalanced partitions.  
 	 - ![[Pasted image 20250820201956.png]]
+
+
+
+
+# Shortest Path Problem
+
+The **Shortest Path Problem** is the problem of finding the shortest path(s) between vertices of a given graph.  
+
+- The shortest path between two vertices is the path that has the least cost compared to all other existing paths.  
+
+## Applications
+- Google Maps  
+- Road Networks  
+- Logistics Research  
+
+---
+
+## Types
+- **Single Source Shortest Path Problem:** Find the shortest path from a given source vertex to all other remaining vertices.  
+- Famous algorithms: **Dijkstra's Algorithm** and **Bellman-Ford Algorithm**.  
+
+---
+
+## Dijkstra's Algorithm
+- A greedy algorithm for solving the single-source shortest path problem.  
+- Computes the shortest path from one source node to all other nodes in the graph.  
+- Works only for **connected graphs** with **non-negative edge weights**.  
+- Supports **directed and undirected graphs**.  
+- Provides the **cost of shortest paths**, not the actual path (predecessors can be tracked for paths).  
+
+---
+
+## Pseudocode
+
+**Step 01:** Define two sets:  
+- **Visited set (S):** Vertices included in the shortest path tree. Initially empty.  
+- **Unvisited set (Q):** All vertices of the graph. Initially contains all vertices.  
+
+---
+
+**Step 02:** For each vertex `v`:  
+- `n[v]` → predecessor of vertex `v`.  
+- `d[v]` → shortest path estimate from source.  
+
+Initialization:  
+- `n[v] = NIL` for all `v`.  
+- `d[source] = 0`.  
+- `d[v] = ∞` for all other vertices.  
+
+---
+
+**Step 03:** Repeat until all vertices are processed:  
+1. Choose `u ∈ Q` with minimum `d[u]`.  
+2. Relax all outgoing edges `(u, v)`:  
+
+   $$
+   \text{if } d[u] + w(u,v) < d[v] \quad \Rightarrow \quad d[v] = d[u] + w(u,v), \; n[v] = u
+   $$
+
+3. Move `u` from `Q` to `S`.  
+
+---
+
+## Example (Edge Relaxation)
+
+For edge `(a, b)`:
+
+- $d[a]$ = shortest path estimate of `a` from source `s`.  
+- $d[b]$ = shortest path estimate of `b` from source `s`.  
+
+Relaxation rule:  
+
+$$
+\text{if } d[a] + w(a,b) < d[b] \quad \Rightarrow \quad d[b] = d[a] + w(a,b), \; n[b] = a
+$$  
+
+---
+
+## Complexity
+- Graph $G$ represented as an **adjacency matrix**.  
+- Priority queue `Q` as an unordered list.  
+- Selecting vertex with smallest distance = $O(V)$.  
+- For each neighbor of `u`, updating distance = $O(1)$ (at most $V$ neighbors).  
+- Each iteration = $O(V)$, repeated $V$ times.  
+
+**Total complexity:**
+
+$$
+O(V^2)
+$$
+
+---
+
+## Example Run (Initialization)
+
+- **Unvisited set:** {S, a, b, c, d, e}  
+- **Visited set:** { }  
+
+Initialize:  
+- $d[S] = 0$  
+- $d[a] = d[b] = d[c] = d[d] = d[e] = ∞$  
+
+---
+
+After relaxing edges from `S`:  
+- **Unvisited set:** {a, b, c, d, e}  
+- **Visited set:** {S}  
+
