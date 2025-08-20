@@ -491,3 +491,425 @@ $$
 - Statistical coding (shorter codes for frequent symbols)  
 - Text and fax transmission  
 - Practical use of multiple data structures (trees, heaps, queues) 
+
+
+# Job Sequencing with Deadlines
+
+You are given a set of jobs.  
+Each job has a defined **deadline** and some **profit** associated with it.  
+The profit of a job is given only when that job is completed within its deadline.  
+
+**Constraints:**  
+- Only one processor is available.  
+- Processor takes **1 unit of time** to complete a job.  
+- Only one job can be completed at a time.  
+
+**Problem Statement:**  
+*"How can the total profit be maximized if only one job can be completed at a time?"*  
+
+---
+
+## Greedy Algorithm
+We adopt a greedy algorithm to determine how the next job is selected for an optimal solution.  
+This greedy algorithm always gives the optimal solution.  
+
+**Steps:**  
+1. Sort all the given jobs in decreasing order of their profit.  
+2. Check the maximum deadline.  
+   - Draw a Gantt chart with time slots equal to the maximum deadline.  
+3. Pick jobs one by one.  
+   - Place each job as far as possible from $0$ ensuring that it finishes before its deadline.  
+
+---
+
+## Example
+
+### Step 1: Jobs (sorted by profit)
+
+| Job | Deadline | Profit |
+|-----|----------|--------|
+| J4  | 2        | 300    |
+| J1  | 5        | 200    |
+| J3  | 3        | 190    |
+| J2  | 3        | 180    |
+| J5  | 4        | 120    |
+| J6  | 2        | 100    |
+
+---
+
+### Step 2: Maximum Deadline
+Maximum deadline = 5  
+
+So, Gantt chart has slots $1,2,3,4,5$.  
+
+---
+
+### Step 3: Job Placement
+
+
+### Step 1: Schedule J4 (Deadline = 2)
+
+|Time Slot|Job|
+|---|---|
+|1||
+|2|J4|
+|3||
+|4||
+|5||
+
+---
+
+### Step 2: Schedule J1 (Deadline = 5)
+
+|Time Slot|Job|
+|---|---|
+|1||
+|2|J4|
+|3||
+|4||
+|5|J1|
+
+---
+
+### Step 3: Schedule J3 (Deadline = 3)
+
+|Time Slot|Job|
+|---|---|
+|1||
+|2|J4|
+|3|J3|
+|4||
+|5|J1|
+
+---
+
+### Step 4: Schedule J2 (Deadline = 3 → slots 3,2 occupied → place in slot 1)
+
+|Time Slot|Job|
+|---|---|
+|1|J2|
+|2|J4|
+|3|J3|
+|4||
+|5|J1|
+
+---
+
+### Step 5: Schedule J5 (Deadline = 4)
+
+|Time Slot|Job|
+|---|---|
+|1|J2|
+|2|J4|
+|3|J3|
+|4|J5|
+|5|J1|
+
+---
+
+### Step 6: Try J6 (Deadline = 2 → slots 2,1 full → cannot schedule)
+
+|Time Slot|Job|
+|---|---|
+|1|J2|
+|2|J4|
+|3|J3|
+|4|J5|
+|5|J1|
+
+---
+
+ **Final Scheduled Jobs:** J2, J4, J3, J5, J1  
+ **Total Profit = 60 + 100 + 70 + 25 + 80 = 335**
+
+
+---
+
+### Step 4: Final Gantt Chart
+
+| Time Slot | 1  | 2  | 3  | 4  | 5  |
+|-----------|----|----|----|----|----|
+| Job       | J2 | J4 | J3 | J5 | J1 |
+
+---
+
+## Optimal Schedule
+$$ [J2, J4, J3, J5, J1] $$  
+
+---
+
+## Maximum Profit
+$$
+Profit = P(J_2) + P(J_4) + P(J_3) + P(J_5) + P(J_1)
+$$
+
+$$
+= 180 + 300 + 190 + 120 + 200
+$$
+
+$$
+= 990 \;\text{ units}
+$$
+
+
+
+A **feasible solution** is a subset of jobs such that each can be completed by its deadline.  
+The **value** of a feasible solution \(J\) is:
+
+$$
+V(J) = \sum_{j \in J} p_j
+$$
+
+The **optimal solution** is the feasible solution \(J^*\) such that:
+
+$$
+V(J^*) = \max_{J} \sum_{j \in J} p_j
+$$
+
+---
+
+## Algorithm (Greedy Job Sequencing)
+
+**High-level description:**
+
+1. Sort jobs in **descending order of profit**.  
+2. For each job, place it in the latest available slot \(\leq\) its deadline.  
+3. If no slot is available, discard the job.  
+
+**Formal algorithm:**
+
+### **Algorithm 1: GreedyJob**
+
+```text
+GreedyJob(d, j, n)
+// J is a set of jobs that their deadlines can complete
+{
+    j := {1};
+    for i := 2 to n do
+    {
+        if (all jobs in J ∪ {i} can be completed by their deadlines) then
+            j := j ∪ {i};
+    }
+}
+```
+
+---
+
+### **Algorithm 2: JS**
+
+```text
+JS(d, j, n)
+// d[i] ≥ 1, 1 ≤ i ≤ n are the deadlines, n ≥ 1.
+// The jobs are ordered such that p[1] ≥ p[2] ≥ … ≥ p[n]
+// j[i] is the ith job in the optimal solution.
+// At termination: d[j[i]] ≤ d[j[i+1]], 1 ≤ i ≤ k
+{
+    d[0] := j[0] := 0;      // Initialize
+    j[1] := 1;              // Include job 1
+    k := 1;
+
+    for i := 2 to n do
+    {
+        // Consider jobs in descending order of p[i].
+        // Find position for i and check feasibility of insertion.
+        r := k;
+        while (d[j[r]] > d[i] and d[j[r]] ≠ r) do
+            r := r - 1;
+
+        if (d[i] > r) then
+        {
+            // Insert i into j[]
+            for q := k downto r+1 do
+                j[q+1] := j[q];
+
+            j[r+1] := i;
+            k := k + 1;
+        }
+    }
+    return k;
+}
+```
+
+---
+
+### **Time Complexity**
+
+The time taken by this algorithm is:  
+ $O(n^2)$
+
+---
+
+
+# MERGE SORT
+
+[MERGE SORT YOUTUBE](https://youtu.be/mB5HXBb_HY8?si=03tZ28qv5eXDY0XZ)
+
+
+Merge Sort is a Divide and Conquer algorithm.  
+It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.  
+The `merge()` function is used for merging two halves.  
+The `merge(arr, l, m, r)` is key process that assumes that `arr[l..m]` and `arr[m+1..r]` are sorted and merges the two sorted sub-arrays into one.  
+
+---
+
+### Complexity
+
+| Case        | Time Complexity |
+|-------------|-----------------|
+| Best Case   | O(n log n)      |
+| Average Case| O(n log n)      |
+| Worst Case  | O(n log n)      |
+
+| Memory | Stable | In-place |
+|--------|--------|----------|
+| n      | YES    | NO       |
+
+---
+
+### Algorithm (Divide and Conquer)
+```
+ Algorithm D and C(P)  
+{  
+if small(P)  
+then return S(P)  
+else  
+      {  
+  divide P into smaller instances P1 ,P2 .....Pk  
+  apply D and C to each sub problem  
+  return combine (D and C(P1)+ D and C(P2)+.......+D and C(Pk))  
+      }  
+}
+```
+
+![[Pasted image 20250820200903.png]]
+
+![[Pasted image 20250820200915.png]]
+
+![[Pasted image 20250820200926.png]]
+
+![[Pasted image 20250820200941.png]]
+
+![[Pasted image 20250820200954.png]]
+
+![[Pasted image 20250820201004.png]]
+
+![[Pasted image 20250820201013.png]]
+
+![[Pasted image 20250820201031.png]]
+
+![[Pasted image 20250820201043.png]]
+
+
+### ALGORITHM
+
+```
+Algorithm MergeSort(low, high)
+// a[low:high] is the array segment to sort
+// Base condition: only one element ⇒ already sorted
+{
+    if (low < high) then
+    {
+        // Divide step
+        mid := (low + high) / 2
+
+        // Conquer step
+        MergeSort(low, mid)
+        MergeSort(mid+1, high)
+
+        // Combine step
+        Merge(low, mid, high)
+    }
+}
+```
+
+---
+
+# QUICK SORT
+
+
+**Concept:**  
+Divide and Conquer algorithm. Pick a pivot, partition the array around it, then recursively sort the subarrays.
+
+**Pivot selection strategies:**
+
+- First element
+    
+- Last element
+    
+- Random element
+    
+- Median element
+    
+
+---
+
+### Algorithm (pivot = highest index element)
+
+1. Choose the last element as pivot.
+    
+2. Initialize two pointers:
+    
+    - `left` = low - 1
+        
+    - `right` = high
+        
+3. Move `left` rightwards while `arr[left] < pivot`.
+    
+4. Move `right` leftwards while `arr[right] > pivot`.
+    
+5. If `left < right`, swap `arr[left]` and `arr[right]`.
+    
+6. When `left ≥ right`, swap pivot with `arr[left]`.
+    
+7. Pivot is now at correct position; recursively apply to subarrays.
+    
+
+---
+
+### Time Complexity
+
+- **Best Case:** Pivot divides array into two equal halves → **O(n log n)**
+    
+- **Average Case:** Pivot divides array reasonably balanced → **O(n log n)**
+    
+- **Worst Case:** Pivot is smallest/largest (highly unbalanced) → **O(n²)**
+    
+
+**Reasoning:**
+
+- Recursion depth:
+    
+    - Best/Average: `log n`
+        
+    - Worst: `n`
+        
+- Work per level: `O(n)`
+    
+
+---
+
+### Space & Properties
+
+- Memory:
+    
+    - Best/Average: `O(log n)` (recursion stack)
+        
+    - Worst: `O(n)` (skewed recursion tree)
+        
+- Stable: **No** (equal elements may be swapped)
+    
+- In-place: **Yes**
+    
+
+![[Pasted image 20250820201732.png]]
+
+![[Pasted image 20250820201752.png]]
+
+![[Pasted image 20250820201807.png]]
+
+- **Best Case:** The pivot always divides the array into two equal halves.  
+   - ![[Pasted image 20250820201925.png]]
+- **Average Case:** The pivot divides the array into two subarrays that are not necessarily equal but reasonably balanced.  
+	- ![[Pasted image 20250820201941.png]] 
+- **Worst Case:** The pivot is always the smallest or largest element, leading to highly unbalanced partitions.  
+	 - ![[Pasted image 20250820201956.png]]
