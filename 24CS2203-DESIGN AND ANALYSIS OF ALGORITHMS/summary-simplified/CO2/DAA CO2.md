@@ -916,64 +916,69 @@ Divide and Conquer algorithm. Pick a pivot, partition the array around it, then 
 	 - ![[Pasted image 20250820201956.png]]
 
 
-
+---
 
 # Shortest Path Problem
 
-The **Shortest Path Problem** is the problem of finding the shortest path(s) between vertices of a given graph.  
+The **Shortest Path Problem** is the problem of finding the shortest path(s) between vertices of a given graph.
 
-- The shortest path between two vertices is the path that has the least cost compared to all other existing paths.  
+- The shortest path between two vertices is the path that has the least cost compared to all other existing paths.
 
 ## Applications
-- Google Maps  
-- Road Networks  
-- Logistics Research  
+- Google Maps
+- Road Networks
+- Logistics Research
 
 ---
 
 ## Types
-- **Single Source Shortest Path Problem:** Find the shortest path from a given source vertex to all other remaining vertices.  
-- Famous algorithms: **Dijkstra's Algorithm** and **Bellman-Ford Algorithm**.  
+
+```mermaid
+flowchart TD
+    A[Shortest Path Problems] --> B[Single-pair<br>Shortest Path Problem]
+    A --> C[Single-source<br>Shortest Path Problem]
+    A --> D[Single-destination<br>Shortest Path Problem]
+    A --> E[All pairs<br>Shortest Path Problem]
+```
+
+- **Single Source Shortest Path Problem:** Find the shortest path from a given source vertex to all other remaining vertices.
+- Famous algorithms: **Dijkstra's Algorithm** and **Bellman-Ford Algorithm**.
 
 ---
 
 ## Dijkstra's Algorithm
-- A greedy algorithm for solving the single-source shortest path problem.  
-- Computes the shortest path from one source node to all other nodes in the graph.  
-- Works only for **connected graphs** with **non-negative edge weights**.  
-- Supports **directed and undirected graphs**.  
-- Provides the **cost of shortest paths**, not the actual path (predecessors can be tracked for paths).  
+- A greedy algorithm for solving the single-source shortest path problem.
+- Computes the shortest path from one source node to all other nodes in the graph.
+- Works only for **connected graphs** with **non-negative edge weights**.
+- Supports **directed and undirected graphs**.
+- Provides the **cost of shortest paths**, not the actual path (predecessors can be tracked for paths).
 
 ---
 
 ## Pseudocode
 
-**Step 01:** Define two sets:  
-- **Visited set (S):** Vertices included in the shortest path tree. Initially empty.  
-- **Unvisited set (Q):** All vertices of the graph. Initially contains all vertices.  
+```plaintext
+Input: Weighted graph G = (E, V) and source vertex s ∈ V, such that all edge weights are nonnegative.
+Output: Lengths of shortest paths (or the shortest paths themselves) from s to all other vertices.
 
----
+dist[s] ← 0
+for all v ∈ V - {s}
+    do dist[v] ← ∞
 
-**Step 02:** For each vertex `v`:  
-- `n[v]` → predecessor of vertex `v`.  
-- `d[v]` → shortest path estimate from source.  
+S ← ∅  // Visited set
+Q ← V  // Unvisited set (priority queue for optimization, but here as a set)
 
-Initialization:  
-- `n[v] = NIL` for all `v`.  
-- `d[source] = 0`.  
-- `d[v] = ∞` for all other vertices.  
+while Q ≠ ∅
+    do u ← mindistance(Q, dist)  // Extract vertex with minimum dist[u]
+    S ← S ∪ {u}
+    Q ← Q - {u}
+    for all v ∈ neighbors[u]
+        do if dist[v] > dist[u] + w(u, v)
+            then dist[v] ← dist[u] + w(u, v)
+                 π[v] ← u  // Predecessor for path reconstruction
 
----
-
-**Step 03:** Repeat until all vertices are processed:  
-1. Choose `u ∈ Q` with minimum `d[u]`.  
-2. Relax all outgoing edges `(u, v)`:  
-
-   $$
-   \text{if } d[u] + w(u,v) < d[v] \quad \Rightarrow \quad d[v] = d[u] + w(u,v), \; n[v] = u
-   $$
-
-3. Move `u` from `Q` to `S`.  
+return dist
+```
 
 ---
 
@@ -981,23 +986,23 @@ Initialization:
 
 For edge `(a, b)`:
 
-- $d[a]$ = shortest path estimate of `a` from source `s`.  
-- $d[b]$ = shortest path estimate of `b` from source `s`.  
+- $d[a]$ = shortest path estimate of `a` from source `s`.
+- $d[b]$ = shortest path estimate of `b` from source `s`.
 
-Relaxation rule:  
+Relaxation rule:
 
 $$
-\text{if } d[a] + w(a,b) < d[b] \quad \Rightarrow \quad d[b] = d[a] + w(a,b), \; n[b] = a
-$$  
+\text{if } d[a] + w(a,b) < d[b] \quad \Rightarrow \quad d[b] = d[a] + w(a,b), \; \pi[b] = a
+$$
 
 ---
 
 ## Complexity
-- Graph $G$ represented as an **adjacency matrix**.  
-- Priority queue `Q` as an unordered list.  
-- Selecting vertex with smallest distance = $O(V)$.  
-- For each neighbor of `u`, updating distance = $O(1)$ (at most $V$ neighbors).  
-- Each iteration = $O(V)$, repeated $V$ times.  
+- Graph $G$ represented as an **adjacency matrix**.
+- Priority queue `Q` as an unordered list.
+- Selecting vertex with smallest distance = $O(V)$.
+- For each neighbor of `u`, updating distance = $O(1)$ (at most $V$ neighbors).
+- Each iteration = $O(V)$, repeated $V$ times.
 
 **Total complexity:**
 
@@ -1005,20 +1010,197 @@ $$
 O(V^2)
 $$
 
+(With a binary heap for the priority queue, complexity improves to $O((V + E) \log V)$.)
+
+---
+
+## Graph Visualization
+
+Here is the corrected example graph with the missing `c -> d` connection (weight of 3):
+
+```mermaid
+graph LR
+    S((S)) -- "1" --> A((a))
+    S -- "5" --> B((b))
+    A -- "2" --> C((c))
+    A -- "1" --> D((d))
+    A -- "2" --> B
+    C -- "1" --> E((e))
+    D -- "2" --> E
+    B -- "2" --> D
+    C -- "3" --> D
+```
+
 ---
 
 ## Example Run (Initialization)
 
-- **Unvisited set:** {S, a, b, c, d, e}  
-- **Visited set:** { }  
+- **Unvisited set (Q):** {S, a, b, c, d, e}
+- **Visited set (S):** { }
 
-Initialize:  
-- $d[S] = 0$  
-- $d[a] = d[b] = d[c] = d[d] = d[e] = ∞$  
+Initialize:
+- $d[S] = 0$
+- $d[a] = d[b] = d[c] = d[d] = d[e] = ∞$
 
 ---
 
-After relaxing edges from `S`:  
-- **Unvisited set:** {a, b, c, d, e}  
-- **Visited set:** {S}  
+## Step 03 (Process Source S)
+- **Vertex `S` is chosen** (minimum shortest path estimate $d[S] = 0$).
+- Outgoing edges of `S` are relaxed.
 
+**Updates:**
+- $d[S] + 1 = 0 + 1 = 1 < ∞ \Rightarrow d[a] = 1, \pi[a] = S$
+- $d[S] + 5 = 0 + 5 = 5 < ∞ \Rightarrow d[b] = 5, \pi[b] = S$
+
+**Current Distances:**
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 5$, $d[c] = ∞$, $d[d] = ∞$, $d[e] = ∞$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+```
+
+**Updated Sets:**
+- Unvisited: {a, b, c, d, e}
+- Visited: {S}
+
+---
+
+## Step 04
+- **Vertex `a` is chosen** (minimum shortest path estimate $d[a] = 1$).
+- Outgoing edges of `a` are relaxed.
+
+**Updates:**
+- $d[a] + 2 = 1 + 2 = 3 < ∞ \Rightarrow d[c] = 3, \pi[c] = a$
+- $d[a] + 1 = 1 + 1 = 2 < ∞ \Rightarrow d[d] = 2, \pi[d] = a$
+- $d[a] + 2 = 1 + 2 = 3 < 5 \Rightarrow d[b] = 3, \pi[b] = a$ (updated from previous)
+
+**Current Distances:**
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 3$, $d[c] = 3$, $d[d] = 2$, $d[e] = ∞$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+```
+
+**Updated Sets:**
+- Unvisited: {b, c, d, e}
+- Visited: {S, a}
+
+---
+
+## Step 05
+- **Vertex `d` is chosen** (minimum shortest path estimate $d[d] = 2$).
+- Outgoing edges of `d` are relaxed.
+
+**Updates:**
+- $d[d] + 2 = 2 + 2 = 4 < ∞ \Rightarrow d[e] = 4, \pi[e] = d$
+
+**Current Distances:**
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 3$, $d[c] = 3$, $d[d] = 2$, $d[e] = 4$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+    A -- "1" --> D((d))
+```
+
+**Updated Sets:**
+- Unvisited: {b, c, e}
+- Visited: {S, a, d}
+
+---
+
+## Step 06
+- **Vertex `b` is chosen** (minimum shortest path estimate $d[b] = 3$; ties with `c` broken arbitrarily).
+- Outgoing edges of `b` are relaxed.
+
+**Updates:**
+- $d[b] + 2 = 3 + 2 = 5 > 2$ (no update for `d`)
+
+**Current Distances:** (Unchanged)
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 3$, $d[c] = 3$, $d[d] = 2$, $d[e] = 4$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+    A -- "1" --> D((d))
+    A -- "2" --> B((b))
+```
+
+**Updated Sets:**
+- Unvisited: {c, e}
+- Visited: {S, a, d, b}
+
+---
+
+## Step 07
+- **Vertex `c` is chosen** (minimum shortest path estimate $d[c] = 3$).
+- Outgoing edges of `c` are relaxed.
+
+**Updates:**
+- $d[c] + 1 = 3 + 1 = 4 = 4$ (no update for `e` since not strictly less)
+- $d[c] + 3 = 3 + 3 = 6 > 2$ (no update for `d`)
+
+**Current Distances:** (Unchanged)
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 3$, $d[c] = 3$, $d[d] = 2$, $d[e] = 4$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+    A -- "1" --> D((d))
+    A -- "2" --> B((b))
+    A -- "2" --> C((c))
+```
+
+**Updated Sets:**
+- Unvisited: {e}
+- Visited: {S, a, d, b, c}
+
+---
+
+## Step 08
+- **Vertex `e` is chosen** (minimum shortest path estimate $d[e] = 4$).
+- Outgoing edges of `e` are relaxed (none).
+
+**Updates:** None
+
+**Current Distances:** (Unchanged)
+- $d[S] = 0$, $d[a] = 1$, $d[b] = 3$, $d[c] = 3$, $d[d] = 2$, $d[e] = 4$
+
+**After Relaxation (Shortest Path Tree):**
+
+```mermaid
+graph LR
+    S((S)) -- "0" --> A((a))
+    A -- "1" --> D((d))
+    D -- "2" --> E((e))
+    A -- "2" --> B((b))
+    A -- "2" --> C((c))
+```
+
+**Updated Sets:**
+- Unvisited: { }
+- Visited: {S, a, d, b, c, e}
+
+---
+
+## Final Shortest Path Tree
+- All vertices are processed.
+- The **final shortest path tree** represents shortest paths from source `S` to all other vertices.
+
+**Processing Order:**
+
+$$
+S \rightarrow a \rightarrow d \rightarrow b \rightarrow c \rightarrow e
+$$
