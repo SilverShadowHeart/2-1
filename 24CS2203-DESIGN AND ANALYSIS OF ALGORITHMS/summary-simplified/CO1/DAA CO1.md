@@ -1093,3 +1093,294 @@ $$
 ![[Pasted image 20250818200340.png]]
 
 ---
+
+# String Matching Algorithms
+
+## Overview
+- **Purpose**: Text-editing programs often need to locate all instances of a pattern within a text.
+- **Problem Definition**:
+  - Given a text array \( T[1..n] \) of length \( n \) and a pattern array \( P[1..m] \) of length \( m \).
+  - A pattern \( P \) occurs with a shift \( s \) in text \( T \) if  
+
+    $$
+    0 \leq s \leq n - m \quad \text{and} \quad P[1..m] = T[s+1..s+m]
+    $$
+  - If \( P \) occurs at shift \( s \), \( s \) is a valid shift; otherwise, it’s an invalid shift.
+  - The string-matching problem involves identifying all valid shifts where \( P \) appears in \( T \).
+- **Example**:  
+  $$
+  T = \text{ababcabdabcaabc}, \quad P = \text{abc}
+  $$
+  - Occurrences:  
+    - First at \( T[3] \) (shift 2)  
+    - Second at \( T[9] \) (shift 8)  
+    - Third at \( T[13] \) (shift 12)  
+
+### Applications
+- Searching keywords in a file
+- Search engines (e.g., Google, Openfind)
+- Database searching (e.g., GenBank)
+
+---
+
+## Techniques for String Matching
+
+### 1. Naive String-Matching Algorithm
+- **Concept**: A straightforward approach that checks the pattern at every possible position in the text by comparing characters.
+- **Algorithm Design**:
+  
+ 
+ ```
+  Algorithm: Naive_String_Match(T, P)
+      n = length of T
+      m = length of P
+      for s = 0 to n - m do
+          match = true
+          for j = 1 to m do
+              if P[j] ≠ T[s + j] then
+                  match = false
+                  break
+          if match then
+              record s as a valid shift
+ ```
+ 
+![[Pasted image 20250820223203.png]]
+
+- **Example Walkthrough**:
+$$
+T = \text{ababcabdabcaabc}, \quad P = \text{abc}, \quad m = 3, \quad n = 14
+$$
+
+- **Step 1**:  
+  $$
+  s = 0, \quad T[1..3] = \text{aba} \quad \text{(no match)}
+  $$
+
+- **Step 2**:  
+  $$
+  s = 1, \quad T[2..4] = \text{bab} \quad \text{(no match)}
+  $$
+
+- **Step 3**:  
+  $$
+  s = 2, \quad T[3..5] = \text{abc} \quad \text{(match, shift 2)}
+  $$
+
+- **Step 4**:  
+  $$
+  s = 3, \quad T[4..6] = \text{bca} \quad \text{(no match)}
+  $$
+
+- **Step 5**:  
+  $$
+  s = 4, \quad T[5..7] = \text{cab} \quad \text{(no match)}
+  $$
+
+- **Step 6**:  
+  $$
+  s = 5, \quad T[6..8] = \text{abd} \quad \text{(no match)}
+  $$
+
+- **Step 7**:  
+  $$
+  s = 6, \quad T[7..9] = \text{bda} \quad \text{(no match)}
+  $$
+
+- **Step 8**:  
+  $$
+  s = 7, \quad T[8..10] = \text{dab} \quad \text{(no match)}
+  $$
+
+- **Step 9**:  
+  $$
+  s = 8, \quad T[9..11] = \text{abc} \quad \text{(match, shift 8)}
+  $$
+
+- **Step 10**:  
+  $$
+  s = 9, \quad T[10..12] = \text{bca} \quad \text{(no match)}
+  $$
+
+- **Step 11**:  
+  $$
+  s = 10, \quad T[11..13] = \text{caa} \quad \text{(no match)}
+  $$
+
+- **Step 12**:  
+  $$
+  s = 11, \quad T[12..14] = \text{aab} \quad \text{(no match)}
+  $$
+
+- **Step 13**:  
+  $$
+  s = 12, \quad T[13..15] = \text{abc} \quad \text{(match, shift 12)}
+  $$
+
+- **Result**:  
+  $$
+  \text{Valid shifts are } 2, 8, \text{ and } 12
+  $$
+
+---
+
+- **Time Complexity**:  
+  $$
+  O((n - m + 1) \cdot m)
+  $$
+
+  - Best Case:  
+    $$
+    O(m) \quad \text{(e.g., pattern found at start, } T = \text{abcdabdef}, P = \text{ab})
+    $$
+
+  - Worst Case:  
+    $$
+    O(nm) \quad \text{(e.g., } T = \text{aaaaaaab}, P = \text{aab})
+    $$
+
+- **Advantages**:
+    
+    - No preprocessing required.
+        
+    - No extra space needed.
+        
+    - Comparisons can be done in any order.
+        
+- **Disadvantage**: Inefficient as it doesn’t reuse information from previous shifts.
+    
+
+### 2. Rabin-Karp Algorithm
+
+- **Concept**: Matches the hash value of the pattern with the hash value of the current text substring. If hashes match, it verifies with character-by-character comparison.
+    
+- **Algorithm Design**:
+    
+    ```plaintext
+    Algorithm: Rabin_Karp_Match(T, P, d, q)
+        n = length of T
+        m = length of P
+        h_P = hash(P[1..m]) mod q
+        h_T = hash(T[1..m]) mod q
+        for s = 0 to n - m do
+            if h_P = h_T then
+                if P[1..m] = T[s+1..s+m] then
+                    record s as a valid shift
+            if s < n - m then
+                h_T = (d * (h_T - T[s+1] * d^(m-1)) + T[s+m+1]) mod q
+    ```
+    
+- **Hash Function Types**:  
+
+1. **Simple Sum Hash**  
+   $$
+   h(f) = \sum_{i=1}^{m} a_i
+   $$
+   Example:  
+   $$
+   h(\text{ababc}) = 1 + 2 + 1 + 2 + 3 = 9
+   $$
+
+2. **Polynomial Hash**  
+   $$
+   h(f) = \sum_{i=1}^{m} a_i \cdot d^{m-i}
+   $$
+   Example:  
+   $$
+   h(\text{ababc}) = 1 \cdot 10^4 + 2 \cdot 10^3 + 1 \cdot 10^2 + 2 \cdot 10 + 3 = 12123
+   $$
+
+3. **Modulo Hash**  
+   $$
+   h(f) = (\text{value}) \bmod q
+   $$
+   Example:  
+   $$
+   12345 \bmod 11 = 2
+   $$
+
+---
+
+**Example (Rabin-Karp)**:  
+
+Given:  
+$$
+T = 31415926535, \quad P = 26, \quad q = 11
+$$  
+
+- Pattern hash:  
+  $$
+  h_P = 26 \bmod 11 = 4
+  $$  
+
+- Text substring hashes:  
+
+  $$
+  314 \bmod 11 = 9 \quad \text{(no match)}
+  $$
+  $$
+  141 \bmod 11 = 3 \quad \text{(no match)}
+  $$
+  $$
+  415 \bmod 11 = 8 \quad \text{(no match)}
+  $$
+  $$
+  159 \bmod 11 = 4 \quad \text{(spurious hit, verify: no match)}
+  $$
+  $$
+  592 \bmod 11 = 4 \quad \text{(spurious hit, verify: no match)}
+  $$
+  $$
+  926 \bmod 11 = 4 \quad \text{(spurious hit, verify: match at shift 2)}
+  $$
+  $$
+  265 \bmod 11 = 4 \quad \text{(spurious hit, verify: no match)}
+  $$
+  $$
+  653 \bmod 11 = 9 \quad \text{(no match)}
+  $$
+  $$
+  535 \bmod 11 = 2 \quad \text{(no match)}
+  $$
+
+
+![[Pasted image 20250820223242.png]]
+
+![[Pasted image 20250820223252.png]]
+
+![[Pasted image 20250820223302.png]]
+
+  As we can see, when a match is found, further testing is done to ensure that a game has indeed been found.
+---
+
+**Time Complexity**:  
+
+- Best/Average Case:  
+  $$
+  O(n + m)
+  $$  
+
+- Worst Case:  
+  $$
+  O(nm)
+  $$
+
+- **Applications**:
+    
+    - Substring search in large texts
+        
+    - Plagiarism detection
+        
+    - Bioinformatics (DNA sequences)
+        
+    - Database string querying
+        
+
+
+---
+
+## Notes
+
+- The Naive algorithm is simple but inefficient for large texts due to redundant comparisons.
+    
+- Rabin-Karp is efficient with good hash functions but suffers from spurious hits.
+    

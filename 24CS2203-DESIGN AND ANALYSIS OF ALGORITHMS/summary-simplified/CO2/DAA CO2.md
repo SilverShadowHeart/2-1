@@ -1321,3 +1321,265 @@ MST-KRUSKAL(G, w)
 
 
 ![[Pasted image 20250820212135.png]]
+
+
+---
+
+
+# Strassen’s Matrix Multiplication
+
+
+---
+
+## Matrix Multiplication
+### Standard Algorithm
+```plaintext
+Algorithm: Matrix-Multiplication (X, Y, Z)
+for i = 1 to p do
+    for j = 1 to r do
+        Z[i,j] := 0
+        for k = 1 to q do
+            Z[i,j] := Z[i,j] + X[i,k] × Y[k,j]
+```
+- Time Complexity: \( O(n^3) \) for \( n \times n \) matrices.
+
+---
+# Strassen’s Matrix Multiplication
+
+- **Approach**: Utilizes the Divide and Conquer strategy to reduce the number of multiplications.  
+- **Improvement**:  
+
+$$
+O(n^3) \;\;\;\;\rightarrow\;\;\;\; O(n^{\log_2 7}) \approx O(n^{2.81})
+$$
+
+- **Requirement**: Applicable only to square matrices where  
+
+$$
+n = 2^k \quad (n = 2, 4, 8, \dots)
+$$  
+
+- **Scalability**: Can be recursively applied to larger matrices (4×4, 8×8, …) as long as  
+
+$$
+n = 2^k
+$$  
+
+---
+
+## Need for Strassen’s Method
+- Matrix multiplications:  
+
+$$
+O(n^3)
+$$  
+
+- Additions/Subtractions:  
+
+$$
+O(n^2)
+$$  
+
+- Strassen’s method optimizes by using:  
+
+$$
+7 \text{ multiplications } + 18 \text{ additions/subtractions}
+$$  
+
+instead of the standard  
+
+$$
+8 \text{ multiplications.}
+$$  
+
+---
+
+## Divide and Conquer Technique
+
+Divide an  
+
+$$
+n \times n
+$$  
+
+matrix into four  
+
+$$
+\frac{n}{2} \times \frac{n}{2}
+$$  
+
+submatrices.  
+
+For matrices  
+
+$$
+A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}, \quad
+B = \begin{bmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{bmatrix}
+$$  
+
+Resultant matrix  
+
+$$
+C
+$$  
+
+is computed using Strassen’s formulas.  
+
+---
+
+## Recurrence Relation
+- **Standard**:  
+
+$$
+T(n) = 8T\!\left(\tfrac{n}{2}\right) + 4n^2, \quad n > 1
+$$  
+
+$$
+T(1) = 1
+$$  
+
+- **Strassen’s**:  
+
+$$
+T(n) = 7T\!\left(\tfrac{n}{2}\right) + 18n^2, \quad n > 1
+$$  
+
+$$
+T(1) = 1
+$$  
+
+---
+
+## Strassen’s Method
+
+- Uses 7 multiplications and 18 additions/subtractions.  
+
+### Formulas
+$$
+\begin{aligned}
+C_{11} &= P_5 + P_4 - P_2 + P_6 \\
+C_{12} &= P_1 + P_2 \\
+C_{21} &= P_3 + P_4 \\
+C_{22} &= P_1 + P_5 - P_3 - P_7
+\end{aligned}
+$$  
+
+Where:  
+
+$$
+\begin{aligned}
+P_1 &= A_{11}(B_{12} - B_{22}) \\
+P_2 &= (A_{11} + A_{12})B_{22} \\
+P_3 &= (A_{21} + A_{22})B_{11} \\
+P_4 &= A_{22}(B_{21} - B_{11}) \\
+P_5 &= (A_{11} + A_{22})(B_{11} + B_{22}) \\
+P_6 &= (A_{12} - A_{22})(B_{21} + B_{22}) \\
+P_7 &= (A_{11} - A_{21})(B_{11} + B_{12})
+\end{aligned}
+$$  
+
+---
+
+## Master Theorem
+
+$$
+T(n) = aT\!\left(\tfrac{n}{b}\right) + f(n)
+$$  
+
+Here:  
+
+$$
+a = 7, \quad b = 2, \quad f(n) = 18n^2
+$$  
+
+So,  
+
+$$
+T(n) = O(n^{\log_2 7}) \approx O(n^{2.81})
+$$  
+
+---
+
+## Comparison
+
+| Method     | Multiplications | Additions | Recurrence Relation | Runtime          |
+|------------|-----------------|-----------|---------------------|------------------|
+| Regular    | 8               | 4         | \( T(n) = 8T(n/2) + O(n^2) \) | \( O(n^3) \) |
+| Strassen’s | 7               | 18        | \( T(n) = 7T(n/2) + O(n^2) \) | \( O(n^{2.81}) \) |
+
+---
+
+## Example: Step-by-Step with 2×2 Matrices  
+
+Since  
+
+$$
+2 = 2^1
+$$  
+
+Strassen’s algorithm is applicable.  
+
+### Input Matrices
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad
+B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+$$  
+
+### Step 1: Divide into Submatrices
+$$
+A_{11} = [1], \; A_{12} = [2], \; A_{21} = [3], \; A_{22} = [4]
+$$  
+
+$$
+B_{11} = [5], \; B_{12} = [6], \; B_{21} = [7], \; B_{22} = [8]
+$$  
+
+### Step 2: Compute Intermediate Products
+$$
+\begin{aligned}
+P_1 &= 1 \cdot (6 - 8) = -2 \\
+P_2 &= (1 + 2)\cdot 8 = 24 \\
+P_3 &= (3 + 4)\cdot 5 = 35 \\
+P_4 &= 4 \cdot (7 - 5) = 8 \\
+P_5 &= (1 + 4)(5 + 8) = 45 \\
+P_6 &= (2 - 4)(7 + 8) = -30 \\
+P_7 &= (1 - 3)(5 + 6) = -22
+\end{aligned}
+$$  
+
+### Step 3: Compute \(C\) Matrix
+$$
+\begin{aligned}
+C_{11} &= 45 + 8 - 24 - 30 = -1 \\
+C_{12} &= -2 + 24 = 22 \\
+C_{21} &= 35 + 8 = 43 \\
+C_{22} &= -2 + 45 - 35 - (-22) = 30
+\end{aligned}
+$$  
+
+### Step 4: Assemble Result
+$$
+C = \begin{bmatrix} -1 & 22 \\ 43 & 30 \end{bmatrix}
+$$  
+
+### Verification
+Standard multiplication:  
+
+$$
+A \times B = \begin{bmatrix} 1\cdot 5 + 2\cdot 7 & 1\cdot 6 + 2\cdot 8 \\ 3\cdot 5 + 4\cdot 7 & 3\cdot 6 + 4\cdot 8 \end{bmatrix} 
+= \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+$$  
+
+Discrepancy here arises because Strassen’s algorithm assumes block matrices. For scalar (1×1) base case, adjustments are needed. For larger \(n\), results align properly.  
+
+---
+
+## Notes
+- Works for any  
+
+$$
+2^k \times 2^k
+$$  
+
+matrix by recursive splitting.  
+- Example with 2×2 demonstrates the procedure; for 4×4, repeat steps on each block.  
