@@ -1204,3 +1204,120 @@ graph LR
 $$
 S \rightarrow a \rightarrow d \rightarrow b \rightarrow c \rightarrow e
 $$
+
+---
+
+# Spanning Trees - MST (Minimum Spanning Tree) and Greedy Method
+
+
+## Graph Basics
+- **Definition**: A graph is a set of vertices and edges, denoted as \( G = \{V, E\} \).
+- **Tree Definition**: A tree is a connected undirected graph with no cycles.
+  - Properties:
+    - Acyclic
+    - \( N \) nodes
+    - \( N - 1 \) edges
+  - Note: Every tree is a graph, but not every graph is a tree.
+![[Pasted image 20250820211807.png]]
+
+---
+
+## Spanning Tree
+- A connected graph \( G \) can have more than one spanning tree.
+- All possible spanning trees of graph \( G \) have the same number of edges and vertices.
+- Properties:
+  - Does not contain any cycles (loops).
+  - Removing one edge makes the graph disconnected (minimally connected).
+  - Adding one edge creates a circuit or loop (maximally acyclic).
+
+### Spanning Tree Definition
+- A spanning tree of \( G \) is a subgraph \( T \) that:
+  - Includes all vertices of the given graph.
+  - Has \( |V| - 1 \) edges.
+  - \( T \subseteq G \), where \( T = \{V' = V, E' \subseteq E\} \).
+- **Properties**:
+  - A graph may have many spanning trees.
+  - If \( G = \{V, E\} \), the possible spanning trees are \( 2^{|E| - |V| + 1} \) (approximate).
+  - Removing one edge from the spanning tree disconnects it.
+  - Adding one edge creates a cycle.
+  - If each edge has a distinct weight, there is only one unique minimum cost spanning tree.
+  - A disconnected graph has no spanning tree.
+
+### Example Spanning Trees
+
+
+---
+
+## Minimum Spanning Tree (MST)
+- **Definition**: An MST is the spanning tree with the smallest total cost or minimum weight among all spanning trees.
+- **Example**:
+
+### Applications
+- Computer Networks: Connect computers with minimum wire.
+- Civil Network Planning
+- Computer Network Routing Protocol
+- Cluster Analysis
+
+---
+
+## Kruskal's Algorithm
+- **Definition**: A greedy algorithm that finds the minimum spanning tree for a connected weighted graph.
+- **Approach**: Treats every node as an independent tree and connects them with the lowest cost edge, avoiding cycles.
+- **Steps**:
+  1. Sort the graph edges by weight in non-decreasing order.
+  2. Add edges to the MST starting from the smallest weight until the largest, ensuring no cycles are formed.
+  3. Only add edges that connect disconnected components.
+
+### Pseudocode
+```plaintext
+MST-KRUSKAL(G, w)
+    T ← Ø
+    cost ← 0
+    for each vertex v ∈ V[G]
+        do MAKE-SET(v)
+    sort the edges of E into nondecreasing order by weight w
+    for each edge (u, v) ∈ E, taken in nondecreasing order by weight
+        do if FIND-SET(u) ≠ FIND-SET(v)
+            then T.E ← T.E ∪ {(u, v)}
+                 UNION(u, v)
+                 cost ← cost + w(u, v)
+    return cost
+```
+
+### Example
+
+![[Pasted image 20250820211840.png]]
+
+- Graph with edges and weights:
+- 
+![[Pasted image 20250820211856.png]]
+
+![[Pasted image 20250820211918.png]]
+
+![[Pasted image 20250820211933.png]]
+
+![[Pasted image 20250820211945.png]]
+
+![[Pasted image 20250820212004.png]]
+
+![[Pasted image 20250820212102.png]]
+
+![[Pasted image 20250820212114.png]]
+
+### Time Complexity
+- Dominated by sorting edge costs.
+- With an efficient sorting algorithm (e.g., merge sort), complexity is \( O(E \log E) \).
+
+---
+
+## Prim's Algorithm
+- **Definition**: A greedy algorithm to find the MST of a weighted, connected, undirected graph.
+- **Approach**:
+  - Start with the minimum cost edge.
+  - Select the minimum cost edge connected to already selected vertices.
+  - Continue until the tree has \( n - 1 \) edges.
+
+### Differences
+
+
+![[Pasted image 20250820212135.png]]
