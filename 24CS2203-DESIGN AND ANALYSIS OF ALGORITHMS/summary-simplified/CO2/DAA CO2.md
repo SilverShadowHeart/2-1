@@ -826,6 +826,7 @@ Algorithm MergeSort(low, high)
 
 # QUICK SORT
 
+## [Watch Here](https://youtu.be/7h1s2SojIRw?si=TakMBG20jI4VzHfU)
 
 **Concept:**  
 Divide and Conquer algorithm. Pick a pivot, partition the array around it, then recursively sort the subarrays.
