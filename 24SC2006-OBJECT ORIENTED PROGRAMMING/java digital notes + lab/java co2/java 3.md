@@ -22,11 +22,10 @@ public access modifier
 - the public access modifier is specified using the keyword public 
 - the public access modifier 
 
-```|context|default|private|protected|public |
-   |-------|-------|-------|---------|-------|
-   | sameclass| yes|yes|yes|yes|
-   |same packagage subclass| yes |no| yes|yes
-	same packagenonsubclass yes no yes yes
-	differnet package subclass  no no yes yes
-	different package non subclass  no no no yes
-```
+| Context                        | default | private | protected | public |
+|--------------------------------|---------|---------|-----------|--------|
+| Same class                     | yes     | yes     | yes       | yes    |
+| Same package subclass          | yes     | no      | yes       | yes    |
+| Same package non-subclass      | yes     | no      | yes       | yes    |
+| Different package subclass     | no      | no      | yes       | yes    |
+| Different package non-subclass | no      | no      | no        | yes    |
