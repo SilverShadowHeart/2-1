@@ -16,4 +16,4 @@ This repo contains **general notes** for all KLH 2-1 subjects. Anything importan
 For updates or requests, DM on Discord: **@S H A D O W H E A R T**  
 ⭐ Star this repo or put it on your watch list if you don’t want to miss any updates.  
 
-🙏 Thanks to everyone contributing – your help keeps this repo alive and useful!
+🙏 Thanks to everyone contributing – your help keeps this repo alive and useful! 🌟
