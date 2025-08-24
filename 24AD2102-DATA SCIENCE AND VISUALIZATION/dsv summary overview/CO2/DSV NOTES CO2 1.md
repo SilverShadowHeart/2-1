@@ -1579,6 +1579,28 @@ A dataset with features like customer age, income, and purchase history can be r
 
 ## Dimensionality Reduction
 
+### **Wavelet Transforms**
+
+- **Discrete Wavelet Transform (DWT)**:
+    
+    - Linear signal processing method.
+        
+    - Transforms a data vector XXX into a **numerically different vector** X′X'X′ of **wavelet coefficients**.
+        
+    - **Length preserved**: ∣X∣=∣X′∣|X| = |X'|∣X∣=∣X′∣.
+        
+- **Application to Data Reduction**:
+    
+    - Treat each tuple as an **n-dimensional vector**:
+        
+        X=(x1,x2,…,xn)X = (x_1, x_2, \dots, x_n)X=(x1​,x2​,…,xn​)
+        
+        where each xix_ixi​ is a measurement from one of the nnn attributes.
+        
+    - DWT captures both **coarse and detailed features**, allowing selective storage or elimination of less significant coefficients.
+        
+- **Key Benefit**: Enables **numerosity reduction** without losing the overall structure of the data.
+
 ### Principal Component Analysis (PCA)
 
 - **Definition**: Transforms high-dimensional data into fewer dimensions while retaining most variance.
@@ -1591,6 +1613,8 @@ A dataset with features like customer age, income, and purchase history can be r
 - **Interpretation**:
     - Principal components are linear combinations of original features.
     - Explained variance indicates how much information each component retains.
+
+![[Pasted image 20250824222139.png]]
 
 **Detailed Explanation**:  
 PCA reduces dimensionality by transforming data into a new coordinate system where principal components (PCs) capture maximum variance. Each PC is a linear combination ($PC_i = w_{i1}X_1 + w_{i2}X_2 + \dots$), with weights derived from eigenvectors of the covariance matrix. Eigenvalues indicate variance captured by each PC. Selecting the top $k$ components (where $k < n$, the original number of features) reduces dimensionality while retaining most information (e.g., 95% of variance).
@@ -1654,6 +1678,8 @@ plt.show()
 
 **Detailed Explanation**:  
 Data cube aggregation summarizes data across multiple dimensions (e.g., time, region, product) to create compact views for analysis. For example, daily sales can be aggregated to yearly totals, reducing dataset size while preserving trends. This is common in data warehouses for OLAP queries.
+
+![[Pasted image 20250824222328.png]]
 
 **Example with Separate Tables**:  
 Your example: Quarterly electronics sales from 2018–2022 aggregated annually.
@@ -1773,6 +1799,13 @@ plt.show()
 **Detailed Explanation**:  
 Sampling selects a subset of records to represent the full dataset, reducing size while preserving characteristics. Random sampling picks points randomly but may miss rare classes in skewed data. Stratified sampling ensures proportional representation of subgroups (e.g., classes in classification). Systematic sampling selects every $n$-th record, useful for ordered data.
 
+
+![[Pasted image 20250824222303.png]]
+
+![[Pasted image 20250824222248.png]]
+
+![[Pasted image 20250824222355.png]]
+
 **Example with Separate Tables**:  
 
 
@@ -1821,7 +1854,7 @@ print(train['Label'].value_counts(), test['Label'].value_counts())
 ![[Pasted image 20250824221800.png]]
 
 
-
+systematic sampling 
 
 ```python
 # Generate sample data
@@ -1922,6 +1955,36 @@ Consider a dataset with `Feature1` (low variance).
 |**Calculation**:|
 
 - Variance of `Feature1`: $\sigma^2 \approx 0.0001 < 0.05$, so drop.
+
+### **Numerosity Reduction**
+
+Methods to reduce dataset size while retaining key information:
+
+#### A. **Parametric Methods**
+
+- Assume data fits a model.
+    
+- Estimate and store **model parameters**, discard raw data (except outliers).
+    
+- Example: **Log-linear models** – value at a point in m-D space = product over marginal subspaces.
+    
+
+#### B. **Non-Parametric Methods**
+
+- No assumptions about data distribution.
+    
+- Main techniques:
+    
+    1. **Histograms** – summarize frequency distributions.
+        
+    2. **Clustering** – group similar data points.
+        
+    3. **Aggregation** – combine data points into summary statistics.
+        
+    4. **Sampling** – select representative subset.
+        
+    5. **Data Cubes** – multidimensional summaries for fast queries.
+
 
 ## Parametric Methods: Regression and Log-Linear Models
 
@@ -2028,6 +2091,8 @@ Consider a dataset with categorical variables `A, B, C`.
 **Detailed Explanation**:  
 Histograms group data into buckets, storing summary statistics (e.g., mean, sum) to reduce size. For example, ages are binned into ranges, storing the average per bin. Dynamic programming optimizes bin boundaries in 1D.
 
+![[Pasted image 20250824222418.png]]
+
 **Example with Separate Tables**:  
 Consider ages.
 
@@ -2081,6 +2146,28 @@ Consider customer data.
 - Cluster 1: Mean of (1.0, 1.2), (1.1, 1.3) = (1.05, 1.25)
 - Cluster 2: Single point (5.0, 5.1).
 
+# Data compression 
+
+![[Pasted image 20250824222537.png]]
+
+### 1. **String Compression**
+
+- Numerous algorithms exist, mostly **lossless**.
+    
+- **Limitations:** Direct manipulation on compressed data is limited; expansion often needed.
+    
+
+### 2. **Audio/Video Compression**
+
+- Mostly **lossy**, often with **progressive refinement**.
+    
+- Partial reconstruction is sometimes possible without full decompression.
+    
+- Key differences from strings:
+    
+    - Signal is time-sequenced.
+        
+    - Sequences are short and change slowly over time.
 
 ## Discretization and Concept Hierarchy Generation
 
@@ -2129,192 +2216,317 @@ Data reduction risks losing information (e.g., dropping features), requires comp
 Reducing a large dataset enables faster training of a model like $Y = b_0 + b_1 X_1$, improving scalability.
 
 ---
-
-#### 5) Data Discretization
-- Converts **continuous numeric data** into **discrete categories/intervals**.  
-- Helps when classification is needed based on nominal values.  
-- Aim: achieve simplification with **minimal loss of information**.  
-
----
-
 # Data Discretization
 
-**Definition:**  
-Data discretization transforms continuous attributes into a finite set of intervals (bins or categories).
+## Definition and Purpose
 
-**Purpose:**
+- **Definition**: Converts continuous numeric data into discrete categories/intervals.
+- **Purpose**:
+    - Simplifies models and improves interpretability.
+    - Reduces overfitting.
+    - Required for algorithms that don’t support continuous variables (e.g., Naive Bayes, association rules).
+- **Aim**: Achieve simplification with minimal loss of information.
 
-- Simplifies models and improves interpretability.
-    
-- Reduces overfitting.
-    
-- Required for algorithms that don’t support continuous variables (e.g., Naive Bayes, association rules).
-    
+**Detailed Explanation**:  
+Data discretization transforms continuous data (e.g., ages like 23.5, 45.2) into discrete categories (e.g., "Young", "Middle-aged") to simplify analysis and make models more interpretable. For example, discretizing blood pressure into "Low", "Normal", "High" aids medical decision-making. It reduces overfitting by grouping similar values, preventing models from fitting noise. Algorithms like Naive Bayes require categorical inputs, as they compute probabilities over discrete values ($P(X | Y)$). The goal is to retain essential patterns while simplifying data.
 
-**Real-World Examples:**
+**Real-World Examples**:
 
-- **Medical:** Convert blood pressure into "Low", "Normal", "High".
-    
-- **Marketing:** Segment customer age into ranges like "<18", "18–35", "35–50".
-    
+- **Medical**: Blood pressure (e.g., 120.5 mmHg) → "Low", "Normal", "High".
+- **Marketing**: Customer age (e.g., 23, 45) → "<18", "18–35", "35–50".
 
----
+**Mermaid Diagram: Discretization Process**:
 
-# Types of Discretization
+```mermaid
+flowchart TD
+    A[Continuous Data] --> B[Choose Discretization Method]
+    B --> C[Unsupervised: Binning/Clustering]
+    B --> D[Supervised: Entropy/ChiMerge]
+    C --> E[Discrete Categories]
+    D --> E
+    E --> F[Analysis/Visualization]
+```
+
+## Types of Discretization
 
 |Method|Supervision|Example|
 |---|---|---|
-|Unsupervised|No class labels|Binning (equal-width, equal-frequency), Clustering|
+|Unsupervised|No class labels|Binning, Clustering|
 |Supervised|Uses class labels|Entropy-based, ChiMerge|
 
----
+**Detailed Explanation**:  
+Discretization methods are divided into:
 
-# Unsupervised Discretization Methods
+- **Unsupervised**: No class labels needed; focus on data distribution (e.g., binning divides values into intervals, clustering groups similar values).
+- **Supervised**: Use class labels to guide bin boundaries, optimizing for classification tasks (e.g., entropy-based methods maximize information gain).
 
-## 1. Equal-Width Binning
+## Unsupervised Discretization Methods
 
-- Divide the range of values into `k` intervals of equal width.
-    
-- **Bin width formula:**
-    
+### 1. Equal-Width Binning
 
-Width=max⁡(X)−min⁡(X)k\text{Width} = \frac{\max(X) - \min(X)}{k}Width=kmax(X)−min(X)​
-
-- Steps:
-    
+- **Definition**: Divide the range of values into $k$ intervals of equal width.
+- **Formula**: $\text{Width} = \frac{\max(X) - \min(X)}{k}$
+- **Steps**:
     1. Determine min and max values.
-        
     2. Calculate bin width.
-        
     3. Assign each value to a bin.
-        
 
-## 2. Equal-Frequency Binning (Quantile Binning)
+**Detailed Explanation**:  
+Equal-width binning splits the data range into $k$ equal-sized intervals. For example, if ages range from 0 to 100 and $k=4$, each bin spans 25 years. Each value is assigned to the bin covering its range. This is simple but may create uneven bin populations for skewed data, potentially leaving some bins empty.
 
-- Each bin contains approximately the same number of data points.
-    
-- Useful for skewed distributions.
-    
+**Example with Separate Tables**:  
+Consider ages: [15, 25, 45, 60].
 
-**Python Example:**
+**Before Table**:
 
-`import pandas as pd import numpy as np  data = pd.DataFrame({'value': np.random.randint(0, 100, 15)}) # Equal-width bins data['equal_width'] = pd.cut(data['value'], bins=4) # Equal-frequency bins data['equal_freq'] = pd.qcut(data['value'], q=4) print(data)`
+|Age|
+|---|
+|15|
+|25|
+|45|
+|60|
 
-**Comparison:**
+**After Table (Equal-Width, $k=4$)**:
 
-|Feature|Equal Width|Equal Frequency|
-|---|---|---|
-|Bin Size|Fixed|Varies|
-|Distribution|Can be skewed|Balanced|
-|Interpretability|Easy|Moderate|
-|Outliers|May create empty bins|More robust|
+|Age_Bin|
+|---|
+|[0, 25)|
+|[0, 25)|
+|[25, 50)|
+|[50, 75)|
+|**Calculation**:|
 
-**Visualization:**
+- Range: $\max(X) = 60$, $\min(X) = 15$, so $\text{Width} = \frac{60 - 15}{4} = 11.25$.
+- Bins: [15, 26.25), [26.25, 37.5), [37.5, 48.75), [48.75, 60].
+- Assign: 15 → [15, 26.25), 25 → [15, 26.25), 45 → [37.5, 48.75), 60 → [48.75, 60].
 
-`import matplotlib.pyplot as plt data['value'].hist(bins=10) plt.title("Distribution") plt.show()`
+```python 
+import pandas as pd
 
----
+import numpy as np
 
-# Clustering-Based Discretization
+data = pd.DataFrame({'value': np.random.randint(0, 100, 15)})
 
-- Use clustering algorithms (e.g., KMeans) to form bins.
-    
-- Steps:
-    
+data['equal_width_bin'] = pd.cut(data['value'], bins=4)
+
+print(data)
+```
+
+![[Pasted image 20250824223736.png]]
+
+### 2. Equal-Frequency Binning (Quantile Binning)
+
+- **Definition**: Each bin contains approximately the same number of data points.
+- **Use**: Useful for skewed distributions.
+
+**Detailed Explanation**:  
+Equal-frequency binning divides data so each bin has roughly $n/k$ points, where $n$ is the number of data points and $k$ is the number of bins. This balances bin populations, making it robust for skewed data (e.g., income distributions). Boundaries are set at quantiles (e.g., quartiles for $k=4$).
+
+**Example with Separate Tables**:  
+Consider ages: [15, 20, 25, 30, 45, 60].
+
+**Before Table**:
+
+|Age|
+|---|
+|15|
+|20|
+|25|
+|30|
+|45|
+|60|
+
+**After Table (Equal-Frequency, $k=3$)**:
+
+|Age_Bin|
+|---|
+|[15, 20]|
+|[15, 20]|
+|[21, 30]|
+|[21, 30]|
+|[31, 60]|
+|[31, 60]|
+|**Calculation**:|
+
+- Sort ages: [15, 20, 25, 30, 45, 60].
+- Divide into 3 bins, each with ~2 points: [15, 20], (20, 30], (30, 60].
+- Assign: 15, 20 → [15, 20]; 25, 30 → (20, 30]; 45, 60 → (30, 60].
+
+**Comparison Table**:
+
+| Feature          | Equal Width           | Equal Frequency |
+| ---------------- | --------------------- | --------------- |
+| Bin Size         | Fixed                 | Varies          |
+| Distribution     | Can be skewed         | Balanced        |
+| Interpretability | Easy                  | Moderate        |
+| Outliers         | May create empty bins | More robust     |
+ 
+![[Pasted image 20250824223804.png]]
+
+
+## visualizing Binning 
+```python
+import matplotlib.pyplot as plt
+
+data['value'].hist(bins=10)
+
+plt.title("Original Distribution")
+
+plt.show()
+```
+
+![[Pasted image 20250824223904.png]]
+
+## Clustering-Based Discretization
+
+- **Definition**: Use clustering algorithms (e.g., KMeans) to form bins.
+- **Steps**:
     1. Apply clustering to continuous values.
-        
     2. Assign cluster labels as discrete bins.
-        
+- **Pros**: Finds natural groupings, adapts to data distribution.
+- **Cons**: Sensitive to $k$, unstable on small datasets.
 
-`from sklearn.cluster import KMeans  data = pd.DataFrame({'value': np.random.rand(20)*100}) kmeans = KMeans(n_clusters=4, random_state=42) data['cluster'] = kmeans.fit_predict(data[['value']]) print(data.sort_values('value'))`
+**Detailed Explanation**:  
+Clustering-based discretization groups similar values into clusters, treating cluster labels as bins. For example, KMeans clusters data points based on proximity ($min \sum (x_i - \mu_j)^2$), assigning each point to the nearest cluster center. This adapts to natural data patterns but requires choosing $k$ and may vary with small datasets.
 
-**Pros:**
+**Example with Separate Tables**:  
+Consider scores: [10, 12, 50, 55, 90].
 
-- Finds natural groupings, adapts to data distribution.  
-    **Cons:**
-    
-- Sensitive to `k`, unstable on small datasets.
-    
+**Before Table**:
 
----
+|Score|
+|---|
+|10|
+|12|
+|50|
+|55|
+|90|
 
-# Supervised Discretization
+**After Table (Clustering, $k=3$)**:
 
-## 1. Entropy-Based (ID3 / C4.5)
+|Cluster_Label|
+|---|
+|Cluster_1|
+|Cluster_1|
+|Cluster_2|
+|Cluster_2|
+|Cluster_3|
+|**Calculation**:|
 
-- Uses **information gain** to select bin boundaries, similar to decision tree splits.
-    
+- Cluster centers (approximate): 11 (for 10, 12), 52.5 (for 50, 55), 90 (for 90).
+- Assign: 10, 12 → Cluster_1; 50, 55 → Cluster_2; 90 → Cluster_3.
 
-**Formulas:**
+```python 
+from sklearn.cluster import KMeans
 
-- Entropy:
-    
+data = pd.DataFrame({'value': np.random.rand(20) * 100})
 
-H(S)=−∑Pilog⁡2PiH(S) = - \sum P_i \log_2 P_iH(S)=−∑Pi​log2​Pi​
+kmeans = KMeans(n_clusters=4, random_state=42)
 
-- Information Gain:
-    
+data['cluster'] = kmeans.fit_predict(data[['value']])
 
-Gain(S,A)=H(S)−∑∣Sv∣∣S∣H(Sv)\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)Gain(S,A)=H(S)−∑∣S∣∣Sv​∣​H(Sv​)
+print(data.sort_values('value'))
+```
 
-**Python Example:**
-
-`from sklearn.tree import DecisionTreeClassifier import pandas as pd  df = pd.DataFrame({'value':[10,20,30,40,50],'label':['A','A','B','B','B']}) tree = DecisionTreeClassifier(max_leaf_nodes=3) tree.fit(df[['value']], df['label']) threshold = tree.tree_.threshold[0] print(f'Best split at: {threshold}')`
-
-- **Output:** Best split at: 25.0
-    
-
-**Pros:** Captures class info, good for classification tasks.  
-**Cons:** Requires labels, computationally heavier than simple binning.
-
----
-
-# Advanced Supervised Methods
-
-- **ChiMerge:** Merges adjacent bins using Chi-Square test.
-    
-- **MDL (Minimum Description Length):** Balances complexity vs. accuracy.
-    
-- **CAIM (Class-Attribute Interdependence Maximization):** Optimizes discretization based on class information.
-    
-
----
-
-# Discretization with Pandas
-
-`import pandas as pd import numpy as np from sklearn.cluster import KMeans import seaborn as sns  # Dataset df = pd.DataFrame({'score': np.random.normal(70, 10, 100)})  # Equal-width df['equal_width'] = pd.cut(df['score'], bins=4) # Equal-frequency df['equal_freq'] = pd.qcut(df['score'], q=4) # Clustering-based kmeans = KMeans(n_clusters=4, random_state=0) df['cluster'] = kmeans.fit_predict(df[['score']])  # Visualize sns.histplot(data=df, x='score', hue='equal_freq', multiple='stack')`
-
----
-
-# Summary
-
-**Why Discretize?**
-
-- Simplifies models, improves interpretability.
-    
-- Reduces overfitting.
-    
-- Needed for algorithms that require categorical input.
-    
-
-**Common Methods:**
-
-1. Equal-width / Equal-frequency binning (unsupervised)
-    
-2. Clustering-based binning (unsupervised)
-    
-3. Entropy-based and ChiMerge (supervised)
-    
-
-**Key Takeaways:**
-
-- Equal-frequency is better for skewed data.
-    
-- Clustering adapts to natural distributions.
-    
-- Supervised methods leverage class information for predictive tasks.
+![[Pasted image 20250824223940.png]]
 
 
+## Supervised Discretization
+
+### 1. Entropy-Based (ID3 / C4.5)
+
+- **Definition**: Uses information gain to select bin boundaries, similar to decision tree splits.
+- **Formulas**:
+    - Entropy: $H(S) = -\sum P_i \log_2 P_i$
+    - Information Gain: $\text{Gain}(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$
+- **Pros**: Captures class info, good for classification.
+- **Cons**: Requires labels, computationally heavier.
+
+**Detailed Explanation**:  
+Entropy-based discretization splits data to maximize information gain, as in decision trees. Entropy measures uncertainty ($H(S)$), and information gain quantifies how much a split reduces uncertainty. For example, splitting ages at 30 may separate classes (e.g., "Buy" vs. "Not Buy") effectively. This is ideal for classification but requires labels and more computation.
+
+**Example with Separate Tables**:  
+Consider values with labels: [10, 20, 30, 40, 50] with labels [A, A, B, B, B].
+
+**Before Table**:
+
+|Value|Label|
+|---|---|
+|10|A|
+|20|A|
+|30|B|
+|40|B|
+|50|B|
+
+**After Table (Entropy-Based, Split at 25)**:
+
+|Value_Bin|Label|
+|---|---|
+|<=25|A|
+|<=25|A|
+|>25|B|
+|>25|B|
+|>25|B|
+|**Calculation**:||
+
+- Entropy before split: $H(S) = -\left(\frac{2}{5} \log_2 \frac{2}{5} + \frac{3}{5} \log_2 \frac{3}{5}\right) \approx 0.971$.
+- Split at 25: $S_1 = {10, 20}$ (all A), $S_2 = {30, 40, 50}$ (all B).
+- Entropy after: $H(S_1) = 0$, $H(S_2) = 0$, so $\text{Gain} = 0.971 - \left(\frac{2}{5} \cdot 0 + \frac{3}{5} \cdot 0\right) = 0.971$.
+- Best split at 25 (max gain).
+
+## Advanced Supervised Methods
+
+- **ChiMerge**: Merges adjacent bins using Chi-Square test.
+- **MDL (Minimum Description Length)**: Balances complexity vs. accuracy.
+- **CAIM (Class-Attribute Interdependence Maximization)**: Optimizes discretization based on class information.
+
+**Detailed Explanation**:
+
+- **ChiMerge**: Uses Chi-Square test to merge bins with similar class distributions, reducing bins while preserving class differences.
+- **MDL**: Minimizes the combined cost of model complexity and error, selecting optimal bins.
+- **CAIM**: Maximizes interdependence between attribute values and classes, ensuring bins align with classification goals.
+
+**Example with Separate Tables (ChiMerge)**:  
+Consider scores: [10, 20, 30, 40] with labels [A, A, B, B].
+
+**Before Table**:
+
+|Score|Label|
+|---|---|
+|10|A|
+|20|A|
+|30|B|
+|40|B|
+
+**After Table (ChiMerge, Merge to 2 Bins)**:
+
+|Score_Bin|Label|
+|---|---|
+|<=20|A|
+|<=20|A|
+|>20|B|
+|>20|B|
+|**Calculation**:||
+
+- Chi-Square test merges [10, 20] (same label A) and [30, 40] (same label B), forming bins <=20 and >20.
+
+## Summary
+
+- **Why Discretize?**
+    - Simplifies models, improves interpretability.
+    - Reduces overfitting.
+    - Needed for algorithms requiring categorical input.
+- **Common Methods**:
+    1. Equal-width / Equal-frequency binning (unsupervised).
+    2. Clustering-based binning (unsupervised).
+    3. Entropy-based and ChiMerge (supervised).
+- **Key Takeaways**:
+    - Equal-frequency is better for skewed data.
+    - Clustering adapts to natural distributions.
+    - Supervised methods leverage class information for predictive tasks.
+
+**Detailed Explanation**:  
+Discretization simplifies data, reduces model complexity, and enables algorithms like Naive Bayes ($P(Y|X)$) or association rules. Equal-frequency handles skewed data better, clustering captures natural groupings, and supervised methods optimize for classification by using class labels.
 # Data Preprocessing
 
 ## Why?
