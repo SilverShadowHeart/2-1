@@ -2719,20 +2719,16 @@ Central tendency measures the "center" of a dataset, summarizing typical values.
 - **Example**:  
     **Before Table**:
     
-    |Marks|
-    |---|
-    |75|
-    |80|
-    |85|
-    |90|
-    |95|
+| Marks |
+|-------|
+| 75    |
+| 80    |
+| 85    |
+| 90    |
+| 95    |
     
-    **After Table (Mean)**:
-    
-    |Measure|Value|
-    |---|---|
-    |Mean|85|
-    |**Calculation**: $\text{Mean} = \frac{75 + 80 + 85 + 90 + 95}{5} = 85$||
+    Mean 85
+    **Calculation**: $\text{Mean} = \frac{75 + 80 + 85 + 90 + 95}{5} = 85$
     
 
 ### Median
@@ -2741,20 +2737,19 @@ Central tendency measures the "center" of a dataset, summarizing typical values.
 - **Example**:  
     **Before Table**:
     
-    |Marks|
-    |---|
-    |75|
-    |80|
-    |85|
-    |90|
-    |95|
+| Marks |
+|-------|
+| 75    |
+| 80    |
+| 85    |
+| 90    |
+| 95    |
+
     
     **After Table (Median)**:
-    
-    |Measure|Value|
-    |---|---|
-    |Median|85|
-    |**Calculation**: Sorted: [75, 80, 85, 90, 95], middle value = 85.||
+
+    Median 85
+    **Calculation**: Sorted: [75, 80, 85, 90, 95], middle value = 85.
     
 
 ### Mode
@@ -2763,20 +2758,19 @@ Central tendency measures the "center" of a dataset, summarizing typical values.
 - **Example**:  
     **Before Table**:
     
-    |Marks|
-    |---|
-    |75|
-    |80|
-    |85|
-    |85|
-    |90|
+| Marks |
+|-------|
+| 75    |
+| 80    |
+| 85    |
+| 90    |
+| 95    |
     
     **After Table (Mode)**:
     
-    |Measure|Value|
-    |---|---|
-    |Mode|85|
-    |**Calculation**: 85 appears twice, others once, so mode = 85.||
+
+    Mode 85
+    **Calculation**: 85 appears twice, others once, so mode = 85.
     
 
 ## 3. Measures of Dispersion
@@ -2790,20 +2784,17 @@ Dispersion measures how spread out data is around the center.
 - **Example**:  
     **Before Table**:
     
-    |Marks|
-    |---|
-    |75|
-    |80|
-    |85|
-    |90|
-    |95|
-    
+| Marks |
+|-------|
+| 75    |
+| 80    |
+| 85    |
+| 90    |
+| 95    |
     **After Table (Sample Variance)**:
-    
-    |Measure|Value|
-    |---|---|
-    |Variance|62.5|
-    |**Calculation**: $s^2 = \frac{(75-85)^2 + (80-85)^2 + \dots + (95-85)^2}{5-1} = \frac{250}{4} = 62.5$||
+
+    Variance 62.5
+    **Calculation**: $s^2 = \frac{(75-85)^2 + (80-85)^2 + \dots + (95-85)^2}{5-1} = \frac{250}{4} = 62.5$
     
 
 ### Standard Deviation
@@ -2814,10 +2805,9 @@ Dispersion measures how spread out data is around the center.
     **Before Table**: Same as above.  
     **After Table (Standard Deviation)**:
     
-    |Measure|Value|
-    |---|---|
-    |Std Dev|7.91|
-    |**Calculation**: $\text{SD} = \sqrt{62.5} \approx 7.91$||
+
+    Std Dev 7.91
+    **Calculation**: $\text{SD} = \sqrt{62.5} \approx 7.91$
     
 
 ### Range
@@ -2828,10 +2818,9 @@ Dispersion measures how spread out data is around the center.
     **Before Table**: Same as above.  
     **After Table (Range)**:
     
-    |Measure|Value|
-    |---|---|
-    |Range|20|
-    |**Calculation**: $\text{Range} = 95 - 75 = 20$||
+
+    Range 20
+    **Calculation**: $\text{Range} = 95 - 75 = 20$
     
 
 ## 4. Measures of Shape & Position
@@ -2867,7 +2856,8 @@ These describe the distribution’s shape and key positions.
 |Q1 (25%)|77.5|
 |Q2 (50%)|85|
 |Q3 (75%)|92.5|
-|**Calculation**:||
+
+**Calculation**:
 
 - Min: 75, Max: 95.
 - Quartiles: Sorted [75, 80, 85, 90, 95], Q1 = average of 75, 80 = 77.5; Q2 = 85; Q3 = average of 90, 95 = 92.5.
