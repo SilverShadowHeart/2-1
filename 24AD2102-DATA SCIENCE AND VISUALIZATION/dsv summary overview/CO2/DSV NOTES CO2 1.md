@@ -1486,7 +1486,7 @@ Consider sales data with detailed addresses.
 ### 4. Normalization
 
 - **Min-Max**: $v' = \frac{(v - \min A)}{(\max A - \min A)} \times (new_max - new_min) + new_min$
-- **Z-score**: $v' = \frac{(v - \text{mean})}{\text{std_dev}}$
+- **Z-score**:$v' = \frac{v - \text{mean}}{\text{std\_dev}}$
 - **Decimal scaling**: Scale by powers of 10 to bring values into range.
 
 **Detailed Explanation**:  
@@ -2661,7 +2661,326 @@ sns.histplot(data=df, x='score', hue='equal_freq', multiple='stack')
 ```
 
 
+# Statistics and Data Preparation
+## 1. Descriptive Statistics
 
+**What It Is**: Summarizes dataset characteristics using measures like mean, median, mode, standard deviation, and variance, often paired with visualizations.
+
+**Why It Matters**: Provides a snapshot of data, helping identify patterns, trends, and anomalies for exploratory data analysis (EDA).
+
+**Example**: Marks of 5 students: [75, 80, 85, 90, 95].
+
+**Table: Summary Measures**
+
+|Measure|Value|
+|---|---|
+|Mean (Average)|85|
+|Median (Middle)|85|
+|Mode (Most frequent)|No mode|
+|Range (Max-Min)|20|
+|Std Deviation|7.91|
+
+**Calculation**:
+
+- **Mean**: $\text{Mean} = \frac{75 + 80 + 85 + 90 + 95}{5} = 85$
+- **Median**: Sorted: [75, 80, 85, 90, 95], middle value = 85
+- **Mode**: No value repeats, so no mode.
+- **Range**: $\text{Range} = 95 - 75 = 20$
+- **Std Deviation**: $s = \sqrt{\frac{(75-85)^2 + (80-85)^2 + \dots + (95-85)^2}{5-1}} \approx 7.91$
+
+**Mermaid Diagram: Descriptive Statistics Workflow**:
+
+```mermaid
+flowchart TD
+    A[Raw Data] --> B[Calculate Measures]
+    B --> C[Mean]
+    B --> D[Median]
+    B --> E[Mode]
+    B --> F[Range]
+    B --> G[Std Deviation]
+    B --> H[Variance]
+    C --> I[Summary Table]
+    D --> I
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+    I --> J[EDA/Visualization]
+```
+
+## 2. Central Tendency
+
+Central tendency measures the "center" of a dataset, summarizing typical values.
+
+### Mean
+
+- **What It Is**: Average of all values.
+- **Formula**: $\text{Mean} = \frac{\sum x_i}{n}$
+- **Example**:  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |75|
+    |80|
+    |85|
+    |90|
+    |95|
+    
+    **After Table (Mean)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Mean|85|
+    |**Calculation**: $\text{Mean} = \frac{75 + 80 + 85 + 90 + 95}{5} = 85$||
+    
+
+### Median
+
+- **What It Is**: Middle value of sorted data (odd $n$: middle value; even $n$: average of two middle values).
+- **Example**:  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |75|
+    |80|
+    |85|
+    |90|
+    |95|
+    
+    **After Table (Median)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Median|85|
+    |**Calculation**: Sorted: [75, 80, 85, 90, 95], middle value = 85.||
+    
+
+### Mode
+
+- **What It Is**: Most frequent value(s); can be unimodal, multimodal, or no mode.
+- **Example**:  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |75|
+    |80|
+    |85|
+    |85|
+    |90|
+    
+    **After Table (Mode)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Mode|85|
+    |**Calculation**: 85 appears twice, others once, so mode = 85.||
+    
+
+## 3. Measures of Dispersion
+
+Dispersion measures how spread out data is around the center.
+
+### Variance
+
+- **What It Is**: Average squared deviation from the mean.
+- **Formula**: Sample: $s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}$, Population: $\sigma^2 = \frac{\sum (x_i - \mu)^2}{N}$
+- **Example**:  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |75|
+    |80|
+    |85|
+    |90|
+    |95|
+    
+    **After Table (Sample Variance)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Variance|62.5|
+    |**Calculation**: $s^2 = \frac{(75-85)^2 + (80-85)^2 + \dots + (95-85)^2}{5-1} = \frac{250}{4} = 62.5$||
+    
+
+### Standard Deviation
+
+- **What It Is**: Square root of variance, indicating spread in original units.
+- **Formula**: $\text{SD} = \sqrt{\text{Variance}}$
+- **Example**:  
+    **Before Table**: Same as above.  
+    **After Table (Standard Deviation)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Std Dev|7.91|
+    |**Calculation**: $\text{SD} = \sqrt{62.5} \approx 7.91$||
+    
+
+### Range
+
+- **What It Is**: Difference between maximum and minimum values.
+- **Formula**: $\text{Range} = \text{Max} - \text{Min}$
+- **Example**:  
+    **Before Table**: Same as above.  
+    **After Table (Range)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Range|20|
+    |**Calculation**: $\text{Range} = 95 - 75 = 20$||
+    
+
+## 4. Measures of Shape & Position
+
+These describe the distribution’s shape and key positions.
+
+**Table: Measures of Shape & Position**
+
+|Statistic|Description|
+|---|---|
+|Min / Max|Smallest / largest values|
+|Percentiles / Quartiles|Values below which a % of data fall (25%, 50%, 75%)|
+|Skewness|Asymmetry of distribution|
+|Kurtosis|Peakedness of distribution|
+
+**Example**:  
+**Before Table**:
+
+|Marks|
+|---|
+|75|
+|80|
+|85|
+|90|
+|95|
+
+**After Table (Position Measures)**:
+
+|Measure|Value|
+|---|---|
+|Min|75|
+|Max|95|
+|Q1 (25%)|77.5|
+|Q2 (50%)|85|
+|Q3 (75%)|92.5|
+|**Calculation**:||
+
+- Min: 75, Max: 95.
+- Quartiles: Sorted [75, 80, 85, 90, 95], Q1 = average of 75, 80 = 77.5; Q2 = 85; Q3 = average of 90, 95 = 92.5.
+
+## 5. Data Distribution & Skewness
+
+### Data Distribution
+
+**What It Is**: Shows how values spread across a range.  
+**Example**: Student ages mostly 20–22 indicate a central concentration.
+
+**Table: Common Distribution Types**
+
+|Type|Description|
+|---|---|
+|Normal|Symmetric, bell-shaped, mean ≈ median ≈ mode|
+|Right-skewed|Tail on right, few high values, mean > median > mode|
+|Left-skewed|Tail on left, few low values, mean < median < mode|
+|Uniform|All values roughly equally frequent|
+|Bimodal|Two peaks, two dominant groups|
+|Multimodal|>2 peaks, multiple clusters|
+
+**Visualization Tools**:
+
+- **Histogram**: Shows numeric distribution.
+- **Box Plot**: Displays median, quartiles, spread, outliers.
+- **Density Plot**: Smooths histogram for continuous view.
+- **Bar Chart**: Shows categorical counts.
+- **Scatter Plot**: Reveals relationships, trends, clusters, outliers.
+
+### Outliers & Anomalies
+
+#### Outliers
+
+- **What They Are**: Values far from most data points, skewing analyses.
+- **Detection**: Box Plot or Z-Score ($z = \frac{X - \text{Mean}}{\text{Std Dev}}$, $|z| > 3$ indicates potential outlier).
+- **Example (Box Plot)**: Marks: [55, 60, 62, 65, 67, 70, 72, 75, 80, 85, 100].  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |55|
+    |60|
+    |...|
+    |100|
+    
+    **After Table (Box Plot Summary)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Median|70|
+    |Q1|62|
+    |Q3|80|
+    |IQR|18|
+    |Outlier|100|
+    |**Calculation**:||
+    
+    - Q1 = 62, Q3 = 80, IQR = $80 - 62 = 18$.
+    - Outlier bounds: $[Q1 - 1.5 \cdot IQR, Q3 + 1.5 \cdot IQR] = [35, 107]$.
+    - 100 is within bounds, but visually distinct; Z-Score confirms if $|z| > 3$.
+
+#### Anomalies
+
+- **Types**:  
+    **Table: Anomaly Types**
+    
+    |Type|Example|
+    |---|---|
+    |Point|Single unusual value|
+    |Contextual|Unusual in context (e.g., 2 AM purchase)|
+    |Collective|Group of unusual values (e.g., failed logins)|
+    
+
+### Skewness & Pearson’s Median Skewness Coefficient
+
+- **What It Is**: Measures distribution asymmetry.
+    - Symmetric: Skewness ≈ 0 (bell curve).
+    - Positive (right-skewed): Mean > median > mode.
+    - Negative (left-skewed): Mean < median < mode.
+
+
+![[Pasted image 20250824230350.png]]
+![[Pasted image 20250824230407.png]]
+![[Pasted image 20250824230417.png]]
+
+
+- **Formula (Pearson’s Median Skewness)**: $\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Std Dev}}$
+- **Example**: Marks: [55, 60, 65, 70, 95].  
+    **Before Table**:
+    
+    |Marks|
+    |---|
+    |55|
+    |60|
+    |65|
+    |70|
+    |95|
+    
+    **After Table (Skewness)**:
+    
+    |Measure|Value|
+    |---|---|
+    |Mean|69|
+    |Median|65|
+    |Std Dev|15.97|
+    |Skewness|0.75|
+    |**Calculation**:||
+    
+    - Mean: $\frac{55 + 60 + 65 + 70 + 95}{5} = 69$
+    - Median: Sorted [55, 60, 65, 70, 95], middle = 65
+    - Std Dev: $s = \sqrt{\frac{(55-69)^2 + \dots + (95-69)^2}{5-1}} \approx 15.97$
+    - Skewness: $\frac{3(69 - 65)}{15.97} \approx 0.75$ (positive, right-skewed).
+    
 
 
 
@@ -2774,193 +3093,22 @@ Entries in a dataset where data is absent.
 `df.pivot(index='Name', columns='City', values='Age')`
 
 
-# Statistics and Data Preparation
-
-## 1. Descriptive Statistics
-
-**Definition:** Summarizes dataset characteristics using measures (mean, median, mode, std, variance) and visual tools.
-
-**Example: Marks of 5 students**  
-Data: `[75, 80, 85, 90, 95]`
-
-|Measure|Value|
-|---|---|
-|Mean (Average)|85|
-|Median (Middle)|85|
-|Mode (Most frequent)|No mode|
-|Range (Max-Min)|20|
-|Std Deviation|7.91|
-
----
-
-## 2. Central Tendency
-
-### Mean
-
-Mean=∑xin\text{Mean} = \frac{\sum x_i}{n}Mean=n∑xi​​
-
-Python: `statistics.mean(data)` or `np.mean(data)`
-
-### Median
-
-- Middle value of sorted data
-    
-- Odd n → middle value, Even n → average of two middle values  
-    Python: `statistics.median(data)` or `np.median(data)`
-    
-
-### Mode
-
-- Most frequent value(s)
-    
-- Types: unimodal, multimodal, no mode  
-    Python: `statistics.mode(data)` or `df.mode()`
-    
-
----
-
-## 3. Measures of Dispersion
-
-### Variance
-
-Sample Variance s2=∑(xi−xˉ)2n−1,Population σ2=∑(xi−μ)2N\text{Sample Variance } s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}, \quad \text{Population } \sigma^2 = \frac{\sum (x_i - \mu)^2}{N}Sample Variance s2=n−1∑(xi​−xˉ)2​,Population σ2=N∑(xi​−μ)2​
-
-Python: `statistics.variance(data)` or `np.var(data, ddof=1)`
-
-### Standard Deviation
-
-SD=Variance\text{SD} = \sqrt{\text{Variance}}SD=Variance​
-
-Python: `statistics.stdev(data)` or `np.std(data, ddof=1)`
-
-### Range
-
-Range=Max−Min\text{Range} = \text{Max} - \text{Min}Range=Max−Min
-
----
-
-## 4. Measures of Shape & Position
-
-|Statistic|Description|
-|---|---|
-|Min / Max|Smallest / largest values|
-|Percentiles / Quartiles|Values below which a % of data fall (25%, 50%, 75%)|
-|Skewness|Asymmetry of distribution|
-|Kurtosis|Peakedness of distribution|
-
----
-
-## 5. Summary Statistics in Python
-
-### Using NumPy
-
-`import numpy as np np.mean(data) np.median(data) np.std(data, ddof=1) np.var(data, ddof=1) np.min(data), np.max(data) np.percentile(data, [25,50,75])`
-
-### Using Pandas
-
-`import pandas as pd df.describe()         # count, mean, std, min, 25%, 50%, 75%, max df.mean(), df.median(), df.mode() df.std(), df.var()`
-
-**Use Case:** Efficiently analyze large datasets, identify outliers, and prepare for EDA.
-
-
-# Data Distribution & Skewness
-
-## 1. Data Distribution
-
-Shows how values are spread across a range.  
-**Example:** Most students aged 20–22 → concentration around center.
-
-**Common Types:**
-
-|Type|Description|
-|---|---|
-|Normal|Symmetric, bell-shaped, mean ≈ median ≈ mode|
-|Right-skewed|Tail on right, few high values, mean > median > mode|
-|Left-skewed|Tail on left, few low values, mean < median < mode|
-|Uniform|All values roughly equally frequent|
-|Bimodal|Two peaks → two dominant groups|
-|Multimodal|>2 peaks → multiple clusters|
-
-**Visualization:**
-
-- Histogram → numeric distribution
-    
-- Box Plot → median, quartiles, spread, outliers
-    
-- Density Plot → smooth histogram
-    
-- Bar Chart → categorical counts
-    
-- Scatter Plot → relationships, trends, clusters, outliers
-    
-
----
-
-## 2. Outliers & Anomalies
-
-### Outliers
-
-- Far from most data points
-    
-- Skew analyses
-    
-- Detected via **Box Plot** or **Z-Score**
-    
-
-**Box Plot Example:**
-
-- Marks: `[55, 60, 62, 65, 67, 70, 72, 75, 80, 85, 100]`
-    
-- Median = 70, Q1 = 62, Q3 = 80, Min = 55, Max = 100
-    
-- Middle 50% = 62–80
-    
-
-**Z-Score Method:**
-
-z=X−MeanStd Devz = \frac{X - \text{Mean}}{\text{Std Dev}}z=Std DevX−Mean​
-
-- |z| > 3 → potential outlier
-    
-
-### Anomalies
-
-|Type|Example|
-|---|---|
-|Point|Single unusual value|
-|Contextual|Unusual in context (e.g., 2 AM purchase)|
-|Collective|Group of unusual values (e.g., failed logins)|
-
----
-
-## 3. Skewness & Pearson’s Median Skewness Coefficient
-
-### Skewness
-
-- Measures asymmetry of distribution
-    
-- **Symmetric:** 0 → bell curve
-    
-- **Positive (right):** mean > median > mode
-    
-- **Negative (left):** mean < median < mode
-    
-
-**Pearson’s Median Skewness:**
-
-Skewness=3(Mean−Median)Std Dev\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Std Dev}}Skewness=Std Dev3(Mean−Median)​
-
-- > 0 → Right-skewed
-    
-- <0 → Left-skewed
-    
-- 0 → Symmetric
-    
-
-**Example:** Mean = 70, Median = 65, SD = 10 → Skewness = +1.5 → strongly right-skewed
-
----
 
 ## 4. Lab Demo: EDA with Pandas & Matplotlib
 
-`import pandas as pd import matplotlib.pyplot as plt import seaborn as sns from scipy.stats import skew  # Sample dataset data = pd.DataFrame({     'Student': ['B','D','E','F','G','H'],     'Marks': [55,60,65,70,95,75,80,45],     'Attendance': [85,88,80,82,90,70,95,60] })  # Exploration print(data.head()) print(data.describe())  # Histogram sns.histplot(data['Marks'], bins=5, color='skyblue', kde=True) plt.show()  # Boxplot sns.boxplot(y=data['Marks'], color='orange') plt.show()  # Scatter Plot sns.scatterplot(x='Attendance', y='Marks', data=data, color='green') plt.show()  # Skewness print("Skewness of Marks:", skew(data['Marks']))`
+```import pandas as pd 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+from scipy.stats import skew  # Sample dataset 
+data = pd.DataFrame({     'Student': ['B','D','E','F','G','H'],     'Marks': [55,60,65,70,95,75,80,45],     'Attendance': [85,88,80,82,90,70,95,60] })  
+# Exploration 
+print(data.head()) 
+print(data.describe())  
+# Histogram 
+sns.histplot(data['Marks'], bins=5, color='skyblue', kde=True) 
+plt.show()  
+# Boxplot sns.boxplot(y=data['Marks'], color='orange') 
+plt.show()  
+# Scatter Plot sns.scatterplot(x='Attendance', y='Marks', data=data, color='green') plt.show()  
+# Skewness 
+print("Skewness of Marks:", skew(data['Marks']))```
