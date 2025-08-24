@@ -234,6 +234,164 @@ flowchart TD
     
 - Resolve **redundancy** from data integration (e.g., duplicates).
 
+
+# 1. Data Acquisition
+- Data can be in DBMS
+- ODBC, JDBC protocols
+- Data in a flat file
+  - Fixed-column format
+  - Delimited format: tab, comma, other
+- Example: C4.5 and Weka `arff` use comma-delimited data
+- Attention: Convert field delimiters inside strings
+- Verify the number of fields before and after
+
+# 2. Metadata
+- **Field types:**
+  - binary, nominal (categorical), ordinal, numeric
+- **For nominal fields:** tables translating codes to full descriptions
+- **Field role:**
+  - input: inputs for modelling
+  - target: output
+  - id/auxiliary: keep, but not use for modelling
+  - ignore: don't use for modelling
+  - weight: instance weight
+- Field descriptions
+
+# 3. Reformatting
+- Convert data to a standard format (e.g. arff or csv)
+- Handle missing values
+- Unified date format
+- Binning of numeric data
+- Fix errors and outliers
+- Convert nominal fields whose values have order to numeric
+
+# 4. Fill in Missing Values
+- Data is not always available  
+  Example: many tuples have no recorded value for several attributes (e.g. customer income in sales data)
+- **Reasons for missing data:**
+  - Equipment malfunction
+  - Inconsistent data deleted
+  - Data not entered due to misunderstanding
+  - Certain data not considered important at entry
+  - No history or changes recorded
+- Missing data may need to be inferred
+
+## Handling Missing Data
+- Ignore the tuple (common if class label is missing, but not effective with uneven missingness)
+- Fill in manually (tedious, infeasible)
+- Use a global constant (e.g. "unknown")
+- Imputation:
+  - Use attribute mean for all data
+  - Use attribute mean within the same class (smarter)
+- Use the most probable value (e.g. Bayesian formula, decision tree)
+
+# 5. Unified Date Format
+- Transform all dates to the same internal format
+- Examples of input: "Sep 24, 2003", `9/24/03`, `24.09.03`
+- Internal transformation standardizes dates
+- Often only year (YYYY) is sufficient; sometimes need month, day, hour
+- Representing as YYYYMM or YYYYMMDD works but has issues
+
+## Unified Date Format Options
+- Unix system date: seconds since 1970
+- SAS format: days since Jan 1, 1960
+
+**Problem:**  
+- Values are non-obvious  
+- Poor for intuition and knowledge discovery  
+- Harder to verify, easier to make mistakes
+
+# 6. Conversion: Nominal to Numeric
+- Some tools handle nominal internally
+- Others (neural nets, regression, nearest neighbor) require numeric inputs
+- Thus, nominal fields must be converted
+
+**Why not ignore nominal fields?**  
+- They may contain valuable information
+
+**Strategies:**
+- Binary fields: map to {0,1}
+- Ordered nominal: map to integers preserving order
+- Multi-valued nominal: one-hot encoding or similar
+
+
+# 7. Conversion: Binary to Numeric
+- **Binary fields:** e.g. Gender = M, F
+- Convert to {0,1} values
+  - Example: Gender = M → 0, Gender = F → 1
+
+# 8. Conversion: Ordered to Numeric
+- Ordered attributes (e.g. Grade) converted while preserving order:
+  - A → 4.0
+  - A- → 3.7
+  - B+ → 3.3
+  - B → 3.0
+- **Why preserve order?**
+  - To allow meaningful comparisons (e.g. Grade > 3.5)
+
+# 9. Identify Outliers and Smooth Noisy Data
+- **Noise:** random error or variance in measured variables
+- Incorrect values may be due to:
+  - Faulty instruments
+  - Data entry problems
+  - Transmission errors
+  - Technology limitations
+  - Naming inconsistencies
+  - Other issues (duplicates, incomplete/inconsistent data)
+
+## Handling Noisy Data
+- **Binning method:**
+  - Sort data, partition into bins
+  - Smooth by bin means, medians, or boundaries
+- **Clustering:** detect/remove outliers
+- **Computer + human inspection:** flag suspicious values
+- **Regression:** smooth by fitting regression functions
+
+# 10. Simple Discretization: Binning
+- **Equal-width (distance) partitioning:**
+  - Divide range into N equal intervals
+  - Interval width = (B-A)/N
+  - Simple but sensitive to outliers and skewed data
+- **Equal-depth (frequency) partitioning:**
+  - Divide range into N intervals with ~same number of samples
+  - Better scaling, but categorical attributes tricky
+
+## Binning Example
+Sorted values: 4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34
+
+- **Bins (equi-depth):**
+  - Bin 1: 4, 8, 9, 15
+  - Bin 2: 21, 21, 24, 25
+  - Bin 3: 26, 28, 29, 34
+- **Smoothing by means:**
+  - Bin 1 → 9, 9, 9, 9
+  - Bin 2 → 23, 23, 23, 23
+  - Bin 3 → 29, 29, 29, 29
+- **Smoothing by boundaries:**
+  - Bin 1 → 4, 4, 4, 15
+  - Bin 2 → 21, 21, 25, 25
+  - Bin 3 → 26, 26, 26, 34
+
+# 11. Data Smoothing: Regression
+- **Linear regression:** fit best line to two variables → predict one from the other
+- **Multiple regression:** extension with >2 variables, fit to multidimensional surface
+
+# 12. Data Smoothing: Outlier Analysis
+- Outliers detected via clustering
+- Values outside clusters considered outliers
+
+# 13. Correct Inconsistent Data
+- Inconsistencies caused by:
+  - Entry errors
+  - Different conventions between sources
+  - Format changes over time
+- Leads to inaccurate analysis/modelling
+- **Techniques:**
+  - Data cleaning
+  - Standardization
+  - Validation
+- Tasks: correct spelling errors, reconcile conflicts, convert units to consistent scale
+
 ---
 
 #### 2) Data Integration
@@ -241,6 +399,140 @@ flowchart TD
 - Resolves conflicts arising from different data representations.  
 - Critical in large-scale scientific and commercial applications where **data volume grows exponentially**.  
 
+# Data Integration
+
+Process of combining multiple sources into a single dataset. Challenges include:
+
+1. **Entity Identification Problem**  
+    Identify real-world entities across databases (e.g., student ID vs. student name).
+    
+2. **Schema Integration**  
+    Combine metadata from different sources while resolving conflicts.
+    
+3. **Data Value Conflicts**  
+    For the same entity, attribute values may differ due to different representations or scales (e.g., metric vs. British units).
+    
+
+**Handling Redundant Data**
+
+- Redundancy occurs when attributes have different names or are derived differently across sources.
+    
+- Can be detected via correlation analysis.
+    
+- Careful integration reduces redundancy, inconsistency, and improves mining efficiency.
+    
+
+---
+
+
+
+# Data Reduction
+
+Reduce data volume while preserving analytical results. Techniques:
+
+1. **Dimensionality Reduction**
+    
+    - Remove irrelevant or redundant attributes.
+        
+    - Methods: PCA, Discrete Wavelet Transform (DWT), attribute subset selection.
+        
+2. **Data Compression**
+    
+    - Lossless (string/text) or lossy (audio/video).
+        
+    - Reduces storage and improves processing speed.
+        
+3. **Numerosity Reduction**
+    
+    - **Parametric:** model-based, store parameters.
+        
+    - **Non-parametric:** histograms, clustering, aggregation, sampling, data cubes.
+        
+4. **Discretization and Concept Hierarchy Generation**
+    
+    - Convert continuous attributes into discrete intervals or hierarchies.
+        
+
+
+
+## Dimensionality Reduction Methods
+
+- **Wavelet Transform (DWT):** transform data vector to wavelet coefficients.
+    
+- **Principal Component Analysis (PCA):** project k-dimensional data to c < k principal components.
+    
+- Remove attributes with low variability or mostly constant values (e.g., < 0.5–5% variation).
+
+# Parametric Methods: Regression and Log-Linear Models
+
+- **Linear Regression**  
+    Models data with a straight line; typically uses the least-squares method.  
+    Formula: Y=μ+βXY = \mu + \beta XY=μ+βX
+    
+    - Parameters μ\muμ and β\betaβ are estimated from the data.
+        
+- **Multiple Regression**  
+    Models a response variable YYY as a linear function of multiple features:  
+    Y=b0+b1X1+b2X2+…Y = b_0 + b_1 X_1 + b_2 X_2 + \dotsY=b0​+b1​X1​+b2​X2​+…  
+    Many nonlinear functions can be transformed into this form.
+    
+- **Log-Linear Models**  
+    Approximate discrete multidimensional probability distributions.  
+    Joint probabilities are modeled as a product of lower-order tables:  
+    P(a,b,c,d)≈uabPacuadBbcdP(a,b,c,d) \approx u_{ab} P_{ac} u_{ad} B_{bcd}P(a,b,c,d)≈uab​Pac​uad​Bbcd​
+    
+
+
+
+# Non-Parametric Methods
+
+## Histograms
+
+- Data is divided into buckets, storing averages or sums for each.
+    
+- Optimal construction in 1D can use dynamic programming.
+    
+- Related to quantization.
+    
+
+## Clustering
+
+- Partition data into clusters; store cluster representation.
+    
+- Effective when data is naturally clustered.
+    
+- Can use hierarchical clustering and multi-dimensional index trees.
+    
+- Multiple clustering definitions and algorithms exist.
+    
+
+## Sampling
+
+- Select representative subsets to reduce computational complexity.
+    
+- **Simple random sampling:** may perform poorly with skewed data.
+    
+- **Stratified sampling:** maintains class proportions in skewed datasets.
+    
+- Does not necessarily reduce I/O costs.
+    
+
+
+
+# Data Cube Aggregation
+
+- Multidimensional aggregation to reduce data volume.
+    
+- Example: Quarterly electronics sales from 2018–2022 can be aggregated annually by summing quarters:
+    
+
+|Year|Annual Sales|
+|---|---|
+|2018|$1,568,000|
+|2019|$3,594,000|
+|2020|$2,568,000|
+
+- Aggregated views reduce complexity while preserving information.
 ---
 
 #### 3) Data Transformation
@@ -249,6 +541,84 @@ flowchart TD
   - **Normalization**: minimize redundancy in tables/columns → improves efficiency.  
   - **Aggregation**: create summaries for faster insights.  
   - **Generalization (Rolling-up)**: form higher-level abstractions and layered summaries.  
+
+
+# Data Transformation
+
+Convert or consolidate data into forms suitable for mining. Key strategies:
+
+1. **Smoothing**  
+    Remove noise from data using statistical methods or algorithms.
+    
+2. **Aggregation**  
+    Summarize data, construct data cubes, or combine multiple records into metrics.
+    
+3. **Generalization**  
+    Transform low-level attributes into high-level concepts using hierarchies (e.g., street < city < state < country).
+    
+4. **Normalization**  
+    Scale values within a small range:
+    
+    - Min-Max normalization
+        
+    - Z-score normalization
+        
+    - Decimal scaling
+        
+5. **Attribute/Feature Construction**  
+    Create new features from existing ones (e.g., area = height × width).
+    
+
+
+
+## Data Smoothing
+
+- Eliminates outliers to highlight patterns.
+    
+- Methods: random smoothing, moving averages, regression.
+    
+- Helps forecast trends but may reduce detail in the dataset.
+    
+
+## Data Aggregation
+
+Steps:
+
+1. Identify sources (databases, spreadsheets, APIs).
+    
+2. Extract data (ETL or API).
+    
+3. Cleanse (remove errors, duplicates).
+    
+4. Combine into a warehouse or data lake.
+    
+5. Summarize metrics (sum, average, count).
+    
+6. Analyze for insights.
+    
+
+## Data Generalization
+
+- Used for categorical data with many values.
+    
+- Example hierarchy: street < city < state < country.
+    
+
+## Normalization
+
+- **Min-Max:** v′=(v−min⁡A)(max⁡A−min⁡A)×(new_max−new_min)+new_minv' = \frac{(v - \min A)}{(\max A - \min A)} \times (new\_max - new\_min) + new\_minv′=(maxA−minA)(v−minA)​×(new_max−new_min)+new_min
+    
+- **Z-score:** v′=(v−mean)std_devv' = \frac{(v - \text{mean})}{\text{std\_dev}}v′=std_dev(v−mean)​
+    
+- **Decimal scaling:** scale by powers of 10 to bring values into range.
+    
+
+## Attribute/Feature Construction
+
+- Generate new attributes from existing ones (e.g., calculate area from height and width).
+    
+
+
 
 ---
 
