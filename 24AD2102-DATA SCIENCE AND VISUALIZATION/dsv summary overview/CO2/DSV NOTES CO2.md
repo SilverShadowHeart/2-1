@@ -1,186 +1,328 @@
-<p align="center" style="font-size:24px"><b>Types of data</b></p>
+## Types of Data Sources
 
-### Types of Data Sources
+Data is the backbone of DSV, and its structure determines storage, processing, and analysis methods. We categorize data into three types: structured, unstructured, and semi-structured, each with unique characteristics and applications.
 
-#### **1. Structured Data**
+### 1. Structured Data
 
-- **Definition**: Organized in predefined formats (tables, rows, columns).
-    
-- **Storage**: SQL databases, CSV, Excel.
-    
-- **Examples**:
-    
-    - Customer info: Name, Age, Email
-        
-    - Financial data: Sales, Revenue, Profit
-	
-	| Name  | Age | Email             |
-	|-------|-----|-------------------|
-	| John  | 28  | john@email.com    |
-	| Sarah | 34  | sarah@email.com   |
-	| Mike  | 25  | mike@email.com    |
+**Definition**: Structured data is highly organized, typically in tabular formats with predefined schemas (rows and columns). It’s easily searchable and ideal for relational databases.
 
-        
-- **Processing**: Straightforward, can use SQL queries or Pandas.
+**Characteristics**:
+
+- Fixed fields: Each data point fits a specific column (e.g., Name, Age).
     
+- Consistent format: Enables efficient querying using structured query languages.
+    
+- Examples: Customer databases, financial records, inventory logs.
+    
+
+**Storage**:
+
+- **SQL Databases**: MySQL, PostgreSQL, Oracle for relational data.
+    
+- **Files**: CSV, Excel, or parquet for portable tabular data.
+    
+
+**Examples**:
+
+- **Customer Information**: A table storing names, ages, and emails.
+    
+- **Financial Data**: Sales transactions with columns for date, amount, and product ID.
+    
+
+**Sample Customer Table**:
+
+|   |   |   |
+|---|---|---|
+|Name|Age|Email|
+|John|28|john@email.com|
+|Sarah|34|sarah@email.com|
+|Mike|25|mike@email.com|
+
+**Processing**:
+
+- Use SQL for queries: SELECT AVG(Age) FROM Customers; yields the average age ($29$).
+    
+- In Python with Pandas: df['Age'].mean() computes the same.
+    
+- Example: To filter customers over 30, use SELECT * FROM Customers WHERE Age > 30; or df[df['Age'] > 30].
+    
+
+**Use Case**: A retail company tracks sales in a SQL database, querying monthly revenue with SELECT SUM(Revenue) FROM Sales WHERE Month = 'August';.
 
 ---
 
-#### **2. Unstructured Data**
+### 2. Unstructured Data
 
-- **Definition**: No predefined schema; raw and heterogeneous.
-    
-- **Storage**: Data lakes, distributed file systems, cloud storage.
-    
-- **Examples**:
-    
-    - Text: Social media posts, articles
-        
-    - Media: Photos, videos, audio
-        
-    - Sensor data without labels
-	
-	| Post_ID | Content                                                       |
-	| ------- | ------------------------------------------------------------- |
-	| 101     | "Just had the best coffee ever at the new café downtown ☕🔥" |
-	| 102     | "Vacation pics from Bali 🌴🏖️"                                |
-	| 103     | "Can’t believe this movie got 3 hours of my life 😑🎬"        |
+**Definition**: Unstructured data lacks a predefined schema, making it heterogeneous and complex. It includes text, multimedia, and raw sensor outputs.
 
-	
-- **Processing**: Requires NLP, computer vision, or ML techniques.
+**Characteristics**:
+
+- No fixed format: Data varies in structure (e.g., free-form text, images).
     
-- **Use cases**: Image classification, speech recognition, sentiment analysis.
+- Large volume: Often dominates big data (e.g., social media posts).
     
+- Examples: Tweets, blog posts, videos, IoT sensor streams.
+    
+
+**Storage**:
+
+- **Data Lakes**: AWS S3, Azure Data Lake for raw storage.
+    
+- **Distributed File Systems**: Hadoop HDFS for scalability.
+    
+- **Cloud Storage**: Google Cloud Storage for multimedia.
+    
+
+**Examples**:
+
+- **Text**: Social media posts like “Loving this new phone! 📱 #Tech”.
+    
+- **Media**: Product photos, customer review videos.
+    
+- **Sensor Data**: Unlabeled temperature readings from IoT devices.
+    
+
+**Sample Social Media Table**:
+
+|   |   |
+|---|---|
+|Post_ID|Content|
+|101|"Just had the best coffee ever at the new café downtown ☕🔥"|
+|102|"Vacation pics from Bali 🌴🏖️"|
+|103|"Can’t believe this movie got 3 hours of my life 😑🎬"|
+
+**Processing**:
+
+- **NLP**: Use NLTK or spaCy for sentiment analysis. Example: Post 101 is “positive” due to “best” and “🔥”.
+    
+- **Computer Vision**: TensorFlow for image classification (e.g., identify objects in vacation photos).
+    
+- **Machine Learning**: Train models to process raw sensor data.
+    
+
+**Use Case**: A marketing team analyzes Twitter posts for brand sentiment using NLP to classify posts as positive, negative, or neutral, guiding campaign strategies.
 
 ---
 
-#### **3. Semi-structured Data**
+### 3. Semi-Structured Data
 
-- **Definition**: Not fully tabular but has some structure via tags/markers.
+**Definition**: Semi-structured data has partial organization (e.g., tags, key-value pairs) but isn’t strictly tabular, offering flexibility.
+
+**Characteristics**:
+
+- Loose schema: Uses markers like tags or hierarchies.
     
-- **Storage**: NoSQL databases (MongoDB, CouchDB), object storage.
+- Flexible: Adapts to evolving data needs.
     
-- **Examples**:
+- Examples: JSON, XML, log files, emails.
     
-    - XML, JSON
+
+**Storage**:
+
+- **NoSQL Databases**: MongoDB, CouchDB for document storage.
+    
+- **Object Storage**: JSON/XML files in S3 or local systems.
+    
+
+**Examples**:
+
+- **JSON**: API responses like {"user":"alice","action":"login"}.
+    
+- **Emails**: Structured headers (To, From) with unstructured body.
+    
+- **Logs**: Server logs with timestamped key-value pairs.
+    
+
+**Sample Log Table**:
+
+|   |   |
+|---|---|
+|Log_ID|Data|
+|1|{"user":"alice","action":"login","time":"2025-08-19T10:30:00Z"}|
+|2|{"user":"bob","action":"purchase","item":"book","price":12.99}|
+|3|{"user":"carol","action":"logout","time":"2025-08-19T12:15:00Z"}|
+
+**Processing**:
+
+- Parse with tools: json.loads(data) in Python or XPath for XML.
+    
+- Query NoSQL: MongoDB query db.logs.find({"action":"purchase"}).
+    
+- Example: Extract all purchases from logs using df[df['Data'].str.contains('"action":"purchase"')].
+    
+
+**Use Case**: An e-commerce platform stores API logs in MongoDB, querying purchase actions to track user behavior.
+
+**Mermaid Diagram: Data Types Workflow**:
+
+```mermaid
+graph TD
+    A[Data Sources] --> B[Structured]
+    A --> C[Unstructured]
+    A --> D[Semi-Structured]
+    B --> B1[SQL Databases]
+    B --> B2[CSV/Excel]
+    C --> C1[Data Lakes]
+    C --> C2[HDFS/Cloud]
+    D --> D1[NoSQL Databases]
+    D --> D2[Object Storage]
+    B1 --> B3[Query with SQL/Pandas]
+    C1 --> C3[Process with NLP/CV/ML]
+    D1 --> D3[Parse with JSON/XPath]
+```
+
+## Data Collection Strategies
+
+Effective data collection ensures quality insights. It’s an iterative process requiring clear objectives, source identification, and ethical considerations.
+
+1. **Define Clear Objectives**
+    
+    - Specify goals: “Understand customer retention drivers.”
         
-    - Emails (headers + body)
+    - Questions: “What factors reduce churn?”
         
-    - Log files
+    - Example: A telecom company defines KPIs like “churn rate” to collect call logs and feedback.
+        
+2. **Identify Relevant Data Sources**
     
-	| Log_ID | Data                                                             |
-	| ------ | ---------------------------------------------------------------- |
-	| 1      | {"user":"alice","action":"login","time":"2025-08-19T10:30:00Z"}  |
-	| 2      | {"user":"bob","action":"purchase","item":"book","price":12.99}   |
-	| 3      | {"user":"carol","action":"logout","time":"2025-08-19T12:15:00Z"} |
-
-- **Processing**: Tools like XPath, XQuery, JSON parsers.
+    - Sources: Internal (databases), external (APIs, public datasets).
+        
+    - KPIs: “Customer lifetime value,” “website visits.”
+        
+    - Example: Use Google Analytics API to fetch click-through rates (ga:pageviews).
+        
+3. **Data Quality Assessment**
     
-- **Use case**: Flexible datasets that evolve but need organization.
+    - Evaluate: Completeness (no missing values), accuracy (correct values), consistency (no conflicts).
+        
+    - Clean: Remove duplicates, fix formats.
+        
+    - Example: In a dataset, flag rows with missing emails using df[df['Email'].isnull()].
+        
+4. **Consider Structured and Unstructured Data**
     
+    - Combine: Sales data (structured) with reviews (unstructured).
+        
+    - Example: Merge CRM sales with Twitter sentiment for a holistic customer view.
+        
+5. **Real-Time Data Collection**
+    
+    - Use streaming: Kafka for live stock prices.
+        
+    - Example: IoT sensors stream temperature every second for real-time factory monitoring.
+        
+6. **Data Privacy and Ethics**
+    
+    - Comply: GDPR requires consent for EU user data.
+        
+    - Example: Anonymize names (e.g., “John” → “User123”) before analysis.
+        
+7. **Sampling Techniques**
+    
+    - Subsets: Random sample 10% of 1M rows.
+        
+    - Example: Use df.sample(frac=0.1, random_state=42) to test models efficiently.
+        
+8. **Surveys and Questionnaires**
+    
+    - Targeted: Ask “Rate service (1-5)” for feedback.
+        
+    - Example: Survey 1000 customers, ensuring questions align with “satisfaction” KPIs.
+        
+9. **Collaboration with Stakeholders**
+    
+    - Engage experts: Sales team suggests “deal size” as a metric.
+        
+    - Example: Meet with marketing to prioritize data on campaign conversions.
+        
+10. **Data Integration**
+    
+    - Unify: Merge CRM and ERP data.
+        
+    - Example: Combine customer IDs across platforms, resolving duplicates with df.drop_duplicates('CustomerID').
+        
 
----
+## Data Security in Data Analysis and Visualization
 
-<p align="center" style="font-size:24px"><b>Data Collection Strategies</b></p>
+Security is critical to protect data integrity, privacy, and compliance during analysis and visualization.
 
-Data collection is a fundamental step in the data science and visualization process.  
-The quality and relevance of the collected data significantly impact the insights and decisions derived from the analysis.  
+1. **Data Breaches**
+    
+    - Risks: Financial loss, reputational damage.
+        
+    - Example: A hacker accesses credit card data, leading to $1M in fraudulent charges.
+        
+2. **Data Privacy**
+    
+    - Protect PII: Use anonymization (e.g., hash emails).
+        
+    - Differential Privacy: Add noise to aggregates. Example: Report average salary with noise to hide individual values.
+        
+3. **Data Access Control**
+    
+    - RBAC: Analysts read, admins write.
+        
+    - Example: Grant SELECT only to data scientists in SQL DBs.
+        
+4. **Data Encryption**
+    
+    - In transit: HTTPS for APIs. At rest: AES-256 for files.
+        
+    - Example: Encrypt customer data in S3 using aws s3 cp --sse AES256.
+        
+5. **Data Integrity**
+    
+    - Verify: Use SHA-256 checksums.
+        
+    - Example: Check file hash post-transfer with sha256sum data.csv.
+        
+6. **Secure Data Sharing**
+    
+    - Methods: SFTP, secure APIs.
+        
+    - Example: Share reports via expiring links in OneDrive.
+        
+7. **Data Masking and Redaction**
+    
+    - Mask: Replace PII (e.g., “1234-5678-9012-3456” → “XXXX-XXXX-XXXX-3456”).
+        
+    - Example: Redact names in shared datasets using regex in Python.
+        
+8. **Compliance with Regulations**
+    
+    - Laws: GDPR, HIPAA.
+        
+    - Example: Obtain explicit consent for collecting EU customer data.
+        
+9. **Awareness and Training**
+    
+    - Educate: Phishing workshops.
+        
+    - Example: Train staff to avoid sharing passwords.
+        
+10. **Data Lifecycle Management**
+    
+    - Secure: Storage to deletion.
+        
+    - Example: Schedule auto-deletion of logs after 1 year with cron jobs.
+        
 
-Effective data collection and visualization strategies are essential for extracting valuable insights and enabling data-driven decision-making.  
-It is a dynamic process that requires continuous refinement based on user feedback and changing business needs.  
+**Mermaid Diagram: Data Security Workflow**:
 
----
-
-#### 1) Define Clear Objectives
-- Clearly outline the goals and objectives of your data analytics and visualization project.  
-- Understand the questions you want to answer and the insights you aim to derive.  
-- Knowing what insights you aim to gain will guide your data collection efforts.  
-
-#### 2) Identify Relevant Data Sources
-- Determine the sources of data that are relevant to your objectives (databases, spreadsheets, APIs, external datasets, etc.).  
-- Identify the **key performance indicators (KPIs)** and metrics relevant to your goals.  
-- These metrics will drive the selection of data sources and variables.  
-
-#### 3) Data Quality Assessment
-- Assess the quality of available data: completeness, accuracy, consistency, and relevance.  
-- Perform cleaning and preprocessing to resolve quality issues.  
-
-#### 4) Consider Structured and Unstructured Data
-- Collect both structured data (e.g., databases, spreadsheets) and unstructured data (e.g., text, images) for comprehensive analysis.  
-
-#### 5) Real-time Data Collection
-- If real-time insights are required, implement systems for collecting and processing data continuously.  
-- This is critical for dynamic datasets.  
-
-#### 6) Data Privacy and Ethics
-- Ensure compliance with data privacy regulations.  
-- Obtain permissions when dealing with personal or sensitive information.  
-
-#### 7) Sampling Techniques
-- Use sampling when working with very large datasets.  
-- Select a representative subset to reduce time and resource costs while maintaining reliability.  
-
-#### 8) Surveys and Questionnaires
-- Design and deploy surveys or questionnaires to gather targeted information from users or stakeholders.  
-- Ensure questions are aligned with project objectives.  
-
-#### 9) Collaboration with Stakeholders
-- Work with domain experts and stakeholders to understand data context.  
-- Their input helps refine data collection strategies.  
-
-#### 10) Data Integration
-- Integrate data from multiple sources into a unified dataset.  
-- Ensure compatibility and consistency across platforms.  
-
----
-
-<p align="center" style="font-size:24px"><b> Data Security in Data Analysis and Visualization</b></p>
-
-
-Data security is a critical concern in the field of data analysis and visualization.  
-As organizations collect and analyze large volumes of data to gain insights and make informed decisions, they also face significant challenges related to the security and privacy of this data.  
-
-
-
-#### 1) Data Breaches
-- One of the most significant concerns is the potential for unauthorized access.  
-- Breaches can cause **financial losses, reputational damage, and legal consequences**.  
-
-#### 2) Data Privacy
-- Protecting the privacy of individuals is crucial, especially with **personally identifiable information (PII)**.  
-- Techniques such as **anonymization** and **differential privacy** mitigate risks when analyzing or visualizing sensitive data.  
-
-#### 3) Data Access Control
-- Strict access controls are necessary to limit access to sensitive datasets.  
-- **Role-Based Access Control (RBAC)** and other protocols regulate who can view, edit, or analyze data.  
-
-#### 4) Data Encryption
-- Data must be encrypted both **in transit** and **at rest**.  
-- Encryption ensures intercepted or stolen data remains unreadable without decryption keys.  
-
-#### 5) Data Integrity
-- Data should remain unaltered during storage, analysis, and visualization.  
-- **Checksums** and **digital signatures** detect unauthorized changes.  
-
-#### 6) Secure Data Sharing
-- Organizations often need to share data with external partners or vendors.  
-- Secure methods include **SFTP**, **secure APIs**, or even **blockchain** for ensuring safe transfers.  
-
-#### 7) Data Masking and Redaction
-- When sharing sensitive data, masking or redacting replaces, encrypts, or removes critical information.  
-- This allows analysis without exposing private details.  
-
-#### 8) Compliance with Regulations
-- Organizations must comply with laws such as **GDPR (EU)** or **HIPAA (US)**.  
-- Non-compliance can result in heavy fines and legal action.  
-
-#### 9) Awareness and Training
-- Human error is a major cause of breaches.  
-- Regular **training and awareness programs** help employees understand and uphold security responsibilities.  
-
-#### 10) Data Lifecycle Management
-- Data must be managed securely throughout its lifecycle: **storage, archival, and deletion**.  
-- Outdated or unused data, if not securely removed, becomes a potential security risk.  
+```mermaid
+graph TD
+    A[Data Security] --> B[Access Control]
+    A --> C[Encryption]
+    A --> D[Integrity]
+    A --> E[Secure Sharing]
+    A --> F[Compliance]
+    B --> B1[RBAC]
+    C --> C1[In Transit: HTTPS]
+    C --> C2[At Rest: AES]
+    D --> D1[Checksums]
+    E --> E1[SFTP/APIs]
+    F --> F1[GDPR/HIPAA]
+``` 
 
 ---
 <p align="center" style="font-size:24px"><b>Data Pre-Processing Overview in Data Science & Visualization (DSV)</b></p> 
