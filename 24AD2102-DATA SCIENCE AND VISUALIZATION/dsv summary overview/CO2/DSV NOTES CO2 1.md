@@ -349,6 +349,83 @@ flowchart TD
     E --> F[Data Discretization]
 ```
 
+# Data Preprocessing
+
+## Why?
+Data in the real world is **dirty**:
+- **Incomplete**: Missing values, missing attributes of interest, or only aggregate data.  
+  *Example: `occupation =` (empty)*  
+- **Noisy**: Contains errors or outliers.  
+  *Example: `Salary = "- I O"`*  
+- **Inconsistent**: Discrepancies in codes or names.  
+
+---
+
+## Sources of Dirty Data
+
+### Incomplete Data
+- **n/a values during collection** → Customer survey with `age = n/a`.  
+- **Time mismatch between collection and analysis** → Sales data collected daily, but product prices updated monthly → mismatch.  
+- **Human, hardware, or software errors** → Sensor stops recording halfway; missing half of temperature readings.  
+
+
+
+### Noisy Data
+- **Errors in collection** → Microphone picks up static noise instead of clear speech.  
+- **Data entry mistakes** → Typing `50000O` instead of `500000` for salary.  
+- **Transmission issues** → GPS location gets scrambled during satellite signal loss.  
+
+
+
+### Inconsistent Data
+- **Conflicts between multiple data sources** → One database has `DOB = 1999-05-10`, another has `DOB = 1998-10-05`.  
+- **Functional dependency violations** → `ZIP code = 560001` but `City = Hyderabad` (mismatch; 560001 belongs to Bangalore).  
+---
+
+## Importance of Data Preprocessing
+- **No quality data → No quality mining results**  
+- Quality decisions demand quality data  
+  - Duplicate/missing values → Incorrect or misleading statistics  
+- Data warehouse requires consistent integration of quality data 
+- Data Extraction, cleaning, and transformation = **majority of the work** in building a data warehouse  
+
+
+---
+
+## Multi-Dimensional Measure of Data Quality
+
+### Core Dimensions
+- **Accuracy** → Value correctly represents the real-world fact.  
+  *Ex: Recorded temperature = 25°C, actual = 25°C.*  
+
+- **Completeness** → All required data is present.  
+  *Ex: Customer record missing phone number → incomplete.*  
+
+- **Consistency** → No contradictions across datasets.  
+  *Ex: `DOB = 2000-01-01` in one table, `DOB = 1999-12-31` in another → inconsistent.*  
+
+- **Timeliness** → Data is up-to-date.  
+  *Ex: Stock price updated hourly vs real-time feed.*  
+
+- **Believability** → Data is credible and trustworthy.  
+  *Ex: Sales data from official ERP vs. an unverified Excel sheet.*  
+
+- **Value Added** → Data contributes to decision-making.  
+  *Ex: Adding “Customer Lifetime Value” helps marketing strategy.*  
+
+- **Interpretability** → Data is easy to understand.  
+  *Ex: Column named `salary_in_usd` vs. `sal1`.*  
+
+- **Accessibility** → Data is available when needed.  
+  *Ex: Secure API access vs. locked in a local machine file.*  
+
+---
+
+### Broad Categories
+- **Intrinsic** → Accuracy, Believability, Objectivity.  
+- **Contextual** → Completeness, Timeliness, Value Added, Relevance.  
+- **Representational** → Interpretability, Consistency, Ease of understanding.  
+- **Accessibility** → Accessibility, Security. 
 
 ---
 
@@ -2474,6 +2551,27 @@ Consider values with labels: [10, 20, 30, 40, 50] with labels [A, A, B, B, B].
 - Entropy after: $H(S_1) = 0$, $H(S_2) = 0$, so $\text{Gain} = 0.971 - \left(\frac{2}{5} \cdot 0 + \frac{3}{5} \cdot 0\right) = 0.971$.
 - Best split at 25 (max gain).
 
+this is decision tree its here because the splitting is similar to this 
+```python
+from sklearn.tree import DecisionTreeClassifier
+
+df = pd.DataFrame({
+
+    'value': [10, 20, 30, 40, 50],
+
+    'label': ['A', 'A', 'B', 'B', 'B']
+
+})
+
+tree = DecisionTreeClassifier(max_depth=1)
+
+tree.fit(df[['value']], df['label'])
+
+threshold = tree.tree_.threshold[0]
+
+print(f"Best split at: {threshold}")
+```
+
 ## Advanced Supervised Methods
 
 - **ChiMerge**: Merges adjacent bins using Chi-Square test.
@@ -2527,83 +2625,44 @@ Consider scores: [10, 20, 30, 40] with labels [A, A, B, B].
 
 **Detailed Explanation**:  
 Discretization simplifies data, reduces model complexity, and enables algorithms like Naive Bayes ($P(Y|X)$) or association rules. Equal-frequency handles skewed data better, clustering captures natural groupings, and supervised methods optimize for classification by using class labels.
-# Data Preprocessing
 
-## Why?
-Data in the real world is **dirty**:
-- **Incomplete**: Missing values, missing attributes of interest, or only aggregate data.  
-  *Example: `occupation =` (empty)*  
-- **Noisy**: Contains errors or outliers.  
-  *Example: `Salary = "- I O"`*  
-- **Inconsistent**: Discrepancies in codes or names.  
+demo Discretizing with Pandas
 
----
+```python
+#Dataset Preparation:-
 
-## Sources of Dirty Data
+import pandas as pd
 
-### Incomplete Data
-- **n/a values during collection** → Customer survey with `age = n/a`.  
-- **Time mismatch between collection and analysis** → Sales data collected daily, but product prices updated monthly → mismatch.  
-- **Human, hardware, or software errors** → Sensor stops recording halfway; missing half of temperature readings.  
+import numpy as np
 
+np.random.seed(0)
 
+df = pd.DataFrame({'score': np.random.normal(loc=70, scale=10, size=100)})
 
-### Noisy Data
-- **Errors in collection** → Microphone picks up static noise instead of clear speech.  
-- **Data entry mistakes** → Typing `50000O` instead of `500000` for salary.  
-- **Transmission issues** → GPS location gets scrambled during satellite signal loss.  
+#Applying Binning Methods:-
 
+df['equal_width'] = pd.cut(df['score'], bins=4)
 
+df['equal_freq'] = pd.qcut(df['score'], q=4)
 
-### Inconsistent Data
-- **Conflicts between multiple data sources** → One database has `DOB = 1999-05-10`, another has `DOB = 1998-10-05`.  
-- **Functional dependency violations** → `ZIP code = 560001` but `City = Hyderabad` (mismatch; 560001 belongs to Bangalore).  
----
+#Clustering-Based Example:-
 
-## Importance of Data Preprocessing
-- **No quality data → No quality mining results**  
-- Quality decisions demand quality data  
-  - Duplicate/missing values → Incorrect or misleading statistics  
-- Data warehouse requires consistent integration of quality data 
-- Data Extraction, cleaning, and transformation = **majority of the work** in building a data warehouse  
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(n_clusters=4, random_state=0)
+
+df['cluster'] = kmeans.fit_predict(df[['score']])
+
+#Visualizing Discretized Results:-
+
+import seaborn as sns
+
+sns.histplot(data=df, x='score', hue='equal_freq', multiple='stack')
+```
 
 
----
 
-## Multi-Dimensional Measure of Data Quality
 
-### Core Dimensions
-- **Accuracy** → Value correctly represents the real-world fact.  
-  *Ex: Recorded temperature = 25°C, actual = 25°C.*  
-
-- **Completeness** → All required data is present.  
-  *Ex: Customer record missing phone number → incomplete.*  
-
-- **Consistency** → No contradictions across datasets.  
-  *Ex: `DOB = 2000-01-01` in one table, `DOB = 1999-12-31` in another → inconsistent.*  
-
-- **Timeliness** → Data is up-to-date.  
-  *Ex: Stock price updated hourly vs real-time feed.*  
-
-- **Believability** → Data is credible and trustworthy.  
-  *Ex: Sales data from official ERP vs. an unverified Excel sheet.*  
-
-- **Value Added** → Data contributes to decision-making.  
-  *Ex: Adding “Customer Lifetime Value” helps marketing strategy.*  
-
-- **Interpretability** → Data is easy to understand.  
-  *Ex: Column named `salary_in_usd` vs. `sal1`.*  
-
-- **Accessibility** → Data is available when needed.  
-  *Ex: Secure API access vs. locked in a local machine file.*  
-
----
-
-### Broad Categories
-- **Intrinsic** → Accuracy, Believability, Objectivity.  
-- **Contextual** → Completeness, Timeliness, Value Added, Relevance.  
-- **Representational** → Interpretability, Consistency, Ease of understanding.  
-- **Accessibility** → Accessibility, Security. 
 
 
 # Handling Missing Values & Data Manipulation
