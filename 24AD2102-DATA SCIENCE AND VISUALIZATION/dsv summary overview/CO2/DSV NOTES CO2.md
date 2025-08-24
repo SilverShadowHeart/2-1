@@ -1028,3 +1028,304 @@ Data in the real world is **dirty**:
 - **Contextual** → Completeness, Timeliness, Value Added, Relevance.  
 - **Representational** → Interpretability, Consistency, Ease of understanding.  
 - **Accessibility** → Accessibility, Security. 
+
+
+# Handling Missing Values & Data Manipulation
+
+## 1. Missing Values
+
+**Definition:**  
+Entries in a dataset where data is absent.
+
+**Example:**
+
+|Name|Age|City|
+|---|---|---|
+|Alice|20|Delhi|
+|Bob|NaN|Mumbai|
+|Charlie|22|NaN|
+
+**Representations:**
+
+- **Python:** `NaN` (numeric/mixed), `None` (text/object), `pd.NA` (pandas unified).
+    
+- **Databases:** `NULL`.
+    
+- **Spreadsheets:** empty cells, `#N/A`, `NA`.
+    
+
+**Detecting Missing Values (Pandas):**
+
+`df.isnull()            # Detect missing df.isnull().sum()      # Count missing per column df[df.isnull().any(axis=1)]  # Rows with missing values`
+
+**Filtering Missing Values:**
+
+`df.dropna()                       # Drop rows with any missing value df.dropna(axis=1)                  # Drop columns with missing values df.dropna(subset=['Age'])          # Drop rows missing specific column df.dropna(thresh=2)                # Keep rows with at least 2 non-null values df[df.isnull().any(axis=1)]        # Select rows with missing df[df.notnull().all(axis=1)]       # Select complete rows`
+
+---
+
+## 2. Replacing & Imputing Missing Values
+
+**Techniques:**
+
+|Method|Description|Pros|Cons|
+|---|---|---|---|
+|Constant|Fill with fixed value (e.g., 0, 'Unknown')|Simple, keeps dataset size|May introduce bias|
+|Mean|Fill with column mean|Easy, retains mean|Distorts relationships, underestimates variance|
+|Median|Fill with middle value|Robust to outliers|Less informative if uniform|
+|Mode|Most frequent value|Simple for categorical|Frequency bias, not for continuous|
+|Forward Fill (`ffill`)|Use previous row|Maintains temporal consistency|Propagates errors|
+|Backward Fill (`bfill`)|Use next row|Quick|Not valid for real-time prediction|
+|Linear Interpolation|Linear trend estimation|Keeps trend|Only numeric, misleads non-linear trends|
+|KNN Imputation|Based on nearest neighbors|Multivariate, non-parametric|Expensive, sensitive to scaling/outliers|
+|Regression Imputation|Predict missing via regression|Captures relationships|Needs model, can introduce errors|
+|MICE|Iterative regression for multiple variables|More accurate, accounts for uncertainty|Complex, slow|
+
+**Example (Mean Imputation):**
+
+`df['Age'].fillna(df['Age'].mean(), inplace=True)`
+
+---
+
+## 3. Sorting Data
+
+**Definition:** Arrange rows based on column values.
+
+`df.sort_values(by='Age')           # Ascending (default) df.sort_values(by='Age', ascending=False)  # Descending df.sort_values(by=['City','Age'])  # Multi-column sort`
+
+---
+
+## 4. Grouping Data
+
+**Definition:** Split dataset by categories and apply aggregation.
+
+**Example: Average Age by City**
+
+`grouped = df.groupby('City')['Age'].mean() print(grouped)`
+
+**Common Aggregations:** `.mean()`, `.sum()`, `.count()`, `.max()`, `.min()`
+
+---
+
+## 5. Rearranging Data
+
+**Purpose:** Organize dataset structure for analysis.
+
+**Operations:**
+
+1. **Reset Index**
+    
+
+`df.reset_index(drop=True, inplace=True)`
+
+2. **Set Index**
+    
+
+`df.set_index('Name', inplace=True)`
+
+3. **Reorder Columns**
+    
+
+`df = df[['Name','City','Age']]`
+
+4. **Rename Columns**
+    
+
+`df.rename(columns={'Age':'Years'}, inplace=True)`
+
+5. **Reshape / Pivot**
+    
+
+`df.pivot(index='Name', columns='City', values='Age')`
+
+
+# Statistics and Data Preparation
+
+## 1. Descriptive Statistics
+
+**Definition:** Summarizes dataset characteristics using measures (mean, median, mode, std, variance) and visual tools.
+
+**Example: Marks of 5 students**  
+Data: `[75, 80, 85, 90, 95]`
+
+|Measure|Value|
+|---|---|
+|Mean (Average)|85|
+|Median (Middle)|85|
+|Mode (Most frequent)|No mode|
+|Range (Max-Min)|20|
+|Std Deviation|7.91|
+
+---
+
+## 2. Central Tendency
+
+### Mean
+
+Mean=∑xin\text{Mean} = \frac{\sum x_i}{n}Mean=n∑xi​​
+
+Python: `statistics.mean(data)` or `np.mean(data)`
+
+### Median
+
+- Middle value of sorted data
+    
+- Odd n → middle value, Even n → average of two middle values  
+    Python: `statistics.median(data)` or `np.median(data)`
+    
+
+### Mode
+
+- Most frequent value(s)
+    
+- Types: unimodal, multimodal, no mode  
+    Python: `statistics.mode(data)` or `df.mode()`
+    
+
+---
+
+## 3. Measures of Dispersion
+
+### Variance
+
+Sample Variance s2=∑(xi−xˉ)2n−1,Population σ2=∑(xi−μ)2N\text{Sample Variance } s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}, \quad \text{Population } \sigma^2 = \frac{\sum (x_i - \mu)^2}{N}Sample Variance s2=n−1∑(xi​−xˉ)2​,Population σ2=N∑(xi​−μ)2​
+
+Python: `statistics.variance(data)` or `np.var(data, ddof=1)`
+
+### Standard Deviation
+
+SD=Variance\text{SD} = \sqrt{\text{Variance}}SD=Variance​
+
+Python: `statistics.stdev(data)` or `np.std(data, ddof=1)`
+
+### Range
+
+Range=Max−Min\text{Range} = \text{Max} - \text{Min}Range=Max−Min
+
+---
+
+## 4. Measures of Shape & Position
+
+|Statistic|Description|
+|---|---|
+|Min / Max|Smallest / largest values|
+|Percentiles / Quartiles|Values below which a % of data fall (25%, 50%, 75%)|
+|Skewness|Asymmetry of distribution|
+|Kurtosis|Peakedness of distribution|
+
+---
+
+## 5. Summary Statistics in Python
+
+### Using NumPy
+
+`import numpy as np np.mean(data) np.median(data) np.std(data, ddof=1) np.var(data, ddof=1) np.min(data), np.max(data) np.percentile(data, [25,50,75])`
+
+### Using Pandas
+
+`import pandas as pd df.describe()         # count, mean, std, min, 25%, 50%, 75%, max df.mean(), df.median(), df.mode() df.std(), df.var()`
+
+**Use Case:** Efficiently analyze large datasets, identify outliers, and prepare for EDA.
+
+
+# Data Distribution & Skewness
+
+## 1. Data Distribution
+
+Shows how values are spread across a range.  
+**Example:** Most students aged 20–22 → concentration around center.
+
+**Common Types:**
+
+|Type|Description|
+|---|---|
+|Normal|Symmetric, bell-shaped, mean ≈ median ≈ mode|
+|Right-skewed|Tail on right, few high values, mean > median > mode|
+|Left-skewed|Tail on left, few low values, mean < median < mode|
+|Uniform|All values roughly equally frequent|
+|Bimodal|Two peaks → two dominant groups|
+|Multimodal|>2 peaks → multiple clusters|
+
+**Visualization:**
+
+- Histogram → numeric distribution
+    
+- Box Plot → median, quartiles, spread, outliers
+    
+- Density Plot → smooth histogram
+    
+- Bar Chart → categorical counts
+    
+- Scatter Plot → relationships, trends, clusters, outliers
+    
+
+---
+
+## 2. Outliers & Anomalies
+
+### Outliers
+
+- Far from most data points
+    
+- Skew analyses
+    
+- Detected via **Box Plot** or **Z-Score**
+    
+
+**Box Plot Example:**
+
+- Marks: `[55, 60, 62, 65, 67, 70, 72, 75, 80, 85, 100]`
+    
+- Median = 70, Q1 = 62, Q3 = 80, Min = 55, Max = 100
+    
+- Middle 50% = 62–80
+    
+
+**Z-Score Method:**
+
+z=X−MeanStd Devz = \frac{X - \text{Mean}}{\text{Std Dev}}z=Std DevX−Mean​
+
+- |z| > 3 → potential outlier
+    
+
+### Anomalies
+
+|Type|Example|
+|---|---|
+|Point|Single unusual value|
+|Contextual|Unusual in context (e.g., 2 AM purchase)|
+|Collective|Group of unusual values (e.g., failed logins)|
+
+---
+
+## 3. Skewness & Pearson’s Median Skewness Coefficient
+
+### Skewness
+
+- Measures asymmetry of distribution
+    
+- **Symmetric:** 0 → bell curve
+    
+- **Positive (right):** mean > median > mode
+    
+- **Negative (left):** mean < median < mode
+    
+
+**Pearson’s Median Skewness:**
+
+Skewness=3(Mean−Median)Std Dev\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Std Dev}}Skewness=Std Dev3(Mean−Median)​
+
+- > 0 → Right-skewed
+    
+- <0 → Left-skewed
+    
+- 0 → Symmetric
+    
+
+**Example:** Mean = 70, Median = 65, SD = 10 → Skewness = +1.5 → strongly right-skewed
+
+---
+
+## 4. Lab Demo: EDA with Pandas & Matplotlib
+
+`import pandas as pd import matplotlib.pyplot as plt import seaborn as sns from scipy.stats import skew  # Sample dataset data = pd.DataFrame({     'Student': ['B','D','E','F','G','H'],     'Marks': [55,60,65,70,95,75,80,45],     'Attendance': [85,88,80,82,90,70,95,60] })  # Exploration print(data.head()) print(data.describe())  # Histogram sns.histplot(data['Marks'], bins=5, color='skyblue', kde=True) plt.show()  # Boxplot sns.boxplot(y=data['Marks'], color='orange') plt.show()  # Scatter Plot sns.scatterplot(x='Attendance', y='Marks', data=data, color='green') plt.show()  # Skewness print("Skewness of Marks:", skew(data['Marks']))`
