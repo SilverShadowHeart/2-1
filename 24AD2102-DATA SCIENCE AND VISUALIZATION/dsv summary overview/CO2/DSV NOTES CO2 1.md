@@ -1267,6 +1267,7 @@ flowchart TD
 
 # Data Transformation in Data Science and Visualization
 
+Data transformation converts raw data into a structured, understandable form suitable for analysis, visualization, or data mining. This section explains your **Data Transformation** section in detail, preserving all original content, elaborating on each concept, and providing numerical examples with separate before and after tables for each transformation strategy (smoothing, aggregation, generalization, normalization, and feature construction). Formulas for min-max, z-score, and decimal scaling are included with examples. Mathematical expressions use `$` for inline math and `$$` for block math, optimized for Obsidian. Mermaid diagrams are included for visual clarity.
 
 ## Definition and Goal
 
@@ -1277,15 +1278,12 @@ flowchart TD
     - **Generalization (Rolling-up)**: Form higher-level abstractions and layered summaries.
 
 **Detailed Explanation**:  
-Data transformation reshapes raw data to make it suitable for tasks like statistical analysis, machine learning ($Y = f(X)$), or visualization. Raw data may have inconsistent formats, redundant fields, or overly detailed values, complicating analysis. For example, sales data with mixed units (e.g., dollars and cents) or detailed addresses (e.g., street-level) can be transformed to ensure consistency and simplicity.
+Data transformation reshapes raw data to make it suitable for tasks like statistical analysis, machine learning ($Y = f(X)$), or visualization. Raw data often has inconsistencies (e.g., mixed units like dollars and cents), redundancies (e.g., duplicate columns), or excessive detail (e.g., street-level addresses), which complicates analysis.
 
-- **Normalization**: Scales values to a standard range (e.g., [0,1]) or restructures tables to eliminate duplicate data, improving storage and processing efficiency.
-- **Aggregation**: Summarizes data (e.g., total sales per month) to provide quick insights, reducing dataset size.
-- **Generalization**: Abstracts data into broader categories (e.g., addresses to cities) for high-level analysis, such as regional trends.  
-    The goal is a dataset that is consistent, efficient, and aligned with analysis needs.
-
-**Example**:  
-Raw data with varied scales and detailed addresses can be transformed to normalized values and city-level data for easier analysis.
+- **Normalization**: Scales numeric values to a standard range (e.g., [0,1]) or restructures tables to eliminate duplicate data, improving storage and processing efficiency.
+- **Aggregation**: Summarizes data into metrics (e.g., total sales per month), reducing dataset size and enabling quick insights.
+- **Generalization**: Abstracts detailed data into broader categories (e.g., addresses to cities) for high-level analysis, such as regional trends.  
+    The goal is a dataset that is consistent (uniform formats), efficient (smaller size), and meaningful (highlights patterns).
 
 **Mermaid Diagram: Transformation Process**:
 
@@ -1313,68 +1311,100 @@ Your content lists five strategies:
 - **Definition**: Remove noise from data using statistical methods or algorithms.
 
 **Detailed Explanation**:  
-Smoothing eliminates random variations or outliers to highlight underlying patterns. Noise, such as erratic measurements (e.g., a sales spike due to a data entry error), can obscure trends. Methods like moving averages ($MA_t = \frac{x_t + x_{t-1} + x_{t-2}}{3}$) or regression ($Y = \beta_0 + \beta_1 X$) smooth data to aid forecasting, though they may reduce fine-grained details.
+Smoothing eliminates random variations or outliers to reveal underlying patterns. Noise, such as erratic measurements (e.g., a sales spike from a data entry error), can obscure trends. Methods include moving averages ($MA_t = \frac{x_t + x_{t-1} + x_{t-2}}{3}$), regression ($Y = \beta_0 + \beta_1 X$), or random smoothing (e.g., binning). Smoothing aids forecasting (e.g., predicting future sales) but may reduce fine-grained details.
 
-**Example**:  
-A dataset of daily temperatures [20, 21, 50, 22] has a noisy value (50). Smoothing with a moving average replaces 50 with an average of surrounding values, revealing a steadier trend.
+**Example with Separate Tables**:  
+Consider daily sales data with a noisy value.
 
-**Before/After Table**:
+**Before Table**:
 
-|Day|Temp (Before)|Temp (Smoothed, 3-day avg)|
-|---|---|---|
-|1|20|-|
-|2|21|30.33|
-|3|50|31.00|
-|4|22|-|
-|**Calculation**: For Day 2: $\frac{20 + 21 + 50}{3} = 30.33$; for Day 3: $\frac{21 + 50 + 22}{3} = 31.00$.|||
+|Day|Sales|
+|---|---|
+|1|100|
+|2|150|
+|3|500|
+|4|120|
+
+**After Table (3-day Moving Average)**:
+
+|Day|Sales_Smoothed|
+|---|---|
+|1|-|
+|2|250.00|
+|3|256.67|
+|4|-|
+|**Calculation**:||
+
+- Day 2: $MA = \frac{100 + 150 + 500}{3} = 250.00$
+- Day 3: $MA = \frac{150 + 500 + 120}{3} = 256.67$
+- Days 1 and 4 lack enough neighbors for a 3-day average, so they remain undefined.
 
 ### 2. Aggregation
 
 - **Definition**: Summarize data, construct data cubes, or combine multiple records into metrics.
 
+**Steps**:
+
+1. Identify sources (databases, spreadsheets, APIs).
+2. Extract data (ETL or API).
+3. Cleanse (remove errors, duplicates).
+4. Combine into a warehouse or data lake.
+5. Summarize metrics (sum, average, count).
+6. Analyze for insights.
+
 **Detailed Explanation**:  
-Aggregation condenses data into summaries (e.g., sum, average, count) for faster insights. Data cubes enable multidimensional analysis (e.g., sales by region and month). Combining records might involve grouping transactions by customer to compute total purchases, reducing dataset size and enabling quick reporting.
+Aggregation condenses data into summaries (e.g., sum, average, count) for faster insights. For example, daily sales can be summed by month to analyze trends. Data cubes enable multidimensional analysis (e.g., sales by region and month). The process involves sourcing data, extracting it via ETL (Extract, Transform, Load) or APIs, cleaning it (e.g., removing duplicates), combining it into a data warehouse or lake, computing metrics ($Sum = \sum x_i$, $Mean = \frac{\sum x_i}{n}$), and analyzing results.
 
-**Example**:  
-Daily sales data across regions can be aggregated to monthly totals per region, simplifying trend analysis.
+**Example with Separate Tables**:  
+Consider daily sales data across regions.
 
-**Before/After Table**:
+**Before Table**:
 
-|Date|Region|Sales (Before)|
+|Date|Region|Sales|
 |---|---|---|
 |2023-01-01|North|100|
 |2023-01-02|North|150|
 |2023-02-01|South|200|
-|**After (Monthly Aggregation)**:|||
+
+**After Table (Monthly Aggregation)**:
+
 |Month|Region|Total_Sales|
-|----------|--------|-------------|
+|---|---|---|
 |2023-01|North|250|
 |2023-02|South|200|
-|**Calculation**: For North, January: $100 + 150 = 250$.|||
+|**Calculation**:|||
+
+- January, North: $100 + 150 = 250$
+- February, South: $200 = 200$
 
 ### 3. Generalization
 
 - **Definition**: Transform low-level attributes into high-level concepts using hierarchies (e.g., street < city < state < country).
 
 **Detailed Explanation**:  
-Generalization abstracts detailed categorical data into broader categories using hierarchies. For example, replacing street addresses with cities reduces the number of unique values, simplifying analysis. The hierarchy `street < city < state < country` allows roll-up operations in data warehouses, enabling summarized reports (e.g., sales by state instead of street).
+Generalization abstracts detailed categorical data into broader categories using hierarchies. For example, replacing street addresses with cities reduces unique values, simplifying analysis. The hierarchy `street < city < state < country` supports roll-up operations in data warehouses, enabling summarized reports (e.g., sales by state instead of street). This is useful for high-cardinality categorical data.
 
-**Example**:  
-Addresses like "123 Main St, NY" and "456 Oak St, NY" are generalized to "NY" for regional analysis.
+**Example with Separate Tables**:  
+Consider sales data with detailed addresses.
 
-**Before/After Table**:
+**Before Table**:
 
-|Address (Before)|Sales|
+|Address|Sales|
 |---|---|
 |123 Main St, NY|100|
 |456 Oak St, NY|150|
 |789 Pine St, LA|200|
-|**After (Generalized to City)**:||
+
+**After Table (Generalized to City)**:
+
 |City|Total_Sales|
-|------|-------------|
+|---|---|
 |NY|250|
 |LA|200|
-|**Calculation**: For NY: $100 + 150 = 250$.||
+|**Calculation**:||
+
+- NY: $100 + 150 = 250$
+- LA: $200 = 200$
 
 ### 4. Normalization
 
@@ -1383,85 +1413,99 @@ Addresses like "123 Main St, NY" and "456 Oak St, NY" are generalized to "NY" fo
 - **Decimal scaling**: Scale by powers of 10 to bring values into range.
 
 **Detailed Explanation**:  
-Normalization scales numeric data to a standard range to ensure fair comparisons or compatibility with algorithms like neural networks ($Y = W \cdot X + b$).
+Normalization scales numeric data to a standard range for fair comparisons or algorithm compatibility (e.g., neural networks, $Y = W \cdot X + b$).
 
-- **Min-Max**: Scales values to a range, typically [0,1], preserving relative differences but sensitive to outliers.
-- **Z-score**: Centers data around the mean with unit standard deviation, robust to outliers.
-- **Decimal Scaling**: Divides by $10^k$ (where $k$ is the smallest integer to bring values into [-1,1]), simple but less common.
+- **Min-Max**: Scales values to a range (e.g., [0,1]), preserving relative differences.
+- **Z-score**: Centers data around the mean ($mean = \frac{\sum x_i}{n}$) with unit standard deviation ($std_dev = \sqrt{\frac{\sum (x_i - \text{mean})^2}{n}}$).
+- **Decimal Scaling**: Divides by $10^k$ to bring values into [-1,1], where $k$ is the smallest integer such that $\max(|v'|) < 1$.
 
-**Example with Before/After Tables**:  
-Dataset:
+**Example with Separate Tables**:  
+Consider salary data.
 
-|Salary (Before)|
+**Before Table**:
+
+|Salary|
 |---|
 |50000|
 |75000|
 |100000|
 
-- **Min-Max Normalization** (to [0,1]):  
+- **Min-Max Normalization (to [0,1])**:  
     Formula: $v' = \frac{(v - \min A)}{(\max A - \min A)} \times (1 - 0) + 0$  
     Here, $\min A = 50000$, $\max A = 100000$.
-    
     - For 50000: $v' = \frac{(50000 - 50000)}{(100000 - 50000)} = 0$
     - For 75000: $v' = \frac{(75000 - 50000)}{(100000 - 50000)} = 0.5$
-    - For 100000: $v' = \frac{(100000 - 50000)}{(100000 - 50000)} = 1$  
-        **Table**:
-        
-        |Salary (Before)|Salary_MinMax (After)|
-        |---|---|
-        |50000|0.0|
-        |75000|0.5|
-        |100000|1.0|
-        
+    - For 100000: $v' = \frac{(100000 - 50000)}{(100000 - 50000)} = 1$
+
+**After Table (Min-Max)**:
+
+|Salary_MinMax|
+|---|
+|0.0|
+|0.5|
+|1.0|
+
 - **Z-score Normalization**:  
-    Formula: $v' = \frac{(v - \text{mean})}{\text{std_dev}}$  
+    Formula: $v' = \frac{v - \text{mean}}{\text{std\_dev}}$  
     Mean: $\text{mean} = \frac{50000 + 75000 + 100000}{3} = 75000$  
-    Std Dev: $\text{std_dev} = \sqrt{\frac{(50000-75000)^2 + (75000-75000)^2 + (100000-75000)^2}{3}} = \sqrt{\frac{6250000000}{3}} \approx 25000$
-    
+    Std Dev:
+    $$\displaystyle \text{std\_dev} = \sqrt{\frac{(50000 - 75000)^2 + (75000 - 75000)^2 + (100000 - 75000)^2}{3}} = \sqrt{\frac{6250000000}{3}} \approx 25000$$
     - For 50000: $v' = \frac{(50000 - 75000)}{25000} = -1$
     - For 75000: $v' = \frac{(75000 - 75000)}{25000} = 0$
-    - For 100000: $v' = \frac{(100000 - 75000)}{25000} = 1$  
-        **Table**:
-        
-        |Salary (Before)|Salary_Zscore (After)|
-        |---|---|
-        |50000|-1.0|
-        |75000|0.0|
-        |100000|1.0|
-        
+    - For 100000: $v' = \frac{(100000 - 75000)}{25000} = 1$
+
+**After Table (Z-score)**:
+
+|Salary_Zscore|
+|---|
+|-1.0|
+|0.0|
+|1.0|
+
 - **Decimal Scaling**:  
     Formula: $v' = \frac{v}{10^k}$, where $k$ is the smallest integer such that $\max(|v'|) < 1$.  
     Here, $\max(v) = 100000$, so $k = 5$ (since $100000 / 10^5 = 1$).
-    
     - For 50000: $v' = \frac{50000}{100000} = 0.5$
     - For 75000: $v' = \frac{75000}{100000} = 0.75$
-    - For 100000: $v' = \frac{100000}{100000} = 1.0$  
-        **Table**:
-        
-        |Salary (Before)|Salary_Decimal (After)|
-        |---|---|
-        |50000|0.5|
-        |75000|0.75|
-        |100000|1.0|
-        
+    - For 100000: $v' = \frac{100000}{100000} = 1.0$
+
+**After Table (Decimal Scaling)**:
+
+|Salary_Decimal|
+|---|
+|0.5|
+|0.75|
+|1.0|
 
 ### 5. Attribute/Feature Construction
 
 - **Generate**: New attributes from existing ones (e.g., calculate area from height and width).
 
 **Detailed Explanation**:  
-Feature construction creates new attributes by combining existing ones to capture relationships. For example, calculating `Area = height \times width` from dimensions provides a new feature that may improve model performance (e.g., in regression, $Y = \beta_0 + \beta_1 \cdot Area$). This is common in feature engineering to enhance predictive power.
+Feature construction creates new attributes by combining existing ones to capture relationships. For example, computing `Area = height \times width` from dimensions provides a new feature that may enhance model performance (e.g., in regression, $Y = \beta_0 + \beta_1 \cdot Area$).
 
-**Example**:  
-From `Height` and `Width`, compute `Area` to simplify analysis of rectangular objects.
+**Example with Separate Tables**:  
+Consider dimensions of rectangles.
 
-**Before/After Table**:
+**Before Table**:
 
-|Height (Before)|Width (Before)|Area (After)|
+|Height|Width|
+|---|---|
+|10|5|
+|20|3|
+
+**After Table (Add Area)**:
+
+|Height|Width|Area|
 |---|---|---|
 |10|5|50|
 |20|3|60|
-|**Calculation**: For row 1: $Area = 10 \times 5 = 50$; for row 2: $Area = 20 \times 3 = 60$.|||
+
+**Calculation**:
+
+- Row 1: $Area = 10 \times 5 = 50$
+- Row 2: $Area = 20 \times 3 = 60$
+
 ---
 
 #### 4) Data Reduction
