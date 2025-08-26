@@ -2207,6 +2207,8 @@ Aggregation condenses raw data into summaries to provide faster insights. Daily,
 - January, North: $100 + 150 = 250$
     
 - February, South: $200 = 200$
+
+---
 ### 3. Generalization
 
 - **Definition**: Transform low-level attributes into high-level concepts using hierarchies (e.g., street < city < state < country).
