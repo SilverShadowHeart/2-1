@@ -2509,6 +2509,8 @@ plt.show()
 - Select top PC (e.g., explaining 90% variance).
 - Project data: $PC1 = w_1 \cdot Length + w_2 \cdot Width$ (weights from eigenvector).
 
+---
+
 ## **Data Cube Aggregation**
 
 ### 1. **Definition**
@@ -2622,21 +2624,60 @@ another example result
 
 ![[Pasted image 20250824221140.png]]
 
-## Attribute Selection
 
-- **Definition**: Selecting a subset of relevant features to reduce dimensionality without losing important information.
-- **Methods**:
-    - Filter Methods: Use statistical measures (e.g., correlation, chi-square).
-    - Wrapper Methods: Evaluate subsets with machine learning algorithms.
-    - Embedded Methods: Feature selection during model training (e.g., Lasso).
+---
 
-**Detailed Explanation**:  
-Attribute selection identifies relevant features to reduce dimensionality, removing irrelevant or redundant ones. Filter methods use metrics like correlation ($r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$) to rank features. Wrapper methods test feature subsets with models (e.g., accuracy). Embedded methods integrate selection into training (e.g., Lasso applies $L1$ regularization: $\min \sum (y_i - \hat{y}_i)^2 + \lambda \sum |\beta_i|$).
+## **Attribute Selection**
 
-**Example with Separate Tables**:  
-Consider a dataset with features `Age`, `Income`, and `Height`.
+### 1. **Definition**
 
-**Before Table**:
+- Selecting a subset of relevant features to reduce dimensionality.
+    
+- Goal: retain **important information**, remove **irrelevant/redundant** attributes.
+    
+
+---
+
+### 2. **Methods**
+
+1. **Filter Methods**
+    
+    - Use statistical measures independent of ML models.
+        
+    - Example: **Correlation Coefficient**
+        
+        $r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \cdot \sum (y_i - \bar{y})^2}}$
+        
+1. **Wrapper Methods**
+    
+    - Select feature subsets, test them using a model (e.g., accuracy/F1).
+        
+    - Example: Recursive Feature Elimination (RFE).
+        
+2. **Embedded Methods**
+    
+    - Feature selection happens **during training**.
+        
+    - Example: **Lasso Regression** with L1 penalty:
+        
+        $\min \sum (y_i - \hat{y}_i)^2 + \lambda \sum |\beta_i|$
+
+---
+
+### 3. **Why It Matters**
+
+- **Efficiency**: Fewer features → faster training.
+    
+- **Accuracy**: Reduces noise, prevents overfitting.
+    
+- **Interpretability**: Simpler models, easier to explain.
+    
+
+---
+
+### 4. **Illustration**
+
+**Before Selection**
 
 |Age|Income|Height|
 |---|---|---|
@@ -2644,7 +2685,7 @@ Consider a dataset with features `Age`, `Income`, and `Height`.
 |30|60000|165|
 |35|55000|168|
 
-**After Table (Select Age, Income)**:
+**After Selection** (drop irrelevant feature)
 
 |Age|Income|
 |---|---|
@@ -2652,120 +2693,53 @@ Consider a dataset with features `Age`, `Income`, and `Height`.
 |30|60000|
 |35|55000|
 
-**Calculation**:
+**Reason**: Correlation analysis shows `Height` is weakly related to the target (e.g., purchase decision).
 
-- Correlation analysis shows `Height` has low correlation with target (e.g., purchase), so it’s dropped.
+---
+
+### 5. **Code Example: Correlation Heatmap**
 
 ```python
 import seaborn as sns
-
 import matplotlib.pyplot as plt
 
 # Load dataset
-
-df = sns.load_dataset('iris’) #enter the file path of iris dataset
+df = sns.load_dataset('iris')  # replace with your dataset
 
 # Compute correlation matrix
-
-correlation = df.corr()
+correlation = df.corr(numeric_only=True)
 
 # Visualize correlation
-
-sns.heatmap(correlation, annot=True)
-
+sns.heatmap(correlation, annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap of Iris Dataset")
-
 plt.show()
 ```
+![[Pasted image 20250827005013.png]]
 
-## Data Sampling
+---
+# **Data Sampling**
 
-- **Definition**: Select a representative subset to reduce size and computational cost.
-- **Types**:
-    - Random Sampling: Randomly select data points.
-    - Stratified Sampling: Sample proportionally from subgroups.
-    - Systematic Sampling: Select every $n$-th data point.
+---
 
-**Detailed Explanation**:  
-Sampling selects a subset of records to represent the full dataset, reducing size while preserving characteristics. Random sampling picks points randomly but may miss rare classes in skewed data. Stratified sampling ensures proportional representation of subgroups (e.g., classes in classification). Systematic sampling selects every $n$-th record, useful for ordered data.
+## **Definition**
 
+Selecting a smaller, representative subset of the dataset to **reduce storage, computation, and training time** while maintaining essential data characteristics.
 
-![[Pasted image 20250824222303.png]]
+---
 
-![[Pasted image 20250824222248.png]]
+## **Methods**
 
-![[Pasted image 20250824222355.png]]
+### 1. **Random Sampling**
 
-**Example with Separate Tables**:  
+- Pick records **completely at random**.
+    
+- **Advantage**: Simple, unbiased if dataset is balanced.
+    
+- **Weakness**: May miss minority/rare classes in skewed data.
+    
 
-
-```python
-import numpy as np
-
-import pandas as pd
-
-# Generate sample data
-
-data = pd.DataFrame({'A': np.random.randn(1000), 'B': np.random.randn(1000)})
-
-# Random Sampling
-
-sample = data.sample(n=100)  # Randomly select 100 rows
-
-print(sample)
-```
-
-![[Pasted image 20250824221427.png]]
-
-
-stratified code:
-
-```python
-from sklearn.model_selection import train_test_split
-
-# Sample data
-
-data = pd.DataFrame({
-
-    'Feature1': np.random.randn(1000),
-
-    'Feature2': np.random.randn(1000),
-
-    'Label': np.random.choice([0, 1], size=1000)
-
-})
-
-# Stratified sampling based on 'Label'
-
-train, test = train_test_split(data, test_size=0.2, stratify=data['Label'])
-
-print(train['Label'].value_counts(), test['Label'].value_counts())
-```
-![[Pasted image 20250824221800.png]]
-
-
-systematic sampling 
-
-```python
-# Generate sample data
-
-data = pd.DataFrame({'Feature1': np.random.randn(1000)})
-
-# Systematic Sampling
-
-step = 10
-
-sample = data.iloc[::step]
-
-print(sample)
-```
-![[Pasted image 20250824221958.png]]
-
-Consider a dataset with features and labels.
-
-
-
-**Before Table**:
+**Mini Example**  
+**Before (Full Data):**
 
 |Feature1|Feature2|Label|
 |---|---|---|
@@ -2774,77 +2748,173 @@ Consider a dataset with features and labels.
 |0.7|-0.4|0|
 |-0.1|0.9|1|
 
-**After Table (Stratified Sampling, 50%)**:
+**After (Random Sample, 50%)**:
+
+|Feature1|Feature2|Label|
+|---|---|---|
+|-0.1|0.9|1|
+|0.7|-0.4|0|
+
+![[Pasted image 20250824221427.png]]
+
+---
+
+### 2. **Stratified Sampling**
+
+- Data is split into **strata (subgroups)**, and sampling is done **proportionally**.
+    
+- **Advantage**: Guarantees minority groups are represented.
+    
+- **Weakness**: Requires knowledge of subgroup labels.
+    
+
+**Mini Example**  
+Dataset: 2 label=0, 2 label=1 → take 50% → select 1 from each class.
+
+**After (Stratified Sample, 50%)**:
 
 |Feature1|Feature2|Label|
 |---|---|---|
 |0.5|1.2|0|
 |-0.3|0.8|1|
 
-**Calculation**:
+![[Pasted image 20250824221800.png]]
 
-- Dataset has 2 Label=0, 2 Label=1. Stratified sampling selects 50% from each: 1 from Label=0, 1 from Label=1.
+---
 
-## Summary of Data Reduction Techniques
+### 3. **Systematic Sampling**
 
-- **Dimensionality Reduction**: Reduce features while preserving variance (PCA).
-- **Data Cube Aggregation**: Summarize across dimensions for OLAP.
-- **Attribute Selection**: Keep relevant features using statistical or model-based methods.
-- **Data Sampling**: Reduce size via representative subsets (random, stratified, systematic).
+- Select **every nn-th record** from ordered data.
+    
+- **Advantage**: Easy to implement, spreads sample evenly.
+    
+- **Weakness**: Can introduce bias if hidden periodicity exists in data.
+    
 
-**Detailed Explanation**:  
-This summarizes the core techniques, emphasizing their role in reducing data while maintaining analytical value. Each targets different aspects: features (dimensionality reduction, attribute selection), records (sampling), or summaries (aggregation).
+**Mini Example**  
+Step = 2 → pick rows 1, 3, …
 
-## Data Reduction Techniques (Detailed)
+**After (Systematic Sample):**
 
-- **Reduce data volume** while preserving analytical results.
-- **Techniques**:
-    - **Dimensionality Reduction**: Remove irrelevant/redundant attributes (e.g., PCA, DWT, attribute subset selection).
-    - **Data Compression**: Lossless (string/text) or lossy (audio/video).
-    - **Numerosity Reduction**: Parametric (model-based) or non-parametric (histograms, clustering, aggregation, sampling, data cubes).
-    - **Discretization and Concept Hierarchy Generation**: Convert continuous attributes into discrete intervals or hierarchies.
+|Feature1|Feature2|Label|
+|---|---|---|
+|0.5|1.2|0|
+|0.7|-0.4|0|
+![[Pasted image 20250824221958.png]]
 
-**Detailed Explanation**:  
-These techniques reduce data size:
+---
 
-- **Dimensionality Reduction**: Eliminates redundant or low-variance features.
-- **Data Compression**: Reduces storage via encoding (lossless preserves all data; lossy sacrifices detail).
-- **Numerosity Reduction**: Decreases data points via models (parametric) or summaries (non-parametric).
-- **Discretization**: Converts continuous data to discrete intervals (e.g., ages to ranges).
+## **Comparison Table**
 
-## Dimensionality Reduction Methods
+|Method|How it Works|Strength|Weakness|Best For|
+|---|---|---|---|---|
+|**Random**|Pick arbitrary rows|Simple, unbiased in balanced data|Misses rare classes|Large balanced datasets|
+|**Stratified**|Preserve subgroup proportions|Captures all classes|Needs class labels|Classification tasks, imbalanced data|
+|**Systematic**|Take every nn-th record|Even spread, simple|Bias if data is periodic|Time-series, ordered datasets|
 
-- **Wavelet Transform (DWT)**: Transforms data into wavelet coefficients.
-- **PCA**: Projects $k$-dimensional data to $c < k$ principal components.
-- **Low Variability**: Remove attributes with variation < 0.5–5%.
+---
 
-**Detailed Explanation**:
 
-- **DWT**: Decomposes data into wavelet coefficients, retaining key patterns.
-- **PCA**: Projects data onto principal components, as described earlier.
-- **Low Variability**: Drops features with near-constant values (e.g., variance $\sigma^2 = \frac{\sum (x_i - \bar{x})^2}{n} < 0.05$).
 
-**Example with Separate Tables**:  
-Consider a dataset with `Feature1` (low variance).
+![[Pasted image 20250824222303.png]]
 
-**Before Table**:
+![[Pasted image 20250824222248.png]]
 
-|Feature1|Feature2|
-|---|---|
-|1.01|5.0|
-|1.02|6.0|
-|1.00|4.5|
+![[Pasted image 20250824222355.png]]
 
-**After Table (Drop Feature1)**:
+---
 
-|Feature2|
-|---|
-|5.0|
-|6.0|
-|4.5|
-|**Calculation**:|
+### **Low Variability Feature Removal**
 
-- Variance of `Feature1`: $\sigma^2 \approx 0.0001 < 0.05$, so drop.
+- **Idea**: If a feature shows almost no variation across data points, it contributes little to learning and can be dropped.
+    
+- **How to Measure**: Use **variance** (or standard deviation) as a measure of spread.
+    
+
+$\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2$
+
+where:
+
+- $x_i$= value of feature for instance ii
+    
+- $\bar{x}$ = mean of the feature
+    
+- n = number of instances
+    
+- **Threshold Rule**: If variance is below a set threshold (e.g., $\sigma^2 < 0.05$), drop the feature.
+    
+- **Why Useful**:
+    
+    - Removes attributes that add **noise, not signal**.
+        
+    - Reduces dimensionality without hurting model performance.
+
+## Example Dataset (2 features, 5 samples)
+
+| Sample | Feature A | Feature B |
+|--------|-----------|-----------|
+| 1      | 10.0      | 1.00      |
+| 2      | 10.1      | 1.02      |
+| 3      | 9.9       | 0.98      |
+| 4      | 10.0      | 1.01      |
+| 5      | 10.0      | 1.00      |
+
+### Step 1: Compute Mean for each Feature  
+
+Feature A mean:  
+
+\[
+\bar{x}_A = \frac{10.0 + 10.1 + 9.9 + 10.0 + 10.0}{5} = \frac{50.0}{5} = 10.0
+\]
+
+Feature B mean:  
+
+\[
+\bar{x}_B = \frac{1.00 + 1.02 + 0.98 + 1.01 + 1.00}{5} = \frac{5.01}{5} = 1.002
+\]
+
+---
+
+### Step 2: Compute Variance  
+
+\[
+\sigma^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2
+\]
+
+Feature A variance:  
+
+
+$$\sigma^2_A = \frac{(10.0-10.0)^2+(10.1-10.0)^2+(9.9-10.0)^2+(10.0-10.0)^2+(10.0-10.0)^2}{5} 
+= \frac{0+0.01+0.01+0+0}{5} = \frac{0.02}{5} = 0.004
+$$
+
+Feature B variance:  
+
+
+\sigma^2_B = \frac{(1.00-1.002)^2+(1.02-1.002)^2+(0.98-1.002)^2+(1.01-1.002)^2+(1.00-1.002)^2}{5}
+= \frac{0.000004+0.000324+0.000484+0.000064+0.000004}{5} = \frac{0.00088}{5} = 0.000176
+
+
+---
+
+### Step 3: Apply Threshold  
+
+Threshold = 0.05  
+
+- Feature A variance = 0.004 < 0.05 → Drop  
+- Feature B variance = 0.000176 < 0.05 → Drop  
+
+---
+
+### Step 4: Decision  
+
+➡️ Both features have extremely low variance, meaning they barely change across samples.  
+➡️ Both would be dropped as they add little to no signal.  
+
+        
+
+---
+
 
 ### **Numerosity Reduction**
 
