@@ -2510,6 +2510,96 @@ plt.show()
 - Project data: $PC1 = w_1 \cdot Length + w_2 \cdot Width$ (weights from eigenvector).
 
 ---
+### **Low Variability Feature Removal**
+
+- **Idea**: If a feature shows almost no variation across data points, it contributes little to learning and can be dropped.
+    
+- **How to Measure**: Use **variance** (or standard deviation) as a measure of spread.
+    
+
+$\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2$
+
+where:
+
+- $x_i$= value of feature for instance ii
+    
+- $\bar{x}$ = mean of the feature
+    
+- n = number of instances
+    
+- **Threshold Rule**: If variance is below a set threshold (e.g., $\sigma^2 < 0.05$), drop the feature.
+    
+- **Why Useful**:
+    
+    - Removes attributes that add **noise, not signal**.
+        
+    - Reduces dimensionality without hurting model performance.
+
+## Example Dataset (2 features, 5 samples)
+
+| Sample | Feature A | Feature B |
+|--------|-----------|-----------|
+| 1      | 10.0      | 1.00      |
+| 2      | 10.1      | 1.02      |
+| 3      | 9.9       | 0.98      |
+| 4      | 10.0      | 1.01      |
+| 5      | 10.0      | 1.00      |
+
+### Step 1: Compute Mean for each Feature  
+
+Feature A mean:  
+
+$$
+\bar{x}_A = \frac{10.0 + 10.1 + 9.9 + 10.0 + 10.0}{5} = \frac{50.0}{5} = 10.0
+
+$$
+Feature B mean:  
+
+$$
+\bar{x}_B = \frac{1.00 + 1.02 + 0.98 + 1.01 + 1.00}{5} = \frac{5.01}{5} = 1.002
+
+$$
+---
+
+### Step 2: Compute Variance  
+
+
+$$\sigma^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2
+$$
+
+Feature A variance:  
+
+
+$$\sigma^2_A = \frac{(10.0-10.0)^2+(10.1-10.0)^2+(9.9-10.0)^2+(10.0-10.0)^2+(10.0-10.0)^2}{5} 
+= \frac{0+0.01+0.01+0+0}{5} = \frac{0.02}{5} = 0.004
+$$
+
+Feature B variance:  
+
+
+$$\sigma^2_B = \frac{(1.00-1.002)^2+(1.02-1.002)^2+(0.98-1.002)^2+(1.01-1.002)^2+(1.00-1.002)^2}{5}
+= \frac{0.000004+0.000324+0.000484+0.000064+0.000004}{5} = \frac{0.00088}{5} = 0.000176$$
+
+
+---
+
+### Step 3: Apply Threshold  
+
+Threshold = 0.05  
+
+- Feature A variance = 0.004 < 0.05 → Drop  
+- Feature B variance = 0.000176 < 0.05 → Drop  
+
+---
+
+### Step 4: Decision  
+
+➡️ Both features have extremely low variance, meaning they barely change across samples.  
+➡️ Both would be dropped as they add little to no signal.  
+
+    
+
+---
 
 ## **Data Cube Aggregation**
 
@@ -2823,98 +2913,6 @@ Step = 2 → pick rows 1, 3, …
 ![[Pasted image 20250824222355.png]]
 
 ---
-
-### **Low Variability Feature Removal**
-
-- **Idea**: If a feature shows almost no variation across data points, it contributes little to learning and can be dropped.
-    
-- **How to Measure**: Use **variance** (or standard deviation) as a measure of spread.
-    
-
-$\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2$
-
-where:
-
-- $x_i$= value of feature for instance ii
-    
-- $\bar{x}$ = mean of the feature
-    
-- n = number of instances
-    
-- **Threshold Rule**: If variance is below a set threshold (e.g., $\sigma^2 < 0.05$), drop the feature.
-    
-- **Why Useful**:
-    
-    - Removes attributes that add **noise, not signal**.
-        
-    - Reduces dimensionality without hurting model performance.
-
-## Example Dataset (2 features, 5 samples)
-
-| Sample | Feature A | Feature B |
-|--------|-----------|-----------|
-| 1      | 10.0      | 1.00      |
-| 2      | 10.1      | 1.02      |
-| 3      | 9.9       | 0.98      |
-| 4      | 10.0      | 1.01      |
-| 5      | 10.0      | 1.00      |
-
-### Step 1: Compute Mean for each Feature  
-
-Feature A mean:  
-
-\[
-\bar{x}_A = \frac{10.0 + 10.1 + 9.9 + 10.0 + 10.0}{5} = \frac{50.0}{5} = 10.0
-\]
-
-Feature B mean:  
-
-\[
-\bar{x}_B = \frac{1.00 + 1.02 + 0.98 + 1.01 + 1.00}{5} = \frac{5.01}{5} = 1.002
-\]
-
----
-
-### Step 2: Compute Variance  
-
-\[
-\sigma^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2
-\]
-
-Feature A variance:  
-
-
-$$\sigma^2_A = \frac{(10.0-10.0)^2+(10.1-10.0)^2+(9.9-10.0)^2+(10.0-10.0)^2+(10.0-10.0)^2}{5} 
-= \frac{0+0.01+0.01+0+0}{5} = \frac{0.02}{5} = 0.004
-$$
-
-Feature B variance:  
-
-
-\sigma^2_B = \frac{(1.00-1.002)^2+(1.02-1.002)^2+(0.98-1.002)^2+(1.01-1.002)^2+(1.00-1.002)^2}{5}
-= \frac{0.000004+0.000324+0.000484+0.000064+0.000004}{5} = \frac{0.00088}{5} = 0.000176
-
-
----
-
-### Step 3: Apply Threshold  
-
-Threshold = 0.05  
-
-- Feature A variance = 0.004 < 0.05 → Drop  
-- Feature B variance = 0.000176 < 0.05 → Drop  
-
----
-
-### Step 4: Decision  
-
-➡️ Both features have extremely low variance, meaning they barely change across samples.  
-➡️ Both would be dropped as they add little to no signal.  
-
-        
-
----
-
 
 ### **Numerosity Reduction**
 
