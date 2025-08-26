@@ -1132,129 +1132,306 @@ print(df)
 
 ---
 
+Here’s a **refined, example-driven version** of your outliers/noise section, consistent with the style we’ve been using:
+
+---
+
 ## 9. Identify Outliers and Smooth Noisy Data
 
-- **Noise**: Random error or variance in measured variables.
-- **Incorrect values may be due to**:
-    - Faulty instruments.
-    - Data entry problems.
-    - Transmission errors.
-    - Technology limitations.
-    - Naming inconsistencies.
-    - Other issues (duplicates, incomplete/inconsistent data).
+Noise = **random errors or fluctuations** in data.  
+Outliers = **extreme or incorrect values** that can distort analyses.
 
-**Detailed Explanation**:  
-Noise introduces errors that distort analyses (e.g., a salary of -100 skews averages). Causes include:
+---
 
-- **Faulty Instruments**: Sensors misreading (e.g., GPS giving 0,0 coordinates).
-- **Data Entry**: Typos (e.g., 1000 instead of 100).
-- **Transmission**: Network issues corrupting data.
-- **Tech Limits**: Low-precision sensors.
-- **Naming**: "NY" vs. "New York".  
-    Outliers (extreme values) and noise (random fluctuations) must be identified and smoothed to maintain data quality.
+### a) Why Noise/Outliers Occur
 
+- **Faulty Instruments**: Sensors misread values (e.g., GPS reporting 0,0).
+    
+- **Data Entry Errors**: Typos, swapped digits (e.g., salary = 1000 instead of 100).
+    
+- **Transmission Errors**: Network corruption or encoding issues.
+    
+- **Technology Limitations**: Low-precision devices.
+    
+- **Naming Inconsistencies**: "NY" vs "New York".
+    
+- **Other Issues**: Duplicates, missing/inconsistent data.
+    
 
+---
 
-**Clarified Example**: Dataset:
+### b) Example: Outlier Detection
 
-| Temp |
-| ---- |
-| 20   |
-| 21   |
-| 100  |
+Dataset:
 
-Identify 100 as an outlier using z-score: $z = \frac{x - \mu}{\sigma}$.
+|Temp|
+|---|
+|20|
+|21|
+|100|
+
+Compute **z-score**:
+
+z=x−μσz = \frac{x - \mu}{\sigma}
 
 ```python
 import numpy as np
+
 temps = np.array([20, 21, 100])
 z_scores = (temps - np.mean(temps)) / np.std(temps)
-# Flag |z| > 3
+# Flag values with |z| > 3 as outliers
 ```
 
-## Handling Noisy Data
+Here, `100` would be flagged as an outlier.
 
-- **Binning method**: Sort data, partition into bins, smooth by bin means, medians, or boundaries.
-- **Clustering**: Detect/remove outliers.
-- **Computer + human inspection**: Flag suspicious values.
-- **Regression**: Smooth by fitting regression functions.
+---
 
-**Detailed Explanation**:
+### c) Methods to Handle Noise/Outliers
 
-- **Binning**: Groups data into intervals, reducing noise by replacing values with bin statistics (e.g., mean).
-- **Clustering**: Groups similar data; outliers are in small clusters or isolated.
-- **Inspection**: Algorithms flag anomalies (e.g., z-score > 3), with human review for context.
-- **Regression**: Fits a function (e.g., $Y = \beta_0 + \beta_1 X$) to predict expected values, smoothing anomalies.
-
-
-
-**Clarified Example**: 
-(will be explained later in detail don't waste time here)
-Smooth [20, 21, 100, 22] via binning:
-
-```python
-df['Temp_Bin'] = pd.cut(df['Temp'], bins=2)
-df['Temp_Smooth'] = df.groupby('Temp_Bin')['Temp'].transform('mean')
-```
-
-## 10. Simple Discretization: Binning
-
-- **Equal-width (distance) partitioning**: Divide range into N equal intervals, width = $\frac{B - A}{N}$. Simple but sensitive to outliers and skewed data.
-- **Equal-depth (frequency) partitioning**: Divide into N intervals with ~same number of samples. Better scaling, but categorical attributes tricky.
-
-**Detailed Explanation**:  
-Binning discretizes numeric data into categories:
-
-- **Equal-Width**: Splits range $[A, B]$ into $N$ intervals of size $\frac{B - A}{N}$. Sensitive to outliers (e.g., one bin captures extreme values).
-- **Equal-Depth**: Ensures each bin has roughly equal counts, robust to skew but complex for categorical data.
-
-
-
-## Binning Example
-
-Sorted values: 4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34
-
-- **Bins (equi-depth)**:
-    - Bin 1: 4, 8, 9, 15
-    - Bin 2: 21, 21, 24, 25
-    - Bin 3: 26, 28, 29, 34
-- **Smoothing by means**:
-    - Bin 1 → 9, 9, 9, 9 (mean: $\frac{4+8+9+15}{4} = 9$)
-    - Bin 2 → 23, 23, 23, 23 (mean: $\frac{21+21+24+25}{4} = 23$)
-    - Bin 3 → 29, 29, 29, 29 (mean: $\frac{26+28+29+34}{4} = 29$)
-- **Smoothing by boundaries**:
-    - Bin 1 → 4, 4, 4, 15
-    - Bin 2 → 21, 21, 25, 25
-    - Bin 3 → 26, 26, 26, 34
-
-**Detailed Explanation**:  
-The example shows equi-depth binning, dividing 12 values into 3 bins of ~4 values each. Smoothing by means replaces values with the bin average, reducing noise. Boundary smoothing uses the bin’s min/max, preserving edge values. This is useful for discretizing continuous data for models like decision trees.
-
-
-**Clarified Example**:
-
-|Values|Equi_Depth|Mean_Smooth|
+|Method|How It Works|Notes|
 |---|---|---|
-|4|1|7.0|
-|8|1|7.0|
-|9|1|7.0|
-|15|2|20.0|
-|21|2|20.0|
-|21|2|20.0|
-|24|3|27.4|
-|25|3|27.4|
-|26|3|27.4|
-|28|3|27.4|
-|29|3|27.4|
-|34|3|27.4|
+|**Binning**|Sort data, partition into bins, replace values with bin mean/median/boundary|Reduces random fluctuations, preserves general trend|
+|**Clustering**|Group similar points; isolated points are outliers|Good for multi-dimensional data|
+|**Inspection**|Flag anomalies (e.g., z-score > threshold) and review manually|Combines algorithmic detection + human judgment|
+|**Regression**|Fit a model (e.g., $Y = \beta_0 + \beta_1 X$) and replace anomalies with predicted values|Smooths data while preserving trend|
+
+---
+
+### d) Binning Example
+
+Original data: `[20, 21, 100, 22]`
 
 ```python
 import pandas as pd
+
+df = pd.DataFrame({'Temp':[20,21,100,22]})
+df['Temp_Bin'] = pd.cut(df['Temp'], bins=2)  
+df['Temp_Smooth'] = df.groupby('Temp_Bin')['Temp'].transform('mean')
+```
+
+Result: extreme value `100` is smoothed within its bin, reducing impact on analysis.
+
+---
+Here’s a **full redo with each smoothing method explained step by step**, showing exactly how values are mapped:
+
+---
+
+## 10. Simple Discretization: Binning
+
+Binning = **grouping continuous numeric data into intervals** to reduce noise and simplify models.
+
+---
+
+### a) Types of Binning
+
+|Method|How It Works|Pros|Cons|
+|---|---|---|---|
+|**Equal-Width**|Divide range `[A,B]` into N equal intervals, width = `(B-A)/N`|Simple to implement|Sensitive to outliers and skewed data|
+|**Equal-Depth (Frequency)**|Divide data into N intervals with roughly equal number of samples|Handles skew better|Complex for categorical or small datasets|
+
+---
+
+### b) Example Dataset
+
+## Binning Explained with Formulas
+
+We have sorted values:
+
+`4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34`
+
+---
+
+### **1. Equal-Width Binning**
+
+**Formula:**
+
+$$\text{Bin Width} = \frac{\text{Max} - \text{Min}}{N} = \frac{B - A}{N}$$
+- A = minimum value, B = maximum value, N = number of bins.
+    
+- Each bin covers an interval: `[A, A+width), [A+width, A+2*width), …`
+    
+
+**Step by Step:**
+
+1. Min = 4, Max = 34, N = 3
+    
+
+Width=34−43=303=10$\text{Width} = \frac{34-4}{3} = \frac{30}{3} = 10Width=334−4​=330​=10$
+
+2. Bins:
+    
+
+- Bin 1: 4 ≤ x < 14 → 4, 8, 9
+    
+- Bin 2: 14 ≤ x < 24 → 15, 21, 21
+    
+- Bin 3: 24 ≤ x ≤ 34 → 24, 25, 26, 28, 29, 34
+    
+
+> Notice: Equal-width can lead to uneven counts per bin if data is skewed.
+
+---
+
+### **2. Equal-Depth (Frequency) Binning**
+
+**Formula:**
+
+$\text{Bin Size} = \frac{\text{Total # of Values}}{N} = \frac{n}{N}$
+
+- nnn = total number of values, NNN = number of bins.
+    
+- Each bin has roughly the same number of samples (floor/ceiling used if n not divisible by N).
+    
+
+**Step by Step:**
+
+1. n = 12, N = 3 → Bin size = 12/3 = 4 values per bin
+    
+2. Assign sorted values:
+    
+
+- Bin 1 (first 4 values): 4, 8, 9, 15
+    
+- Bin 2 (next 4 values): 21, 21, 24, 25
+    
+- Bin 3 (last 4 values): 26, 28, 29, 34
+    
+
+> This ensures each bin has equal frequency, even if value ranges differ.
+
+---
+
+### **Observation**
+
+- **Equal-width** bins preserve the numeric range but may have unbalanced counts.
+    
+- **Equal-depth** bins balance counts but numeric ranges vary.
+
+---
+
+### c) Smoothing Methods Explained
+
+#### 1. **Mean Smoothing**
+
+- Replace **all values in a bin** with the **average (mean)** of that bin.
+    
+- Reduces variance but moves every value toward the central tendency.
+    
+
+Step by step:
+
+**Bin 1: 4, 8, 9, 15**
+
+- Mean = (4 + 8 + 9 + 15)/4 = 9
+    
+- All values → 9
+    
+
+**Bin 2: 21, 21, 24, 25**
+
+- Mean = (21 + 21 + 24 + 25)/4 = 23
+    
+- All values → 23
+    
+
+**Bin 3: 26, 28, 29, 34**
+
+- Mean = (26 + 28 + 29 + 34)/4 = 29
+    
+- All values → 29
+    
+
+|Original Bin|Smoothed (Mean)|
+|---|---|
+|4, 8, 9, 15|9, 9, 9, 9|
+|21, 21, 24, 25|23, 23, 23, 23|
+|26, 28, 29, 34|29, 29, 29, 29|
+
+---
+
+#### 2. **Boundary Smoothing**
+
+- Replace **each value** with the **closest bin boundary** (either min or max of the bin).
+    
+- Preserves extremes, avoids creating new values.
+    
+
+Step by step:
+
+**Bin 1: 4, 8, 9, 15** (min=4, max=15)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|4|0|11|4|
+|8|4|7|4|
+|9|5|6|4|
+|15|11|0|15|
+
+**Bin 2: 21, 21, 24, 25** (min=21, max=25)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|21|0|4|21|
+|21|0|4|21|
+|24|3|1|25|
+|25|4|0|25|
+
+**Bin 3: 26, 28, 29, 34** (min=26, max=34)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|26|0|8|26|
+|28|2|6|26|
+|29|3|5|26|
+|34|8|0|34|
+
+|Original Bin|Smoothed (Boundary)|
+|---|---|
+|4, 8, 9, 15|4, 4, 4, 15|
+|21, 21, 24, 25|21, 21, 25, 25|
+|26, 28, 29, 34|26, 26, 26, 34|
+
+---
+
+### d) Python Implementation
+
+```python
+import pandas as pd
+
 values = [4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34]
 df = pd.DataFrame({'Values': values})
+
+# Equal-depth binning (3 bins)
 df['Equi_Depth'] = pd.qcut(df['Values'], q=3, labels=[1, 2, 3])
+
+# Mean smoothing
 df['Mean_Smooth'] = df.groupby('Equi_Depth')['Values'].transform('mean')
+
+# Boundary smoothing (manual mapping example)
+def boundary_smooth(x):
+    min_val = x.min()
+    max_val = x.max()
+    return x.apply(lambda v: min_val if abs(v - min_val) < abs(v - max_val) else max_val)
+
+df['Boundary_Smooth'] = df.groupby('Equi_Depth')['Values'].transform(boundary_smooth)
+
+print(df)
 ```
+
+---
+
+### e) Key Takeaways
+
+- **Mean smoothing** → reduces noise by pulling values toward the average.
+    
+- **Boundary smoothing** → preserves extremes, only adjusts values toward nearest boundary.
+    
+- **Equal-width bins** → simpler but sensitive to outliers.
+    
+- **Equal-depth bins** → more robust with unevenly distributed data.
+    
+
+---
 
 ## 11. Data Smoothing: Regression
 
