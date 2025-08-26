@@ -1491,24 +1491,38 @@ Result ≈ `[20.5, 21, 21.5, 22]` → smooths out the spike at 100.
 
 ## 12. Data Smoothing: Outlier Analysis
 
-- Outliers detected via clustering.
-- Values outside clusters considered outliers.
+- Outliers can be detected using **clustering methods**.
+    
+- Data points that don’t belong to any dense cluster, or lie far from cluster centroids, are considered **outliers**.
+    
 
-**Detailed Explanation**:  
-Clustering groups similar data points (e.g., KMeans with $k$ clusters). Outliers are points in small clusters or far from any cluster center, identified by distance metrics (e.g., Euclidean distance $\sqrt{\sum (x_i - c_i)^2}$).
+**Detailed Explanation:**  
+Clustering (e.g., **KMeans**) partitions data into $k$ groups. Each cluster has a **centroid** $c = (c_1, c_2, …, c_n)$ representing its “center.”
+
+- For each data point $x = (x_1, x_2, …, x_n)$, the distance to centroid is:
+    
+    d(x,c)=∑i=1n(xi−ci)2d(x, c) = \sqrt{\sum_{i=1}^n (x_i - c_i)^2}d(x,c)=i=1∑n​(xi​−ci​)2​
+- If $d(x, c)$ is **much larger** than the typical distances inside the cluster, or if the cluster containing $x$ has **very few members**, then $x$ is flagged as an **outlier**.
+    
+
+**Clarified Example:**  
+Dataset: [1, 2, 3, 100]
+
+- KMeans with $k=2$ → cluster 1 = {1, 2, 3}, cluster 2 = {100}.
+    
+- Since {100} forms a **tiny cluster far away**, it is treated as an outlier.
+    
+```python
+from sklearn.cluster import KMeans import numpy as np  data = np.array([[1], [2], [3], [100]]) kmeans = KMeans(n_clusters=2, random_state=0).fit(data)  labels = kmeans.labels_ centers = kmeans.cluster_centers_  # find points in smallest cluster unique, counts = np.unique(labels, return_counts=True) outlier_cluster = unique[np.argmin(counts)] outliers = data[labels == outlier_cluster]  print("Cluster centers:", centers.ravel()) print("Outliers:", outliers.ravel())```
+
+**Visualization:**
+
+- Dense cluster → bubble of points (1, 2, 3).
+    
+- Distant single point (100) → lies outside bubble → flagged as **outlier**.
 
 ![[Pasted image 20250824203610.png]]
 
-the dots out side the bubble are outliers
-
-**Clarified Example**: Dataset: [1, 2, 3, 100].
-
-```python
-from sklearn.cluster import KMeans
-data = np.array([[1], [2], [3], [100]])
-kmeans = KMeans(n_clusters=2).fit(data)
-outliers = data[kmeans.labels_ == kmeans.labels_[3]]  # 100 is outlier
-```
 
 ## 13. Correct Inconsistent Data
 
