@@ -3841,7 +3841,8 @@ Entries in a dataset where data is absent.
 
 ## 4. Lab Demo: EDA with Pandas & Matplotlib
 
-```import pandas as pd 
+``` python
+import pandas as pd 
 import matplotlib.pyplot as plt 
 import seaborn as sns 
 from scipy.stats import skew  # Sample dataset 
@@ -3856,4 +3857,5 @@ plt.show()
 plt.show()  
 # Scatter Plot sns.scatterplot(x='Attendance', y='Marks', data=data, color='green') plt.show()  
 # Skewness 
-print("Skewness of Marks:", skew(data['Marks']))```
+print("Skewness of Marks:", skew(data['Marks']))
+```
