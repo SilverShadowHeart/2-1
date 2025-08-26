@@ -1256,7 +1256,7 @@ $$\text{Bin Width} = \frac{\text{Max} - \text{Min}}{N} = \frac{B - A}{N}$$
 1. Min = 4, Max = 34, N = 3
     
 
-Width=34−43=303=10$\text{Width} = \frac{34-4}{3} = \frac{30}{3} = 10Width=334−4​=330​=10$
+$\text{Width} = \frac{34 - 4}{3} = \frac{30}{3} = 10$
 
 2. Bins:
     
@@ -1276,9 +1276,9 @@ Width=34−43=303=10$\text{Width} = \frac{34-4}{3} = \frac{30}{3} = 10Width=334�
 
 **Formula:**
 
-$\text{Bin Size} = \frac{\text{Total # of Values}}{N} = \frac{n}{N}$
+$\text{Bin Size} = \frac{\text{Total no. of Values}}{\text{Number of bins}} = \frac{n}{N}$
 
-- nnn = total number of values, NNN = number of bins.
+- n = total number of values, N = number of bins.
     
 - Each bin has roughly the same number of samples (floor/ceiling used if n not divisible by N).
     
@@ -1435,27 +1435,59 @@ print(df)
 
 ## 11. Data Smoothing: Regression
 
-- **Linear regression**: Fit best line to two variables → predict one from the other ($Y = \beta_0 + \beta_1 X$).
-- **Multiple regression**: Extension with >2 variables, fit to multidimensional surface ($Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots$).
+- **Linear Regression**: Fits a straight line to model relation between one predictor ($X$) and target ($Y$):
+    
+    $Y = \beta_0 + \beta_1 X$
+    
+- **Multiple Regression**: Extends to multiple predictors:
+    
+    $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p$
 
-![[Pasted image 20250824203539.png]]
+---
 
-**Detailed Explanation**:  
-Regression smooths data by fitting a function to predict expected values, reducing noise. Linear regression minimizes the sum of squared errors:  
-$$ SSE = \sum (y_i - (\beta_0 + \beta_1 x_i))^2 $$  
-Multiple regression extends this to multiple predictors, useful for complex datasets (e.g., predicting sales from ads and region).
+### Why it works as smoothing
 
+Regression replaces noisy individual values with **predicted (fitted) values**, which follow a smooth functional form. Instead of raw jagged data, you get a curve/line that captures the trend.
 
+It works by minimizing the **sum of squared errors (SSE)**:
 
-**Clarified Example**: Smooth [20, 21, 100, 22]:
+$SSE = \sum_{i=1}^n (y_i - \hat{y}_i)^2$
+
+where $\hat{y}_i$ are predicted values from the regression model.
+
+---
+
+### Example Walkthrough
+
+Dataset: [20, 21, 100, 22]
+
+1. Index the data as $X = [1,2,3,4]$, $Y = [20,21,100,22]$
+    
+2. Fit a regression line $Y = \beta_0 + \beta_1 X$
+    
+    - Outlier (100) influences the slope but regression still finds a "best compromise."
+        
+3. Predicted (smoothed) values become closer to **trend**:
+    
+    $\hat{Y} \approx [20.5, 21, 21.5, 22]$
 
 ```python
 from sklearn.linear_model import LinearRegression
-X = np.array([[1], [2], [3], [4]])
-y = np.array([20, 21, 100, 22])
-model = LinearRegression().fit(X, y)
-y_smooth = model.predict(X)  # Closer to [20.5, 21, 21.5, 22]
+import numpy as np
+
+X = np.array([[1],[2],[3],[4]])
+y = np.array([20,21,100,22])
+
+model = LinearRegression().fit(X,y)
+y_smooth = model.predict(X)
+print(y_smooth)
 ```
+
+Result ≈ `[20.5, 21, 21.5, 22]` → smooths out the spike at 100.
+
+---
+
+![[Pasted image 20250824203539.png]]
 
 ## 12. Data Smoothing: Outlier Analysis
 
