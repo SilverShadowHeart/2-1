@@ -269,7 +269,7 @@ Retail
 
 ---
 
-11.      What is the primary goal of data science?
+**11.What is the primary goal of data science?**
 answer c
 a.      To build websites
 
@@ -282,7 +282,7 @@ d.      To maintain servers
 ---
 
 
-12.      **What is the correct sequence of a typical Data Science lifecycle?**
+**12.What is the correct sequence of a typical Data Science lifecycle?**
 
 answer b
 
@@ -296,7 +296,7 @@ d.      Modeling → Data Collection → Deployment → Data Cleaning
 
 ---
 
-13.      Discuss the responsibilities of Data analyst , Data Scientist and Data Engineer
+**13.Discuss the responsibilities of Data analyst , Data Scientist and Data Engineer**
 
 ### Data Analyst
 
@@ -341,7 +341,7 @@ d.      Modeling → Data Collection → Deployment → Data Cleaning
 
 ---
 
-15.      Explain the following python libraries with example use case
+**15.Explain the following python libraries with example use case**
 
 Numpy
 
@@ -562,5 +562,215 @@ conda update package_name
     
 
 `conda list package_name`
+
+
+---
+
+
+**32.What are types of data**
+
+a.      Record Data
+
+b.      Transaction Data
+
+c.      Graph Data (Network Data)
+
+d.      Spatial Data
+
+e.      Time-Series Data
+
+f.       Text Data
+
+g.      Sequence Data
+
+h.      Hierarchical Data
+
+### Record Data
+
+A collection of records, each with the same set of attributes.
+
+- **Examples:** Relational databases, Excel spreadsheets
+- **Format:** Rows = objects, Columns = attributes
+
+**Example Table:**
+
+| Name  | Age | Dept |
+| ----- | --- | ---- |
+| Alice | 20  | CSE  |
+| Bob   | 22  | ECE  |
+
+### Transaction Data
+
+A set of transactions where each transaction is a set of items.
+
+- **Examples:** Market basket data, Online purchase logs
+
+**Example Table:**
+
+| TID | Items               |
+| --- | ------------------- |
+| 1   | Milk, Bread, Butter |
+| 2   | Bread, Eggs         |
+| 3   | Milk, Eggs, Diaper  |
+
+### Graph Data (Network Data)
+
+Consists of **nodes** (objects) and **edges** (relationships).
+
+- **Used for:** Social networks, web analysis, communication networks
+- **Example (Social Network):**
+    - Nodes: People (e.g., Alice, Bob, Carol)
+    - Edges: Friendships (e.g., Alice ↔ Bob, Bob ↔ Carol)
+
+### Spatial Data
+
+Objects have **spatial locations** (coordinates).
+
+- **Use Case:** Google Maps, satellite imagery, urban planning
+- **Used for:** Maps, GPS, GIS (Geographic Information Systems)
+- **Example:**
+    - A point: `(latitude, longitude)` → `(17.385, 78.4867)`
+    - A region: polygon boundaries of a city
+
+#### Categorical Data
+
+**Definition:** Data that represents categories or groups.  
+**Characteristics:**
+
+- No inherent numeric meaning
+- Arithmetic operations are not meaningful  
+    **Examples:**
+- Gender (Male, Female)
+- Color (Red, Blue, Green)
+- Department (HR, Sales, IT)
+
+#### Numerical Data
+
+**Definition:** Data that consists of numbers and can be measured.  
+**Types:**
+
+- **Discrete:** Countable values (e.g., number of children)
+- **Continuous:** Measurable quantities (e.g., height, weight)  
+    **Examples:**
+- Age = 25
+- Salary = $50,000
+
+#### Ordinal Data
+
+**Definition:** Categorical data with a clear ordering or ranking.  
+**Characteristics:**
+
+- Order matters, but the difference between values is not meaningful  
+    **Examples:**
+- T-shirt size (Small < Medium < Large)
+- Customer satisfaction (Poor < Fair < Good < Excellent)
+
+#### Binary Data
+
+**Definition:** Data with only two possible values.  
+**Types:**
+
+- **Symmetric:** Both outcomes are equally important (e.g., Male/Female)
+- **Asymmetric:** One outcome is more important (e.g., Disease: Yes/No)  
+    **Examples:**
+- Yes/No
+- True/False
+
+---
+
+**33.What is nominal type attribute and explain with example**
+
+#### Nominal Attributes
+
+**Definition:** Names or labels with no ordering  
+**Operations:** Equality comparison  
+**Examples:** Colors, ZIP codes
+
+---
+**34.What is ordinal type attribute and explain with example**
+
+#### Ordinal Attributes
+
+**Definition:** Ordered categories  
+**Operations:** Comparisons such as `<`, `>`  
+**Examples:** Rankings, grades
+
+---
+**35.Differentiate Discrete and continuous attributes with examples**
+
+|Attribute Type|Definition|Example|
+|---|---|---|
+|**Discrete**|Takes countable, separate values|Number of students in a class: 20, 25, 30|
+|**Continuous**|Can take any value in a range (measurable)|Height of students: 150.5 cm, 162.3 cm, 170.0 cm|
+
+---
+
+**36.List qualitative attributes**
+
+- **Nominal** (no natural order):
+    
+    - Color (Red, Blue, Green)
+        
+    - Gender (Male, Female, Other)
+        
+    - Blood Group (A, B, AB, O)
+        
+    - Nationality (Indian, American, etc.)
+        
+    - Product Type (Electronics, Furniture)
+        
+- **Ordinal** (has natural order):
+    
+    - Education Level (High School < Bachelor < Master < PhD)
+        
+    - Customer Satisfaction (Poor < Average < Good < Excellent)
+        
+    - Military Rank (Private < Sergeant < Captain < General)
+        
+
+---
+
+**37.List quantitative attributes**
+
+- **Discrete** (countable values):
+    
+    - Number of siblings
+        
+    - Number of students in a class
+        
+    - Number of cars owned
+        
+- **Continuous** (measurable values, can take any value in a range):
+    
+    - Height (cm)
+        
+    - Weight (kg)
+        
+    - Salary (₹)
+        
+    - Temperature (°C)
+
+---
+
+**38.Researcher wants to analyze the relationship between student performance and hours studied. What type of dataset would they likely use? What kind of analysis techniques would be suitable?**
+
+**Dataset Type:** Quantitative (numerical) dataset with at least two variables:
+
+- Independent variable: Hours studied (continuous)
+    
+- Dependent variable: Student performance/marks (continuous)
+    
+
+**Analysis Techniques:**
+
+- **Correlation Analysis:** To measure strength and direction of relationship.
+    
+- **Regression Analysis:**
+    
+    - Simple Linear Regression: Predict performance from hours studied.
+        
+    - Multiple Regression (if including more factors like attendance, sleep).
+        
+- **Visualization:** Scatter plots to observe trends and patterns.
 
 
