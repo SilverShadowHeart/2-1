@@ -1641,23 +1641,23 @@ subject to: **conflict resolution rules** (naming, format, units).
 
 **CRM Dataset**
 
-|CustomerID|Name|Email|
-|---|---|---|
-|1|Alice|[alice@email.com](mailto:alice@email.com)|
-|2|Bob|[bob@email.com](mailto:bob@email.com)|
+| CustomerID | Name  | Email                                     |
+| ---------- | ----- | ----------------------------------------- |
+| 1          | Alice | [alice@email.com](mailto:alice@email.com) |
+| 2          | Bob   | [bob@email.com](mailto:bob@email.com)     |
 
 **E-commerce Dataset**
 
-|ID|Purchase_Amount|
-|---|---|
-|1|1000|
+| ID  | Purchase_Amount |
+| --- | --------------- |
+| 1   | 1000            |
 
 **After Integration**
 
-|CustomerID|Name|Email|Purchase_Amount|
-|---|---|---|---|
-|1|Alice|[alice@email.com](mailto:alice@email.com)|1000|
-|2|Bob|[bob@email.com](mailto:bob@email.com)|NaN|
+| CustomerID | Name  | Email                                     | Purchase_Amount |
+| ---------- | ----- | ----------------------------------------- | --------------- |
+| 1          | Alice | [alice@email.com](mailto:alice@email.com) | 1000            |
+| 2          | Bob   | [bob@email.com](mailto:bob@email.com)     | NaN             |
 
 Python:
 
@@ -2129,12 +2129,12 @@ Smoothing uncovers underlying patterns by eliminating erratic fluctuations or ou
 
 **Before (Raw Data)**:
 
-|Day|Sales|
-|---|---|
-|1|100|
-|2|150|
-|3|500|
-|4|120|
+| Day | Sales |
+| --- | ----- |
+| 1   | 100   |
+| 2   | 150   |
+| 3   | 500   |
+| 4   | 120   |
 
 **After (3-Day Moving Average)**:
 
@@ -2189,18 +2189,18 @@ Aggregation condenses raw data into summaries to provide faster insights. Daily,
 
 **Before (Raw Data)**:
 
-|Date|Region|Sales|
-|---|---|---|
-|2023-01-01|North|100|
-|2023-01-02|North|150|
-|2023-02-01|South|200|
+| Date       | Region | Sales |
+| ---------- | ------ | ----- |
+| 2023-01-01 | North  | 100   |
+| 2023-01-02 | North  | 150   |
+| 2023-02-01 | South  | 200   |
 
 **After (Monthly Aggregation)**:
 
-|Month|Region|Total_Sales|
-|---|---|---|
-|2023-01|North|250|
-|2023-02|South|200|
+| Month   | Region | Total_Sales |
+| ------- | ------ | ----------- |
+| 2023-01 | North  | 250         |
+| 2023-02 | South  | 200         |
 
 **Calculation**:
 
@@ -2221,19 +2221,19 @@ Consider sales data with detailed addresses.
 
 **Before Table**:
 
-|Address|Sales|
-|---|---|
-|123 Main St, NY|100|
-|456 Oak St, NY|150|
-|789 Pine St, LA|200|
+| Address         | Sales |
+| --------------- | ----- |
+| 123 Main St, NY | 100   |
+| 456 Oak St, NY  | 150   |
+| 789 Pine St, LA | 200   |
 
 **After Table (Generalized to City)**:
 
-|City|Total_Sales|
-|---|---|
-|NY|250|
-|LA|200|
-|**Calculation**:||
+| City             | Total_Sales |
+| ---------------- | ----------- |
+| NY               | 250         |
+| LA               | 200         |
+| **Calculation**: |             |
 
 - NY: $100 + 150 = 250$
 - LA: $200 = 200$
