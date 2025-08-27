@@ -2798,6 +2798,10 @@ t-statistic: 2.04124
 p-value: 0.084
 ```
 
+**t-statistic:** how far your sample mean is from the hypothesized mean, measured in standard errors. Bigger absolute value → stronger evidence against the null.
+
+**p-value:** probability of observing data at least as extreme as yours if the null hypothesis were true. Small value → reject the null, large value → no evidence to reject.
+
 - **Explanation**:
     
     - `mean_val` and `std_dev` give basic descriptive statistics.
