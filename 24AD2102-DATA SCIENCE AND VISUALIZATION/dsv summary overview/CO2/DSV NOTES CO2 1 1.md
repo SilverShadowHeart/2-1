@@ -824,8 +824,8 @@ Missing values = **gaps in the dataset** where information should exist but does
 **Python (Class-Based Fill):**
 
 ```python
-df['Income'] = df.groupby('Region')['Income'].transform(     lambda x: x.fillna(x.mean()) )```
-
+df['Income'] = df.groupby('Region')['Income'].transform(     lambda x: x.fillna(x.mean()) )
+```
 ---
 
 ### d) Key Insight
