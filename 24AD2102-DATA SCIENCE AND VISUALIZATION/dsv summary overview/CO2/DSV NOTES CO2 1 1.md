@@ -2874,7 +2874,7 @@ Dataset: 2 label=0, 2 label=1 → take 50% → select 1 from each class.
 
 ### 3. **Systematic Sampling**
 
-- Select **every nn-th record** from ordered data.
+- Select **every n-th record** from ordered data.
     
 - **Advantage**: Easy to implement, spreads sample evenly.
     
@@ -2896,11 +2896,11 @@ Step = 2 → pick rows 1, 3, …
 
 ## **Comparison Table**
 
-|Method|How it Works|Strength|Weakness|Best For|
-|---|---|---|---|---|
-|**Random**|Pick arbitrary rows|Simple, unbiased in balanced data|Misses rare classes|Large balanced datasets|
-|**Stratified**|Preserve subgroup proportions|Captures all classes|Needs class labels|Classification tasks, imbalanced data|
-|**Systematic**|Take every nn-th record|Even spread, simple|Bias if data is periodic|Time-series, ordered datasets|
+| Method         | How it Works                  | Strength                          | Weakness                 | Best For                              |
+| -------------- | ----------------------------- | --------------------------------- | ------------------------ | ------------------------------------- |
+| **Random**     | Pick arbitrary rows           | Simple, unbiased in balanced data | Misses rare classes      | Large balanced datasets               |
+| **Stratified** | Preserve subgroup proportions | Captures all classes              | Needs class labels       | Classification tasks, imbalanced data |
+| **Systematic** | Take every n-th record        | Even spread, simple               | Bias if data is periodic | Time-series, ordered datasets         |
 
 ---
 
@@ -2968,11 +2968,12 @@ Predict `Sales` from `Ads`.
 
 **After Table (Parameters)**:
 
-|Parameter|Value|
-|---|---|
-|$\mu$|10|
-|$\beta$|10|
-|**Calculation**:||
+| Parameter | Value |
+| --------- | ----- |
+| $\mu$     | 10    |
+| $\beta$   | 10    |
+
+**Calculation**:
 
 - Fit: $Sales = 10 + 10 \cdot Ads$ (approximate, derived via least-squares).
 
@@ -3021,22 +3022,22 @@ Consider a dataset with categorical variables `A, B, C`.
 
 **Before Table**:
 
-|A|B|C|Count|
-|---|---|---|---|
-|a1|b1|c1|100|
-|a1|b2|c1|50|
-|a2|b1|c2|70|
+| A   | B   | C   | Count |
+| --- | --- | --- | ----- |
+| a1  | b1  | c1  | 100   |
+| a1  | b2  | c1  | 50    |
+| a2  | b1  | c2  | 70    |
 
 **After Table (Log-Linear Parameters)**:
 
-|Term|Parameter|
-|---|---|
-|$u_{ab}$|Value1|
-|$P_{ac}$|Value2|
-|$u_{ad}$|Value3|
-|$B_{bcd}$|Value4|
-|**Calculation**:||
+| Term             | Parameter |
+| ---------------- | --------- |
+| $u_{ab}$         | Value1    |
+| $P_{ac}$         | Value2    |
+| $u_{ad}$         | Value3    |
+| $B_{bcd}$        | Value4    |
 
+**Calculation**:
 - Approximate $P(a,b,c)$ using products of lower-order terms (simplified for illustration).
 
 ## Non-Parametric Methods
