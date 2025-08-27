@@ -3147,12 +3147,12 @@ Consider salaries.
 
 **After Table (Discretization, 2 Bins)**:
 
-|Salary_Range|
-|---|
-|Low|
-|Medium|
-|High|
-|**Calculation**:|
+| Salary_Range     |
+| ---------------- |
+| Low              |
+| Medium           |
+| High             |
+| **Calculation**: |
 
 - Bins: Low [50000, 66666), Medium [66666, 83333), High [83333, 100000].
 
@@ -3828,30 +3828,36 @@ These describe the distribution’s shape and key positions.
 - **Formula (Pearson’s Median Skewness)**: $\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Std Dev}}$
 - **Example**: Marks: [55, 60, 65, 70, 95].  
     **Before Table**:
-    
-    |Marks|
-    |---|
-    |55|
-    |60|
-    |65|
-    |70|
-    |95|
+
     
     **After Table (Skewness)**:
     
-    |Measure|Value|
-    |---|---|
-    |Mean|69|
-    |Median|65|
-    |Std Dev|15.97|
-    |Skewness|0.75|
-    |**Calculation**:||
+| Marks |
+|-------|
+| 55    |
+| 60    |
+| 65    |
+| 70    |
+| 95    |
+
     
-    - Mean: $\frac{55 + 60 + 65 + 70 + 95}{5} = 69$
-    - Median: Sorted [55, 60, 65, 70, 95], middle = 65
-    - Std Dev: $s = \sqrt{\frac{(55-69)^2 + \dots + (95-69)^2}{5-1}} \approx 15.97$
-    - Skewness: $\frac{3(69 - 65)}{15.97} \approx 0.75$ (positive, right-skewed).
+
     
+**Calculation**:
+    
+- Mean: $\frac{55 + 60 + 65 + 70 + 95}{5} = 69$
+- Median: Sorted $\{55, 60, 65, 70, 95\}$ → middle = 65
+- Std Dev: $s = \sqrt{\frac{(55-69)^2 + (60-69)^2 + (65-69)^2 + (70-69)^2 + (95-69)^2}{5-1}} \approx 15.97$
+- Skewness: $\frac{3(69 - 65)}{15.97} \approx 0.75$ (positive, right-skewed)
+
+
+| Measure  | Value |
+|----------|-------|
+| Mean     | 69    |
+| Median   | 65    |
+| Std Dev  | 15.97 |
+| Skewness | 0.75  |
+
 
 
 
