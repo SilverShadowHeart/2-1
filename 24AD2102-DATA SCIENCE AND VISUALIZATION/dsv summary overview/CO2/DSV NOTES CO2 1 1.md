@@ -794,11 +794,11 @@ Missing values = **gaps in the dataset** where information should exist but does
 
 **Raw Dataset:**
 
-|Customer|Income|Region|
-|---|---|---|
-|Alice|20000|North|
-|Bob|NaN|South|
-|Charlie|30000|North|
+| Customer | Income | Region |
+| -------- | ------ | ------ |
+| Alice    | 20000  | North  |
+| Bob      | NaN    | South  |
+| Charlie  | 30000  | North  |
 
 **Approaches:**
 
@@ -897,11 +897,11 @@ print((base).strftime('%Y-%m-%d'), " + ", sas_days, "days = ",(base + timedelta(
  # Output: 2003-09-24
 ```
 
-|Format|Base Reference|Stored As|Pros|Cons|Human Readable?|
-|---|---|---|---|---|---|
-|**Unix Timestamp**|1970-01-01 UTC (Epoch)|Seconds (int)|Universal, fast, widely supported|Opaque, needs conversion|❌ No|
-|**SAS Date**|1960-01-01|Days (int)|Compact, consistent in SAS|Non-standard, not intuitive outside SAS|❌ No|
-|**ISO-8601**|Calendar date/time string|Text (string)|Clear, human/machine friendly, portable|More storage space, slower for raw math|✅ Yes|
+| Format             | Base Reference            | Stored As     | Pros                                    | Cons                                    | Human Readable? |
+| ------------------ | ------------------------- | ------------- | --------------------------------------- | --------------------------------------- | --------------- |
+| **Unix Timestamp** | 1970-01-01 UTC (Epoch)    | Seconds (int) | Universal, fast, widely supported       | Opaque, needs conversion                | ❌ No            |
+| **SAS Date**       | 1960-01-01                | Days (int)    | Compact, consistent in SAS              | Non-standard, not intuitive outside SAS | ❌ No            |
+| **ISO-8601**       | Calendar date/time string | Text (string) | Clear, human/machine friendly, portable | More storage space, slower for raw math | ✅ Yes           |
 
 ---
 ## 6. Conversion: Nominal to Numeric
@@ -1006,7 +1006,7 @@ Most models require numeric inputs to perform mathematical operations, so binary
 - Algorithms like **logistic regression** or **neural networks** need numeric inputs to compute equations, e.g.:
     
 
-$$P(Y=1)=11+e−(β0+β1X)P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}$$
+$$P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}$$
 
 - Mapping is arbitrary but must be **consistent** across the dataset.
     
@@ -1188,12 +1188,12 @@ Here, `100` would be flagged as an outlier.
 
 ### c) Methods to Handle Noise/Outliers
 
-|Method|How It Works|Notes|
-|---|---|---|
-|**Binning**|Sort data, partition into bins, replace values with bin mean/median/boundary|Reduces random fluctuations, preserves general trend|
-|**Clustering**|Group similar points; isolated points are outliers|Good for multi-dimensional data|
-|**Inspection**|Flag anomalies (e.g., z-score > threshold) and review manually|Combines algorithmic detection + human judgment|
-|**Regression**|Fit a model (e.g., $Y = \beta_0 + \beta_1 X$) and replace anomalies with predicted values|Smooths data while preserving trend|
+| Method         | How It Works                                                                              | Notes                                                |
+| -------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Binning**    | Sort data, partition into bins, replace values with bin mean/median/boundary              | Reduces random fluctuations, preserves general trend |
+| **Clustering** | Group similar points; isolated points are outliers                                        | Good for multi-dimensional data                      |
+| **Inspection** | Flag anomalies (e.g., z-score > threshold) and review manually                            | Combines algorithmic detection + human judgment      |
+| **Regression** | Fit a model (e.g., $Y = \beta_0 + \beta_1 X$) and replace anomalies with predicted values | Smooths data while preserving trend                  |
 
 ---
 
@@ -1224,10 +1224,10 @@ Binning = **grouping continuous numeric data into intervals** to reduce noise an
 
 ### a) Types of Binning
 
-|Method|How It Works|Pros|Cons|
-|---|---|---|---|
-|**Equal-Width**|Divide range `[A,B]` into N equal intervals, width = `(B-A)/N`|Simple to implement|Sensitive to outliers and skewed data|
-|**Equal-Depth (Frequency)**|Divide data into N intervals with roughly equal number of samples|Handles skew better|Complex for categorical or small datasets|
+| Method                      | How It Works                                                      | Pros                | Cons                                      |
+| --------------------------- | ----------------------------------------------------------------- | ------------------- | ----------------------------------------- |
+| **Equal-Width**             | Divide range `[A,B]` into N equal intervals, width = `(B-A)/N`    | Simple to implement | Sensitive to outliers and skewed data     |
+| **Equal-Depth (Frequency)** | Divide data into N intervals with roughly equal number of samples | Handles skew better | Complex for categorical or small datasets |
 
 ---
 
