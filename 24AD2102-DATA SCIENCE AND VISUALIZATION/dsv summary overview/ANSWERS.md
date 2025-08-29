@@ -975,8 +975,10 @@ answer dir
       Tail()
 
       Describe()
-      
+---      
  **50.Write a python code for displaying single dimensional array using for loop**
+
+```python
 import numpy as np
 
 # Create a 1D array
@@ -985,3 +987,146 @@ arr = np.array([10, 20, 30, 40, 50])
 # Display elements using for loop
 for element in arr:
     print(element)
+```
+---
+51.Write a python code for sorting given array [65,34,67,10,45,2]
+
+```python
+arr = [65, 34, 67, 10, 45, 2]
+
+# Sort the array
+arr.sort()
+
+# Display sorted array
+print(arr)
+```
+---
+**52.Declare an array with elements 1..10 and write code for displaying even numbers**
+
+```python
+import numpy as np
+
+# Declare array with elements 1 to 10
+arr = np.arange(1, 11)
+
+# Display even numbers
+for num in arr:
+    if num % 2 == 0:
+        print(num)
+```
+---
+**53.Declare an array with 9 elements and write a code to display elements from 3 to 7**
+```python
+import numpy as np
+
+# Declare array with 9 elements
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+# Display elements from index 2 to 6 (3rd to 7th element)
+for num in arr[2:7]:
+    print(num)
+```
+
+---
+**54.How to check the array is empty or not**
+```python
+import numpy as np
+
+# Example arrays
+arr1 = np.array([])
+arr2 = np.array([1, 2, 3])
+
+# Check if empty
+print(arr1.size == 0)  # True
+print(arr2.size == 0)  # False
+```
+
+---
+**55.What is ndim attribute**
+
+```python
+import numpy as np
+
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+print(arr.ndim)  # Output: 2
+```
+---
+
+**56.What is shape and reshape of an array with examples**
+
+```python
+import numpy as np
+
+# Original array
+arr = np.array([1, 2, 3, 4, 5, 6])
+print(arr.shape)  # Output: (6,)
+
+# Reshape to 2 rows and 3 columns
+arr2 = arr.reshape(2, 3)
+print(arr2)
+print(arr2.shape)  # Output: (2, 3)
+```
+
+---
+
+**57.Write a code to create 5X5 identity matrix**
+```python
+import numpy as np
+
+# Create 5x5 identity matrix
+identity_matrix = np.eye(5)
+
+print(identity_matrix)
+```
+
+**58.What is linespace() in numpy**
+
+`linspace()` in NumPy generates **evenly spaced numbers over a specified interval**.
+
+Syntax:
+
+`numpy.linspace(start, stop, num=50, endpoint=True)`
+
+- `start` – starting value
+    
+- `stop` – ending value
+    
+- `num` – number of values to generate (default 50)
+    
+- `endpoint` – if True, includes `stop`
+    
+
+Example:
+
+`import numpy as np  arr = np.linspace(0, 10, 5) print(arr)`
+
+---
+
+**59.Write a code to create diagonal matrix**
+
+```python
+import numpy as np
+
+# Elements for the diagonal
+diagonal_elements = [1, 2, 3, 4, 5]
+
+# Create diagonal matrix
+diag_matrix = np.diag(diagonal_elements)
+
+print(diag_matrix)
+
+```
+---
+  **60.What is the method for calculating sum of diagonal elements in a matrix**
+
+```python
+import numpy as np
+
+matrix = np.array([[1, 2, 3],
+                   [4, 5, 6],
+                   [7, 8, 9]])
+
+diag_sum = np.trace(matrix)
+print(diag_sum)  # Output: 15
+```
+
