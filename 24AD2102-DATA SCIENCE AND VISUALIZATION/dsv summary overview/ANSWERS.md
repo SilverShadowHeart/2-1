@@ -2315,21 +2315,95 @@ c.      d)None
 
 79.   **Right-skewed distribution**
 
+- Tail extends to the right; most values concentrated on the left.
+    
+- _Example:_ Income, house prices.
+
+
 80.   **Left-skewed distribution**
+
+- Tail extends to the left; most values concentrated on the right.
+    
+- _Example:_ Exam scores where most students score high.
 
 81.   **Symmetrical distribution**
 
+- Both sides of the distribution mirror each other; mean ≈ median ≈ mode.
+    
+- _Example:_ Normal distribution of heights
+
 82.   **Write python code to Plot Histogram – Distribution of Marks**
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+marks = [55, 67, 78, 45, 90, 88, 76, 65, 80, 70]
+plt.hist(marks, bins=5, color='skyblue', edgecolor='black')
+plt.title("Histogram of Marks")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+plt.show()
+
+```
 
 83.   **Write python code to Plot Boxplot – Check for Outliers**
 
+```python
+plt.boxplot(marks)
+plt.title("Boxplot of Marks")
+plt.ylabel("Marks")
+plt.show()
+
+```
+
+
 84.   **Write python code to Scatter Plot – Relationship between Marks and Attendance**
+
+```python 
+attendance = [80, 90, 85, 70, 95, 92, 88, 75, 90, 85]
+plt.scatter(attendance, marks, color='green')
+plt.title("Marks vs Attendance")
+plt.xlabel("Attendance")
+plt.ylabel("Marks")
+plt.show()
+
+```
 
 85.   **What are the data types in pandas?**
 
+- **Numeric:** `int64`, `float64`
+    
+- **Categorical / Object:** `object` (strings), `category`
+    
+- **Boolean:** `bool`
+    
+- **Datetime:** `datetime64[ns]`
+    
+- **Timedelta:** `timedelta[ns]`
+
 86.   **What is a series and dataframe in pandas?**
 
+- **Series:** 1D labeled array, single column.
+    
+    ```python
+    s = pd.Series([10, 20, 30])
+    ```
+    
+- **DataFrame:** 2D labeled data structure (rows × columns).
+    
+    ```python
+    df = pd.DataFrame({'A':[1,2],'B':[3,4]})
+    ```
+
+
 87.   **How to read the data from online**
+
+```python
+url = "https://example.com/data.csv"
+df = pd.read_csv(url)
+
+```
 
 88.   Explain the following attributes and it’s imporatance in pandas
 
@@ -2339,7 +2413,20 @@ b.      Columns
 
 c.      Index
 
+
+- **dtypes:** Shows data type of each column; helps in type-specific operations.
+    
+- **columns:** Lists column names; useful for selecting, renaming, or dropping columns.
+    
+- **index:** Row labels; used for selection, alignment, and slicing.
+
+
 89.   Differentiate describe() and info() in pandas
+
+|Function|Purpose|Output|
+|---|---|---|
+|`describe()`|Statistical summary of numeric columns|Count, mean, std, min, 25%, 50%, 75%, max|
+|`info()`|General overview of DataFrame|Index dtype, column names, non-null counts, memory usage|
 
 |       | **Make** | **Colour** | **Odometer (KM)** | **Doors** | **Price**  |
 | ----- | -------- | ---------- | ----------------- | --------- | ---------- |
