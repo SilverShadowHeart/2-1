@@ -817,3 +817,79 @@ $$
 - Useful for clustering or similarity analysis
 
 **40.What is symmetric and asymmetric binary variables**
+
+#####  Symmetric vs Asymmetric Binary Attributes
+
+|Attribute Type|Definition|Count 0?|Example|
+|---|---|---|---|
+|Symmetric|Both outcomes are equally meaningful|Yes|Gender (M/F), Yes/No survey response|
+|Asymmetric|Only one outcome is meaningful; 0 carries little/no info|No (ignore 0-0 matches)|Fever presence, Positive test result|
+
+**Rule of Thumb:**
+
+- Ask: “Does absence (0) carry information?”
+    - Yes → Symmetric
+    - No → Asymmetric
+
+---
+
+**41.What is the distance measure for symmetric binary variable**
+
+#### Distance Measure for Symmetric Binary Variables
+
+For symmetric binary variables, both 1s and 0s matter equally. The distance between objects i and j is:
+
+Explanation:
+
+- **Numerator (r + s):** Number of mismatches between i and j
+- **Denominator (q + r + s + t):** Total number of attributes
+
+> Higher distance → more dissimilar objects.  
+> Lower distance → more similar objects.
+
+Where:
+
+- **q** = number of attributes where both i and j are 1
+- **r** = number of attributes where i = 1, j = 0
+- **s** = number of attributes where i = 0, j = 1
+- **t** = number of attributes where both are 0
+- **p** = total number of attributes
+
+**42.What is the distance measure for asymmetric binary variable**
+
+#### Jaccard Coefficient (Similarity Measure for Asymmetric Binary Variables)
+
+The **Jaccard coefficient** measures similarity rather than distance:
+
+Explanation:
+
+- **Numerator (q):** Number of attributes where both i and j are 1
+- **Denominator (q + r + s):** Attributes where at least one object has 1
+
+> Value ranges from 0 (completely different) to 1 (identical).
+
+Where:
+
+- **q** = number of attributes where both i and j are 1
+- **r** = number of attributes where i = 1, j = 0
+- **s** = number of attributes where i = 0, j = 1
+- **t** = number of attributes where both are 0
+- **p** = total number of attributes
+
+
+Calculate the distance between asymmetric binary variables between (jack,mary) and (jack,jim) and what is your inference with the output
+
+---
+
+**43.Calculate the distance between asymmetric binary variables between (jack,mary) and (jack,jim) and what is your inference with the output**
+
+| Name | Gender | Fever | Cough | Test-1 | Test-2 | Test-3 | Test-4 |
+| ---- | ------ | ----- | ----- | ------ | ------ | ------ | ------ |
+| Jack | M      | Y     | N     | P      | N      | N      | N      |
+| Mary | F      | Y     | N     | P      | N      | P      | N      |
+| Jim  | M      | Y     | P     | N      | N      | N      | N      |
+
+44.**Calculate the similarity distance between given points using Euclidean, Manhattan, and Supremum distance measures and draw conclusions.**
+
+![[Pasted image 20250829112414.png]]
+
