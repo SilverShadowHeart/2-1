@@ -1129,4 +1129,395 @@ matrix = np.array([[1, 2, 3],
 diag_sum = np.trace(matrix)
 print(diag_sum)  # Output: 15
 ```
+---
+**61.Discuss the possibilities to transpose a matrix using numpy**
 
+In NumPy, a matrix can be transposed in multiple ways:
+
+1. **`.T` attribute** – simplest:
+    
+
+```python
+import numpy as np
+mat = np.array([[1, 2], [3, 4]])
+print(mat.T)
+```
+
+2. **`np.transpose()` function** – general, can reorder axes for higher dimensions:
+    
+
+```python
+print(np.transpose(mat))
+```
+
+3. **`swapaxes()`** – swap two specified axes (useful in >2D arrays):
+    
+
+```python
+print(mat.swapaxes(0, 1))
+```
+
+All produce the same result for 2D arrays:
+
+```
+[[1 3]
+ [2 4]]
+```
+---
+**62.Discuss the accessing elements with indexes
+
+1. **1D array** – single index:
+    
+
+```python
+import numpy as np arr = np.array([10, 20, 30, 40]) print(arr[2])  # Output: 30
+```
+
+2. **2D array** – row and column indices:
+    
+
+```python
+mat = np.array([[1, 2], [3, 4]]) print(mat[1, 0])  # Output: 3 (row 1, column 0)
+```
+
+3. **Negative indexing** – count from end:
+    
+
+```python
+print(arr[-1])  # Output: 40
+```
+
+4. **Slicing** – access ranges:
+    
+
+```python
+print(arr[1:3])  # Output: [20 30] 
+print(mat[:, 1])  # Output: [2 4] (all rows, column 1)
+```
+
+Indexes can be **single integers, slices, or lists/arrays** for advanced selection.
+
+
+CO2:
+
+1.      Define structured data and give one example.
+
+2.      What is the role of data cleaning in data preprocessing?
+
+3.      Mention any two data collection strategies in the context of data science and visualization.
+
+4.      What is personally identifiable information (PII) and why is it important in data privacy?
+
+5.      Name any two techniques used to ensure data integrity.
+
+6.      What is the main purpose of data masking?
+
+7.      Give one difference between structured and semi-structured data with examples.
+
+8.      Explain the three types of data sources—structured, unstructured, and semi-structured—with examples, and discuss their implications in data preprocessing.
+
+9.     Describe in detail the various data collection strategies used in data science and visualization, highlighting how each contributes to quality insights.
+
+10.  Discuss the different data security issues mentioned in the session and explain methods to address each.
+
+11.  Explain the complete process of data preprocessing, including cleaning, integration, transformation, reduction, and discretization, with examples.
+
+12.  What is data encryption? Explain the importance of encryption in transit and at rest with suitable examples.
+
+13.  Discuss the importance of data privacy in analytics and visualization and explain how anonymization and differential privacy help maintain it.
+
+14.  Describe the concept of compliance with regulations in data handling and explain the consequences of non-compliance with examples such as GDPR and HIPAA.
+
+15.  Define noise,incomplete, inconsistent
+
+16.  What are the measures to asses the data quality
+
+17.  Explain about data preprocessing tasks
+
+18.  What are the causes for missing data?
+
+19.  How to handle missing data?
+
+20.  Explain the scenario for conversion of nominal to numeric?
+
+21.  List the techniques to handle missing data
+
+22.  Explain Binning methods for smoothing data with example?
+
+23.  What outlier analysis?
+
+24.  What are the causes for occurring inconsistent data with examples?
+
+25.  Which of the following is a common method for handling missing data in a dataset?
+
+A. Data normalization  
+B. Data encryption  
+C. **Data imputation  
+**D. Data transformation
+
+26.  Which technique is used to detect and correct noisy data?
+
+A. Data visualization  
+B. **Smoothing techniques**  
+C. Data mining  
+D. Hashing
+
+27.  Which of the following tools or techniques is typically used to identify duplicate records in a dataset?
+
+A. Data labeling  
+B. **String matching or record linkage  
+**C. Data shuffling  
+D. One-hot encoding
+
+28.  Which of the following is an example of a data formatting issue that can affect validation?
+
+A. Outliers in numerical data  
+B. **Inconsistent date formats (e.g., DD/MM/YYYY vs. MM/DD/YYYY)  
+**C. Null values  
+D. Large dataset size
+
+29.  Discuss the problems to be considered while data integration
+
+30.  List the techniques to identify redundant data
+
+31.  List the strategies for data transformation
+
+32.  Explain the following with example
+
+a.      min-max normalization
+
+b.     z-score normalization
+
+c.      normalization by decimal scaling
+
+33.  explain the concept of data generalization through concept hierarchy?
+
+34.  Define data reduction
+
+35.  List data reduction strategies
+
+36.  What are the dimensionality reduction techniques
+
+37.  Briefly discuss PCA?
+
+38.  What data compression
+
+39.  What are Parametric methods and non parametric methods?
+
+40.  Define clustering
+
+41.  What data sampling
+
+42.  What is data cube aggregation
+
+43.   Why is data integration important in data preprocessing?
+
+A. It deletes unrelated records  
+B. It converts data into images  
+C. **It helps combine data from multiple sources for unified analysis**  
+D. It creates duplicate copies of data
+
+44.  Which of the following is an example of a schema mismatch problem?
+
+A. Missing rows in a dataset  
+B. **Different column names for the same attribute in two datasets**  
+C. Duplicate records in a single file  
+D. Extra white spaces in text fields
+
+45.  What is the purpose of normalization in data transformation?
+
+A. To reduce data size  
+B. To convert data into images  
+C. **To scale data values into a specific range (e.g., 0 to 1)**  
+D. To create noise in data
+
+46.  . In Pandas, which function is commonly used to merge two datasets based on a common column?
+
+A. pd.append()  
+B. pd.concat()  
+C. pd.merge()  
+D. pd.group()
+
+47.  What are the Challenges & Applications of Data Reduction
+
+48.  Which of the following is a common data reduction technique in data preprocessing?
+
+A. Data Augmentation  
+B. Data Cleaning  
+**C. Principal Component Analysis (PCA)**  
+D. Data Shuffling
+
+49.  The main goal of data reduction is to:
+
+A. Remove all noisy data from the dataset  
+B. Increase the number of variables  
+C. **Represent the data with less volume but produce similar analytical results**  
+D. Normalize the data
+
+50.  Explain the concept of dimensionality reduction and how PCA helps in reducing the complexity of large datasets.
+
+51.  Discuss the benefits and challenges of using data cube aggregation for summarizing large datasets.
+
+52.  How does attribute selection contribute to improving the efficiency of machine learning models, and what methods can be used for this process?
+
+53.  Describe different data sampling techniques and their role in ensuring effective analysis while managing large volumes of data.
+
+54.   What is Data Discretization
+
+55.   Explain Unsupervised Discretization Methods
+
+56.   Explain Clustering-Based Discretization
+
+57.   Explain Entropy-Based Discretization
+
+58.   Advantages & Limitations of Entropy-Based
+
+59.   Which of the following statements best describes equal-frequency binning?
+
+a.      It divides the range of values into intervals of equal width.
+
+b.      It assigns each data point to a randomly selected bin.
+
+**c.**      **It ensures each bin has approximately the same number of data points**
+
+d.      It uses class labels to decide where to split the data.
+
+60.   Which method of discretization uses Information Gain to determine the best split point for continuous attributes?
+
+A) Equal-width binning  
+B) K-means clustering  
+C) **Entropy-based discretization**  
+D) Z-score normalization
+
+61.   Explain the difference between supervised and unsupervised discretization methods. Provide one example of each and describe how they work.
+
+62.   Describe the steps involved in applying clustering-based discretization using the K-Means algorithm. What are the advantages and limitations of this method?
+
+63.   What is entropy-based discretization, and how is Information Gain used to determine split points in continuous data? Provide a brief example to illustrate the process.
+
+64.   Compare and contrast equal-width and equal-frequency binning in terms of bin distribution, sensitivity to outliers, and interpretability. When would you choose one over the other?
+
+65.   Which method correctly reads data from a CSV file named "sales.csv"?
+
+a) pd.open_csv("sales.csv")
+
+b) pd.read_csv("sales.csv")
+
+c) pd.load_csv("sales.csv")
+
+d) pd.csv_reader("sales.csv")
+
+66.   How would you select the "Name" and "Salary" columns from a DataFrame df?
+
+a.      a) df("Name", "Salary")
+
+b.      b) df[["Name", "Salary"]]
+
+c.      c) df.select("Name", "Salary")
+
+d.      d) df.columns("Name", "Salary")
+
+67.   how missing values are represented
+
+68.   what is the method for finding missing value?
+
+69.   What is the method for removing missing value rows?
+
+70.   Which of the following best describes the process of extracting useful patterns and knowledge from large datasets?
+
+a.      Data Driven science
+
+b.      Data Mining
+
+c.      Big data
+
+d.      Information retrival
+
+71.   Data preprocessing, cleaning, and feature engineering
+
+a.      **Data Scientist**
+
+b.      b) **Machine Learning Engineer**  
+c) **Data Analyst**
+
+c.      d)None
+
+72.   briefly discuss about descriptive statistics
+
+73.   discuss the importance Exploratory Data Analysis
+
+74.   what are the common EDA techniques
+
+75.   what is data distribution and explain types of data destributions
+
+76.   what are types of anomalies
+
+77.   how to detect outliers
+
+78.   explain skewed data distribution
+
+79.   **Right-skewed distribution**
+
+80.   **Left-skewed distribution**
+
+81.   **Symmetrical distribution**
+
+82.   **Write python code to Plot Histogram – Distribution of Marks**
+
+83.   **Write python code to Plot Boxplot – Check for Outliers**
+
+84.   **Write python code to Scatter Plot – Relationship between Marks and Attendance**
+
+85.   **What are the data types in pandas?**
+
+86.   **What is a series and dataframe in pandas?**
+
+87.   **How to read the data from online**
+
+88.   Explain the following attributes and it’s imporatance in pandas
+
+a.      Dtypes
+
+b.      Columns
+
+c.      Index
+
+89.   Differentiate describe() and info() in pandas
+
+||**Make**|**Colour**|**Odometer (KM)**|**Doors**|**Price**|
+|---|---|---|---|---|---|
+|**0**|Toyota|White|150043|4|$4,000.00|
+|**1**|Honda|Red|87899|4|$5,000.00|
+|**2**|Toyota|Blue|32549|3|$7,000.00|
+|**3**|BMW|Black|11179|5|$22,000.00|
+|**4**|Nissan|White|213095|4|$3,500.00|
+|**5**|Toyota|Green|99213|4|$4,500.00|
+|**6**|Honda|Blue|45698|4|$7,500.00|
+|**7**|Honda|Blue|54738|4|$7,000.00|
+|**8**|Toyota|White|60000|4|$6,250.00|
+|**9**|Nissan|White|31600|4|$9,700.00|
+
+90.   Write python code Load above dataset into dataframe, calculate mean of “Odometer (KM)”  and sum of “Doors”
+
+91.   Explain the difference between .loc & .iloc with example
+
+||**Make**|**Colour**|**Odometer**|**Doors**|**Price**|
+|---|---|---|---|---|---|
+|**0**|Toyota|White|150043.0|4.0|$4,000|
+|**1**|Honda|Red|87899.0|4.0|$5,000|
+|**2**|Toyota|Blue|NaN|3.0|$7,000|
+|**3**|BMW|Black|11179.0|5.0|$22,000|
+|**4**|Nissan|White|213095.0|4.0|$3,500|
+|**5**|Toyota|Green|NaN|4.0|$4,500|
+|**6**|Honda|NaN|NaN|4.0|$7,500|
+|**7**|Honda|Blue|NaN|4.0|NaN|
+|**8**|Toyota|White|60000.0|NaN|NaN|
+|**9**|NaN|White|31600.0|4.0|$9,700|
+
+92.   Find the missing values of each column take appropriate action includes fill with mean or mode or median or constant or drop the rows analyse the scenario
+
+93.   Add a new column to the above  dataset with constant value 10
+
+94.    Group the data based on “make” and perform sum on Doors
+
+95.   Filter the rows where “make == Honda” and display
