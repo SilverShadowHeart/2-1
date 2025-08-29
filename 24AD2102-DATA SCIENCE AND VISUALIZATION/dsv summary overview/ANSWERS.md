@@ -2137,6 +2137,18 @@ D. Large dataset size
 
 30.  List the techniques to identify redundant data
 
+- **Duplicate Record Detection** – Check for identical rows in a dataset (using `drop_duplicates()` in pandas).
+    
+- **Correlation Analysis** – Highly correlated attributes (≈1 or -1) may be redundant.
+    
+- **Feature Importance / Variance Check** – Low variance or constant features add no new info.
+    
+- **Record Linkage / String Matching** – Detect near-duplicate entries (e.g., "Jon" vs "John").
+    
+- **Normalization & Standardization** – Helps identify attributes representing the same concept in different units (e.g., height in cm vs meters).
+    
+- **Schema Matching** – Check overlap when integrating datasets from multiple sources.
+
 31.  List the strategies for data transformation
 
 32.  Explain the following with example
