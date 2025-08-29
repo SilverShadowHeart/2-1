@@ -2149,7 +2149,30 @@ D. Large dataset size
     
 - **Schema Matching** – Check overlap when integrating datasets from multiple sources.
 
+---
+
 31.  List the strategies for data transformation
+
+- **Smoothing** – Remove noise using techniques like binning, regression, or clustering.
+    
+- **Normalization/Scaling** – Transform data into a specific range or scale (e.g., Min-Max, Z-score, Decimal scaling).
+    
+- **Aggregation** – Summarize by combining values (e.g., average sales per month).
+    
+- **Generalization** – Replace low-level values with higher-level concepts (e.g., “21 years” → “Young Adult”).
+    
+- **Attribute Construction (Feature Engineering)** – Create new features from existing ones (e.g., BMI from weight/height).
+    
+- **Discretization** – Convert continuous data into categorical bins (e.g., marks into grades A/B/C).
+    
+- **Encoding** – Convert categorical attributes into numeric form (Label encoding, One-hot encoding).
+    
+- **Logarithmic/Power Transformations** – Reduce skewness and stabilize variance.
+    
+- **Date/Time Transformation** – Extract useful components (e.g., day, month, weekday).
+
+---
+
 
 32.  Explain the following with example
 
@@ -2159,27 +2182,393 @@ b.     z-score normalization
 
 c.      normalization by decimal scaling
 
+**a. Min-Max Normalization**
+
+- Formula:
+    
+
+$v' = \frac{v - \min(A)}{\max(A) - \min(A)} \times (new\_max - new\_min) + new\_min$
+
+- Example: Suppose ages = {10, 20, 30, 40}, we want to scale into [0,1].  
+    For v = 30:
+    
+
+$v' = \frac{30 - 10}{40 - 10} \times (1 - 0) + 0 = \frac{20}{30} = 0.67$
+
+---
+
+**b. Z-Score Normalization (Standardization)**
+
+- Formula:
+    
+
+$v' = \frac{v - \mu}{\sigma}$
+
+where $\mu = mean,$$\sigma = standard deviation.$
+
+- Example: Suppose exam scores = {50, 60, 70}, $\mu = 60,$$\sigma = 10$ 
+    For $v = 70$
+    
+
+$v' = \frac{70 - 60}{10} = 1$
+
+---
+
+**c. Normalization by Decimal Scaling**
+
+- Formula:
+    
+
+$v' = \frac{v}{10^j}$
+where j = smallest integer such that max(|v'|) < 1.
+
+- Example: Values = {−500, 200, 900}. Max = 900 → need j=3j=3.  
+    For v=200v = 200:
+    
+
+$v' = \frac{200}{10^3} = 0.2$
+
+---
+
+
+
 33.  explain the concept of data generalization through concept hierarchy?
+
+**Data Generalization through Concept Hierarchy**
+
+- **Concept**: Data generalization is the process of replacing low-level, detailed data with higher-level, more abstract concepts using **concept hierarchies**.
+    
+- **Why**: It reduces data complexity, highlights meaningful patterns, and prepares data for analysis/mining.
+    
+
+### **How it works**
+
+- **Concept Hierarchy**: An ordered set of concepts from specific → generalized.  
+    Example:
+    
+    - **City → State → Country**
+        
+    - **Day → Month → Year**
+        
+    - **Marks (0–100) → Grade (A, B, C)**
+        
+
+### **Examples**
+
+1. **Location**
+    
+    - Raw data: `Hyderabad`
+        
+    - Generalized to: `Telangana` → `India`
+        
+2. **Time**
+    
+    - Raw data: `15/08/2025`
+        
+    - Generalized to: `August 2025` → `2025`
+        
+3. **Age**
+    
+    - Raw data: `23, 27, 31`
+        
+    - Generalized to: `20–30` → `Young Adult`
+        
+
+### **Importance**
+
+- Removes unnecessary detail
+    
+- Provides higher-level insights
+    
+- Improves efficiency of data mining (patterns emerge clearly)
+    
+
+ In short: **Generalization = abstraction via hierarchies → from detailed data to broader, more useful knowledge.**
+
+---
 
 34.  Define data reduction
 
+Data reduction is compressing data into a smaller, more manageable form **without losing significant patterns or meaning**.
+
 35.  List data reduction strategies
+
+- **Dimensionality Reduction** – Reduce number of attributes/features (e.g., PCA, feature selection).
+    
+- **Numerosity Reduction** – Replace data with smaller representations (e.g., sampling, regression, clustering).
+    
+- **Data Compression** – Encode data efficiently (lossless or lossy).
+    
+- **Aggregation** – Summarize data (e.g., daily → monthly totals).
+    
+- **Discretization & Binning** – Replace continuous values with intervals/bins.
 
 36.  What are the dimensionality reduction techniques
 
+- **Principal Component Analysis (PCA)** – Transforms correlated features into fewer uncorrelated components.
+    
+- **Linear Discriminant Analysis (LDA)** – Reduces dimensions while preserving class separability.
+    
+- **Feature Selection** – Keeps only the most relevant attributes (filter, wrapper, embedded methods).
+    
+- **Autoencoders (Neural Networks)** – Learn compressed latent representations.
+    
+- **t-SNE / UMAP** – Non-linear techniques for visualization and manifold learning.
+    
+- **Singular Value Decomposition (SVD)** – Factorizes matrices to lower-rank approximations.
+
 37.  Briefly discuss PCA?
+explain with example if needed
+
+**Principal Component Analysis (PCA):**
+
+- **Idea:** Reduce dimensionality by transforming correlated variables into a smaller set of uncorrelated variables called _principal components_.
+    
+- **How it works:**
+    
+    1. Standardize data.
+        
+    2. Compute covariance matrix.
+        
+    3. Find eigenvalues & eigenvectors.
+        
+    4. Order eigenvectors by eigenvalues (importance).
+        
+    5. Project data onto top-k components.
+        
+- **Result:** Most of the variance (information) is preserved with fewer dimensions.
+    
+- **Example:** Reducing a dataset with 50 features to 2 principal components for visualization.
 
 38.  What data compression
 
+**Data Compression:** Process of reducing the storage space or transmission cost of data by encoding it more efficiently, while preserving the original information (lossless) or allowing some acceptable loss (lossy).
+
+Example:
+
+- **Lossless:** ZIP, Huffman coding.
+    
+- **Lossy:** JPEG image compression, MP3 audio.
+
+
 39.  What are Parametric methods and non parametric methods?
+
+**Parametric Methods**
+
+- Assume data fits a model.
+    
+- Estimate and store **model parameters**, discard raw data (except outliers).
+    
+- Example: **Log-linear models** – value at a point in m-D space = product over marginal subspaces.
+    
+
+**Non-Parametric Methods**
+
+- No assumptions about data distribution.
+    
+- Main techniques:
+    
+    1. **Histograms** – summarize frequency distributions.
+        
+    2. **Clustering** – group similar data points.
+        
+    3. **Aggregation** – combine data points into summary statistics.
+        
+    4. **Sampling** – select representative subset.
+        
+    5. **Data Cubes** – multidimensional summaries for fast queries.
+
 
 40.  Define clustering
 
+Grouping a set of data objects into clusters so that objects in the same cluster are more similar to each other than to those in other clusters.  
+_Example:_ Grouping customers by purchasing behavior.
+
 41.  What data sampling
+
+## **Definition**
+
+Selecting a smaller, representative subset of the dataset to **reduce storage, computation, and training time** while maintaining essential data characteristics.
+
+---
+
+## **Methods**
+
+### 1. **Random Sampling**
+
+- Pick records **completely at random**.
+    
+- **Advantage**: Simple, unbiased if dataset is balanced.
+    
+- **Weakness**: May miss minority/rare classes in skewed data.
+    
+
+**Mini Example**  
+**Before (Full Data):**
+
+|Feature1|Feature2|Label|
+|---|---|---|
+|0.5|1.2|0|
+|-0.3|0.8|1|
+|0.7|-0.4|0|
+|-0.1|0.9|1|
+
+**After (Random Sample, 50%)**:
+
+|Feature1|Feature2|Label|
+|---|---|---|
+|-0.1|0.9|1|
+|0.7|-0.4|0|
+
+![[Pasted image 20250824221427.png]]
+
+---
+
+### 2. **Stratified Sampling**
+
+- Data is split into **strata (subgroups)**, and sampling is done **proportionally**.
+    
+- **Advantage**: Guarantees minority groups are represented.
+    
+- **Weakness**: Requires knowledge of subgroup labels.
+    
+
+**Mini Example**  
+Dataset: 2 label=0, 2 label=1 → take 50% → select 1 from each class.
+
+**After (Stratified Sample, 50%)**:
+
+|Feature1|Feature2|Label|
+|---|---|---|
+|0.5|1.2|0|
+|-0.3|0.8|1|
+
+![[Pasted image 20250824221800.png]]
+
+---
+
+### 3. **Systematic Sampling**
+
+- Select **every n-th record** from ordered data.
+    
+- **Advantage**: Easy to implement, spreads sample evenly.
+    
+- **Weakness**: Can introduce bias if hidden periodicity exists in data.
+    
+
+**Mini Example**  
+Step = 2 → pick rows 1, 3, …
+
+**After (Systematic Sample):**
+
+|Feature1|Feature2|Label|
+|---|---|---|
+|0.5|1.2|0|
+|0.7|-0.4|0|
+![[Pasted image 20250824221958.png]]
+
+---
+
+## **Comparison Table**
+
+| Method         | How it Works                  | Strength                          | Weakness                 | Best For                              |
+| -------------- | ----------------------------- | --------------------------------- | ------------------------ | ------------------------------------- |
+| **Random**     | Pick arbitrary rows           | Simple, unbiased in balanced data | Misses rare classes      | Large balanced datasets               |
+| **Stratified** | Preserve subgroup proportions | Captures all classes              | Needs class labels       | Classification tasks, imbalanced data |
+| **Systematic** | Take every n-th record        | Even spread, simple               | Bias if data is periodic | Time-series, ordered datasets         |
+
+
 
 42.  What is data cube aggregation
 
+**Definition**
+
+- A **multidimensional representation** of data used in **OLAP (Online Analytical Processing)**.
+    
+- Summarizes detailed data across multiple **dimensions** (e.g., _time, region, product_) to reduce complexity and support fast analysis.
+    
+
+---
+
+### 2. **Concept**
+
+- **Raw data**: stored at a fine-grained level (e.g., daily sales).
+    
+- **Aggregation (roll-up)**: combines detailed values into **higher-level summaries** (e.g., yearly sales).
+    
+- Purpose: Reduce dataset size while keeping **patterns and trends** intact.
+    
+
+---
+
+### 3. **How It Works**
+
+- Choose dimensions → group data along those dimensions → apply aggregation (sum, avg, count, etc.).
+    
+- Example:
+    
+    - **Dimension**: Time → Levels: Day → Quarter → Year
+        
+    - **Query**: “What were annual electronics sales by region?”
+        
+    - Instead of scanning every transaction, OLAP queries the cube’s pre-computed **aggregates**.
+        
+
+---
+
+### 4. **Mathematical Representation**
+
+If quarterly sales data is available:
+
+$Annual\_Sales = \sum_{i=1}^{n} Quarterly\_Sales_i$
+
+Where:
+
+- n = number of quarters in a year (usually 4)
+    
+- $Quarterly\_Sales_i​$ = sales in each quarter
+    
+
+---
+
+### 5. **Key Benefit**
+
+- **Efficiency**: Fast analytical queries on large datasets.
+    
+- **Scalability**: Handles multiple dimensions (time, product, region) without recomputing from raw data each time.
+
+![[Pasted image 20250824222328.png]]
+
+**Example with Separate Tables**:  
+Your example: Quarterly electronics sales from 2018–2022 aggregated annually.
+
+**Before Table**:
+
+|Year|Quarter|Sales|
+|---|---|---|
+|2018|Q1|400000|
+|2018|Q2|390000|
+|2018|Q3|378000|
+|2018|Q4|400000|
+|2019|Q1|900000|
+|2019|Q2|895000|
+
+**After Table (Annual Aggregation)**:
+
+| Year             | Annual_Sales |
+| ---------------- | ------------ |
+| 2018             | 1568000      |
+| 2019             | 1795000      |
+
+Calculations
+
+- 2018: $400000 + 390000 + 378000 + 400000 = 1568000$
+- 2019 (partial): $900000 + 895000 = 1795000$
+
+
 43.   Why is data integration important in data preprocessing?
+ans
+C – It helps combine data from multiple sources for unified analysis
 
 A. It deletes unrelated records  
 B. It converts data into images  
@@ -2187,6 +2576,8 @@ C. **It helps combine data from multiple sources for unified analysis**
 D. It creates duplicate copies of data
 
 44.  Which of the following is an example of a schema mismatch problem?
+ans
+B – Different column names for the same attribute in two datasets
 
 A. Missing rows in a dataset  
 B. **Different column names for the same attribute in two datasets**  
@@ -2194,6 +2585,8 @@ C. Duplicate records in a single file
 D. Extra white spaces in text fields
 
 45.  What is the purpose of normalization in data transformation?
+ans
+C – To scale data values into a specific range (e.g., 0 to 1)
 
 A. To reduce data size  
 B. To convert data into images  
@@ -2201,6 +2594,8 @@ C. **To scale data values into a specific range (e.g., 0 to 1)**
 D. To create noise in data
 
 46.  . In Pandas, which function is commonly used to merge two datasets based on a common column?
+ans
+C – `pd.merge()`
 
 A. pd.append()  
 B. pd.concat()  
@@ -2209,7 +2604,13 @@ D. pd.group()
 
 47.  What are the Challenges & Applications of Data Reduction
 
+- **Challenges:** Preserving important information, avoiding loss of patterns, balancing efficiency vs accuracy, handling high-dimensional sparse data.
+    
+- **Applications:** Faster query processing, efficient storage, visualization of high-dimensional data, improving ML model performance.
+
 48.  Which of the following is a common data reduction technique in data preprocessing?
+ans
+C – Principal Component Analysis (PCA)
 
 A. Data Augmentation  
 B. Data Cleaning  
@@ -2217,6 +2618,8 @@ B. Data Cleaning
 D. Data Shuffling
 
 49.  The main goal of data reduction is to:
+ans
+C. **Represent the data with less volume but produce similar analytical results**  
 
 A. Remove all noisy data from the dataset  
 B. Increase the number of variables  
