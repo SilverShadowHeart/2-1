@@ -976,4 +976,12 @@ answer dir
 
       Describe()
       
-   **50.Write a python code for displaying single dimensional array using for loop**
+ **50.Write a python code for displaying single dimensional array using for loop**
+import numpy as np
+
+# Create a 1D array
+arr = np.array([10, 20, 30, 40, 50])
+
+# Display elements using for loop
+for element in arr:
+    print(element)
