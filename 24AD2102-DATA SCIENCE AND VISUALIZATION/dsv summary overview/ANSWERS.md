@@ -893,3 +893,87 @@ Calculate the distance between asymmetric binary variables between (jack,mary) a
 
 ![[Pasted image 20250829112414.png]]
 
+
+---
+
+**45.What is cosine similarity and explain with case study**
+
+#### Cosine Similarity
+
+If **d1** and **d2** are two vectors (e.g., term-frequency vectors), then:
+$$
+cos(d1,d2)=d1⋅d2∥d1∥∥d2∥\text{cos}(d_1, d_2) = \frac{d_1 \cdot d_2}{\|d_1\| \|d_2\|}
+$$
+
+Where:
+
+- *⋅* indicates the vector dot product
+    
+- ∥d∥ is the length (magnitude) of vector **d**
+    
+
+####  Example
+
+##### Term-Frequency Table
+
+|Document|teamcoach|hockey|baseball|soccer|penalty|score|win|loss|season|
+|---|---|---|---|---|---|---|---|---|---|
+|Document|5|0|3|0|2|0|0|2|0|
+|Document2|3|0|2|0|1|1|0|1|0|
+
+##### Cosine Similarity Calculation Example
+
+###### Vectors
+$$
+d1=[5,0,3,0,2,0,0,2,0],d2=[3,0,2,0,1,1,0,1,0]
+$$
+###### Dot Product
+$$
+d1⋅d2=5∗3+0∗0+3∗2+0∗0+2∗1+0∗1+0∗0+2∗1+0∗0=25 
+$$
+###### Magnitudes
+
+$$
+\|d_1\| = \sqrt{5^2 + 0^2 + 3^2 + 0^2 + 2^2 + 0^2 + 0^2 + 2^2 + 0^2} = \sqrt{42} \approx 6.48 $$
+
+$$\|d_2\| = \sqrt{3^2 + 0^2 + 2^2 + 0^2 + 1^2 + 1^2 + 0^2 + 1^2 + 0^2} = \sqrt{16} = 4
+$$
+###### Cosine Similarity
+$$
+\cos(d_1, d_2) = \frac{25}{6.48 * 4} \approx 0.964
+$$
+###### Interpretation
+
+The two documents are highly similar (~0.96 cosine similarity).
+
+---
+
+**46.Distinguish between symmetric and asymmetric binary variables when measuring similarity.**
+
+#####  Symmetric vs Asymmetric Binary Attributes
+
+|Attribute Type|Definition|Count 0?|Example|
+|---|---|---|---|
+|Symmetric|Both outcomes are equally meaningful|Yes|Gender (M/F), Yes/No survey response|
+|Asymmetric|Only one outcome is meaningful; 0 carries little/no info|No (ignore 0-0 matches)|Fever presence, Positive test result|
+
+**Rule of Thumb:**
+
+- Ask: “Does absence (0) carry information?”
+    - Yes → Symmetric
+    - No → Asymmetric
+---
+
+**49.What is the function to  list of all the variable and function names in the module.**
+
+answer dir
+
+      Dir()
+
+      Head()
+
+      Tail()
+
+      Describe()
+      
+   **50.Write a python code for displaying single dimensional array using for loop**
