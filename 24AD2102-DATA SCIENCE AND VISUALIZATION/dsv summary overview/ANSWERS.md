@@ -1766,43 +1766,374 @@ Strategies to Handle Missing Data
 
 20.  Explain the scenario for conversion of nominal to numeric?
 
+**Scenario for Converting Nominal to Numeric:**
+
+When a dataset contains **categorical (nominal) variables** that are non-numeric, many machine learning algorithms cannot process them directly. Conversion to numeric format is required for computation.
+
+**Example Scenario:**
+
+- Dataset with a column **“Color”**: `Red, Blue, Green`
+    
+- **Conversion Techniques:**
+    
+    1. **One-Hot Encoding:** Create separate binary columns for each category.
+        
+        `import pandas as pd df = pd.DataFrame({'Color': ['Red', 'Blue', 'Green']}) df_encoded = pd.get_dummies(df, columns=['Color'])`
+        
+        Result:
+			
+			  Color_Blue  Color_Green  Color_Red
+			0          0            0          1
+			1          1            0          0
+			2          0            1          0
+
+    1. **Label Encoding:** Assign numeric labels to categories.
+        
+        `Red → 0, Blue → 1, Green → 2`
+        
+
+**Use Case:** Required for algorithms like **linear regression, logistic regression, SVM, and neural networks**, which only process numeric inputs.
+
+
+---
+
 21.  List the techniques to handle missing data
 
+Strategies to Handle Missing Data
+
+1. **Ignore Tuples**
+    
+    - Drop rows with missing fields.
+        
+    - _Risk_: If many rows are dropped, dataset shrinks and becomes biased.
+        
+2. **Manual Fill**
+    
+    - Humans fill in missing values.
+        
+    - _Risk_: Impractical for large datasets.
+        
+3. **Global Constant**
+    
+    - Replace with “unknown” or `0`.
+        
+    - _Risk_: Distorts analysis (e.g., `0` salary reduces averages).
+        
+4. **Imputation (Smart Replacement)**
+    
+    - **Mean/Median/Mode**: Fill missing with overall average or most common value.
+        
+    - **Class-Based Mean**: Fill using averages within a subgroup (e.g., per `Region`).
+        
+    - **Most Probable Value**: Predict using models (Bayesian inference, decision trees, regression).
+
+---
+
 22.  Explain Binning methods for smoothing data with example?
+Types of Binning
+
+| Method                      | How It Works                                                      | Pros                | Cons                                      |
+| --------------------------- | ----------------------------------------------------------------- | ------------------- | ----------------------------------------- |
+| **Equal-Width**             | Divide range `[A,B]` into N equal intervals, width = `(B-A)/N`    | Simple to implement | Sensitive to outliers and skewed data     |
+| **Equal-Depth (Frequency)** | Divide data into N intervals with roughly equal number of samples | Handles skew better | Complex for categorical or small datasets |
+
+---
+
+### b) Example Dataset
+
+## Binning Explained with Formulas
+
+We have sorted values:
+
+`4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34`
+
+---
+
+### **1. Equal-Width Binning**
+
+**Formula:**
+
+$$\text{Bin Width} = \frac{\text{Max} - \text{Min}}{N} = \frac{B - A}{N}$$
+- A = minimum value, B = maximum value, N = number of bins.
+    
+- Each bin covers an interval: `[A, A+width), [A+width, A+2*width), …`
+    
+
+**Step by Step:**
+
+1. Min = 4, Max = 34, N = 3
+    
+
+$\text{Width} = \frac{34 - 4}{3} = \frac{30}{3} = 10$
+
+2. Bins:
+    
+
+- Bin 1: 4 ≤ x < 14 → 4, 8, 9
+    
+- Bin 2: 14 ≤ x < 24 → 15, 21, 21
+    
+- Bin 3: 24 ≤ x ≤ 34 → 24, 25, 26, 28, 29, 34
+    
+
+> Notice: Equal-width can lead to uneven counts per bin if data is skewed.
+
+---
+
+### **2. Equal-Depth (Frequency) Binning**
+
+**Formula:**
+
+$\text{Bin Size} = \frac{\text{Total no. of Values}}{\text{Number of bins}} = \frac{n}{N}$
+
+- n = total number of values, N = number of bins.
+    
+- Each bin has roughly the same number of samples (floor/ceiling used if n not divisible by N).
+    
+
+**Step by Step:**
+
+1. n = 12, N = 3 → Bin size = 12/3 = 4 values per bin
+    
+2. Assign sorted values:
+    
+
+- Bin 1 (first 4 values): 4, 8, 9, 15
+    
+- Bin 2 (next 4 values): 21, 21, 24, 25
+    
+- Bin 3 (last 4 values): 26, 28, 29, 34
+    
+
+> This ensures each bin has equal frequency, even if value ranges differ.
+
+---
+
+### **Observation**
+
+- **Equal-width** bins preserve the numeric range but may have unbalanced counts.
+    
+- **Equal-depth** bins balance counts but numeric ranges vary.
+
+---
+
+### c) Smoothing Methods Explained
+
+#### 1. **Mean Smoothing**
+
+- Replace **all values in a bin** with the **average (mean)** of that bin.
+    
+- Reduces variance but moves every value toward the central tendency.
+    
+
+Step by step:
+
+**Bin 1: 4, 8, 9, 15**
+
+- Mean = (4 + 8 + 9 + 15)/4 = 9
+    
+- All values → 9
+    
+
+**Bin 2: 21, 21, 24, 25**
+
+- Mean = (21 + 21 + 24 + 25)/4 = 23
+    
+- All values → 23
+    
+
+**Bin 3: 26, 28, 29, 34**
+
+- Mean = (26 + 28 + 29 + 34)/4 = 29
+    
+- All values → 29
+    
+
+|Original Bin|Smoothed (Mean)|
+|---|---|
+|4, 8, 9, 15|9, 9, 9, 9|
+|21, 21, 24, 25|23, 23, 23, 23|
+|26, 28, 29, 34|29, 29, 29, 29|
+
+---
+
+#### 2. **Boundary Smoothing**
+
+- Replace **each value** with the **closest bin boundary** (either min or max of the bin).
+    
+- Preserves extremes, avoids creating new values.
+    
+
+Step by step:
+
+**Bin 1: 4, 8, 9, 15** (min=4, max=15)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|4|0|11|4|
+|8|4|7|4|
+|9|5|6|4|
+|15|11|0|15|
+
+**Bin 2: 21, 21, 24, 25** (min=21, max=25)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|21|0|4|21|
+|21|0|4|21|
+|24|3|1|25|
+|25|4|0|25|
+
+**Bin 3: 26, 28, 29, 34** (min=26, max=34)
+
+|Value|Distance to Min|Distance to Max|Smoothed|
+|---|---|---|---|
+|26|0|8|26|
+|28|2|6|26|
+|29|3|5|26|
+|34|8|0|34|
+
+|Original Bin|Smoothed (Boundary)|
+|---|---|
+|4, 8, 9, 15|4, 4, 4, 15|
+|21, 21, 24, 25|21, 21, 25, 25|
+|26, 28, 29, 34|26, 26, 26, 34|
+
+---
 
 23.  What outlier analysis?
 
+ Outlier Analysis
+
+- Outliers can be detected using **clustering methods**.
+    
+- Data points that don’t belong to any dense cluster, or lie far from cluster centroids, are considered **outliers**.
+    
+
+**Detailed Explanation:**  
+Clustering (e.g., **KMeans**) partitions data into $k$ groups. Each cluster has a **centroid** $c = (c_1, c_2, …, c_n)$ representing its “center.”
+
+- For each data point $x = (x_1, x_2, …, x_n)$, the distance to centroid is:
+ $d(x, c) = \sqrt{\sum_{i=1}^n (x_i - c_i)^2}$
+- If $d(x, c)$ is **much larger** than the typical distances inside the cluster, or if the cluster containing $x$ has **very few members**, then $x$ is flagged as an **outlier**.
+    
+
+**Clarified Example:**  
+Dataset: [1, 2, 3, 100]
+
+- KMeans with $k=2$ → cluster 1 = {1, 2, 3}, cluster 2 = {100}.
+    
+- Since {100} forms a **tiny cluster far away**, it is treated as an outlier.
+    
+```python
+from sklearn.cluster import KMeans 
+import numpy as np  
+data = np.array([[1], [2], [3], [100]]) 
+kmeans = KMeans(n_clusters=2, random_state=0).fit(data)  labels = kmeans.labels_ 
+centers = kmeans.cluster_centers_  
+# find points in smallest cluster unique, 
+counts = np.unique(labels, return_counts=True) outlier_cluster = unique[np.argmin(counts)] 
+outliers = data[labels == outlier_cluster]  print("Cluster centers:", centers.ravel()) print("Outliers:", outliers.ravel())```
+
+**Visualization:**
+
+- Dense cluster → bubble of points (1, 2, 3).
+    
+- Distant single point (100) → lies outside bubble → flagged as **outlier**.
+
+![[Pasted image 20250824203610.png]]
+
+---
+
 24.  What are the causes for occurring inconsistent data with examples?
 
+- **Data Entry Errors:** Different formats or typos entered manually.  
+    _Example:_ “NY” vs “New York” for the same state.
+    
+- **Integration of Multiple Sources:** Conflicting values from merging datasets.  
+    _Example:_ Customer birthdate is `01/01/1990` in one table and `02/01/1990` in another.
+    
+- **Redundant Data:** Duplicate records with differing values.  
+    _Example:_ Two records for the same employee with different phone numbers.
+    
+- **Outdated Information:** Some records not updated after changes.  
+    _Example:_ Old address remains while a customer moves.
+    
+- **Violation of Data Standards or Constraints:** Ignoring rules for valid formats or ranges.  
+    _Example:_ Negative values in a field for age or salary.
+
+---
 25.  Which of the following is a common method for handling missing data in a dataset?
+
+answer data imputation
 
 A. Data normalization  
 B. Data encryption  
 C. **Data imputation  
-**D. Data transformation
+D. Data transformation
+
+
+---
+
 
 26.  Which technique is used to detect and correct noisy data?
+
+answer data smoothing 
 
 A. Data visualization  
 B. **Smoothing techniques**  
 C. Data mining  
 D. Hashing
 
+---
+
 27.  Which of the following tools or techniques is typically used to identify duplicate records in a dataset?
+
+answer string matching
 
 A. Data labeling  
 B. **String matching or record linkage  
-**C. Data shuffling  
+C. Data shuffling  
 D. One-hot encoding
 
-28.  Which of the following is an example of a data formatting issue that can affect validation?
+---
+
+28.  Which of the following is an example of a data formatting issue that can affect validation
+
+answer inconsistent date formats 
 
 A. Outliers in numerical data  
 B. **Inconsistent date formats (e.g., DD/MM/YYYY vs. MM/DD/YYYY)  
-**C. Null values  
+C. Null values  
 D. Large dataset size
 
+---
+
 29.  Discuss the problems to be considered while data integration
+
+1. **Schema Conflicts:** Different structures, column names, or data types across sources.  
+    _Example:_ “DOB” vs “Birth_Date” columns in two datasets.
+    
+2. **Data Redundancy:** Repeated or overlapping information leading to duplication.  
+    _Example:_ Same customer present in multiple systems.
+    
+3. **Data Inconsistency:** Conflicting values for the same entity.  
+    _Example:_ Address differs between sales and support databases.
+    
+4. **Missing or Incomplete Data:** Some sources lack certain fields.  
+    _Example:_ One table has phone numbers, another doesn’t.
+    
+5. **Heterogeneous Data Sources:** Combining structured, semi-structured, and unstructured data.  
+    _Example:_ Merging SQL tables with JSON logs.
+    
+6. **Data Quality Issues:** Errors, noise, or outdated records in sources affect integration reliability.
+    
+7. **Scalability & Performance:** Large datasets require efficient merging and conflict resolution strategies.
+    
+
+**Summary:** Proper integration requires resolving schema mismatches, removing redundancies, handling missing/inconsistent data, and ensuring quality for analysis.
+
+---
 
 30.  List the techniques to identify redundant data
 
@@ -2010,40 +2341,97 @@ c.      Index
 
 89.   Differentiate describe() and info() in pandas
 
-||**Make**|**Colour**|**Odometer (KM)**|**Doors**|**Price**|
-|---|---|---|---|---|---|
-|**0**|Toyota|White|150043|4|$4,000.00|
-|**1**|Honda|Red|87899|4|$5,000.00|
-|**2**|Toyota|Blue|32549|3|$7,000.00|
-|**3**|BMW|Black|11179|5|$22,000.00|
-|**4**|Nissan|White|213095|4|$3,500.00|
-|**5**|Toyota|Green|99213|4|$4,500.00|
-|**6**|Honda|Blue|45698|4|$7,500.00|
-|**7**|Honda|Blue|54738|4|$7,000.00|
-|**8**|Toyota|White|60000|4|$6,250.00|
-|**9**|Nissan|White|31600|4|$9,700.00|
+|       | **Make** | **Colour** | **Odometer (KM)** | **Doors** | **Price**  |
+| ----- | -------- | ---------- | ----------------- | --------- | ---------- |
+| **0** | Toyota   | White      | 150043            | 4         | $4,000.00  |
+| **1** | Honda    | Red        | 87899             | 4         | $5,000.00  |
+| **2** | Toyota   | Blue       | 32549             | 3         | $7,000.00  |
+| **3** | BMW      | Black      | 11179             | 5         | $22,000.00 |
+| **4** | Nissan   | White      | 213095            | 4         | $3,500.00  |
+| **5** | Toyota   | Green      | 99213             | 4         | $4,500.00  |
+| **6** | Honda    | Blue       | 45698             | 4         | $7,500.00  |
+| **7** | Honda    | Blue       | 54738             | 4         | $7,000.00  |
+| **8** | Toyota   | White      | 60000             | 4         | $6,250.00  |
+| **9** | Nissan   | White      | 31600             | 4         | $9,700.00  |
+
 
 90.   Write python code Load above dataset into dataframe, calculate mean of “Odometer (KM)”  and sum of “Doors”
+```python
+data = {
+    "Make": ["Toyota","Honda","Toyota","BMW","Nissan","Toyota","Honda","Honda","Toyota","Nissan"],
+    "Colour": ["White","Red","Blue","Black","White","Green","Blue","Blue","White","White"],
+    "Odometer (KM)": [150043,87899,32549,11179,213095,99213,45698,54738,60000,31600],
+    "Doors": [4,4,3,5,4,4,4,4,4,4],
+    "Price": [4000,5000,7000,22000,3500,4500,7500,7000,6250,9700]
+}
+
+df = pd.DataFrame(data)
+
+# Mean of Odometer and sum of Doors
+print("Mean Odometer:", df["Odometer (KM)"].mean())
+print("Sum of Doors:", df["Doors"].sum())
+```
 
 91.   Explain the difference between .loc & .iloc with example
 
-||**Make**|**Colour**|**Odometer**|**Doors**|**Price**|
-|---|---|---|---|---|---|
-|**0**|Toyota|White|150043.0|4.0|$4,000|
-|**1**|Honda|Red|87899.0|4.0|$5,000|
-|**2**|Toyota|Blue|NaN|3.0|$7,000|
-|**3**|BMW|Black|11179.0|5.0|$22,000|
-|**4**|Nissan|White|213095.0|4.0|$3,500|
-|**5**|Toyota|Green|NaN|4.0|$4,500|
-|**6**|Honda|NaN|NaN|4.0|$7,500|
-|**7**|Honda|Blue|NaN|4.0|NaN|
-|**8**|Toyota|White|60000.0|NaN|NaN|
-|**9**|NaN|White|31600.0|4.0|$9,700|
+```python
+# .loc -> label-based indexing (row/column names)
+print(df.loc[0, "Make"])  # Toyota
+# .iloc -> integer position-based indexing
+print(df.iloc[0, 0])      # Toyota
+```
+
+|       | **Make** | **Colour** | **Odometer** | **Doors** | **Price** |
+| ----- | -------- | ---------- | ------------ | --------- | --------- |
+| **0** | Toyota   | White      | 150043.0     | 4.0       | $4,000    |
+| **1** | Honda    | Red        | 87899.0      | 4.0       | $5,000    |
+| **2** | Toyota   | Blue       | NaN          | 3.0       | $7,000    |
+| **3** | BMW      | Black      | 11179.0      | 5.0       | $22,000   |
+| **4** | Nissan   | White      | 213095.0     | 4.0       | $3,500    |
+| **5** | Toyota   | Green      | NaN          | 4.0       | $4,500    |
+| **6** | Honda    | NaN        | NaN          | 4.0       | $7,500    |
+| **7** | Honda    | Blue       | NaN          | 4.0       | NaN       |
+| **8** | Toyota   | White      | 60000.0      | NaN       | NaN       |
+| **9** | NaN      | White      | 31600.0      | 4.0       | $9,700    |
 
 92.   Find the missing values of each column take appropriate action includes fill with mean or mode or median or constant or drop the rows analyse the scenario
 
+```python
+
+data_missing = {
+    "Make": ["Toyota","Honda","Toyota","BMW","Nissan","Toyota","Honda","Honda","Toyota",np.nan],
+    "Colour": ["White","Red","Blue","Black","White","Green",np.nan,"Blue","White","White"],
+    "Odometer": [150043.0,87899.0,np.nan,11179.0,213095.0,np.nan,np.nan,np.nan,60000.0,31600.0],
+    "Doors": [4.0,4.0,3.0,5.0,4.0,4.0,4.0,4.0,np.nan,4.0],
+    "Price": ["$4,000","$5,000","$7,000","$22,000","$3,500","$4,500","$7,500",np.nan,np.nan,"$9,700"]
+}
+df_miss = pd.DataFrame(data_missing)
+
+# Fill numeric columns
+df_miss["Odometer"].fillna(df_miss["Odometer"].mean(), inplace=True)
+df_miss["Doors"].fillna(df_miss["Doors"].median(), inplace=True)
+
+# Fill categorical columns
+df_miss["Make"].fillna(df_miss["Make"].mode()[0], inplace=True)
+df_miss["Colour"].fillna("Unknown", inplace=True)
+df_miss["Price"].fillna("$0", inplace=True)
+
+```
 93.   Add a new column to the above  dataset with constant value 10
+```python
+df_miss["New_Column"] = 10
+```
 
 94.    Group the data based on “make” and perform sum on Doors
 
+```python
+doors_sum = df_miss.groupby("Make")["Doors"].sum()
+print("\nSum of Doors by Make:\n", doors_sum)
+```
+
 95.   Filter the rows where “make == Honda” and display
+
+```python
+honda_rows = df_miss[df_miss["Make"] == "Honda"]
+print("\nHonda Rows:\n", honda_rows)
+```
