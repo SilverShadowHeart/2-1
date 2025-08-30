@@ -3140,6 +3140,8 @@ Missing values in pandas are represented as **`NaN` (Not a Number)**.
 To remove rows with missing values → **`df.dropna()`**.
 
 70.   Which of the following best describes the process of extracting useful patterns and knowledge from large datasets?
+ans
+b.      Data Mining
 
 a.      Data Driven science
 
@@ -3150,6 +3152,8 @@ c.      Big data
 d.      Information retrival
 
 71.   Data preprocessing, cleaning, and feature engineering
+ans
+a.      **Data Scientist**
 
 a.      **Data Scientist**
 
@@ -3160,17 +3164,70 @@ c.      d)None
 
 72.   briefly discuss about descriptive statistics
 
+Summarizes and describes data using measures like mean, median, mode (central tendency), variance, standard deviation, range (dispersion), and visual tools (histograms, boxplots). It helps understand the data’s basic structure before deeper analysis.
+
 73.   discuss the importance Exploratory Data Analysis
+
+EDA uncovers patterns, trends, and anomalies, checks data quality, validates assumptions, guides feature selection, and shapes modeling strategies. Without it, analysis risks bias, errors, or missed insights
+
 
 74.   what are the common EDA techniques
 
+- Summary statistics (mean, median, variance, correlations)
+    
+- Data visualization (histograms, scatter plots, boxplots, pairplots, heatmaps)
+    
+- Outlier detection (boxplot, z-score, IQR)
+    
+- Missing value analysis
+    
+- Distribution checks (normality, skewness, kurtosis)
+    
+- Feature relationships (correlation matrices, cross-tabulation).
+
+
 75.   what is data distribution and explain types of data destributions
+
+**Data Distribution** – Describes how values of a variable are spread. It shows frequency or probability of data points.
+
+- **Normal (Gaussian):** Symmetrical, bell-shaped.
+    
+- **Uniform:** Equal probability for all values.
+    
+- **Exponential:** Probability decreases rapidly (e.g., time until failure).
+    
+- **Binomial:** Outcomes of repeated Bernoulli trials.
+    
+- **Poisson:** Counts of events in fixed interval.
+    
+- **Skewed distributions:** Data shifted left/right instead of symmetric.
 
 76.   what are types of anomalies
 
+- **Point anomaly:** Single unusual data point (e.g., extreme outlier).
+    
+- **Contextual anomaly:** Unusual in specific context (e.g., high temperature in winter).
+    
+- **Collective anomaly:** Group of related unusual points (e.g., sudden traffic surge).
+
 77.   how to detect outliers
 
+- **Statistical methods:** z-score, modified z-score, IQR rule.
+    
+- **Visualization:** boxplot, scatter plot, histogram.
+    
+- **Model-based:** clustering (DBSCAN, k-means), isolation forest, LOF.
+
 78.   explain skewed data distribution
+
+
+When data is not symmetric around the mean.
+
+- **Right/positive skew:** Long tail on right (income data).
+    
+- **Left/negative skew:** Long tail on left (age at retirement).
+    
+- Skewness impacts mean/median comparison and modeling assumptions.
 
 79.   **Right-skewed distribution**
 
