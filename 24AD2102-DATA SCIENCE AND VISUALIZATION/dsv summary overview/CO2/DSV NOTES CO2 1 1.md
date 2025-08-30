@@ -1519,7 +1519,8 @@ kmeans = KMeans(n_clusters=2, random_state=0).fit(data)  labels = kmeans.labels_
 centers = kmeans.cluster_centers_  
 # find points in smallest cluster unique, 
 counts = np.unique(labels, return_counts=True) outlier_cluster = unique[np.argmin(counts)] 
-outliers = data[labels == outlier_cluster]  print("Cluster centers:", centers.ravel()) print("Outliers:", outliers.ravel())```
+outliers = data[labels == outlier_cluster]  print("Cluster centers:", centers.ravel()) print("Outliers:", outliers.ravel())
+```
 
 **Visualization:**
 
