@@ -418,7 +418,9 @@ print("Definite integral:", result)
 
 ```python
 f = lambda x, y: 3*x**2 + 1 
-result, _ = integrate.dblquad(f, 0, 1, lambda x: 0, lambda x: 1) print("Double integral:", result)```
+result, _ = integrate.dblquad(f, 0, 1, lambda x: 0, lambda x: 1) 
+print("Double integral:", result)
+```
 
 ---
 
@@ -441,7 +443,8 @@ y = [2,4,6] model = LinearRegression().fit(X,y) print(model.predict([[4]]))```
 from sklearn.cluster import KMeans
 X = [[1],[2],[10],[12]]
 kmeans = KMeans(n_clusters=2).fit(X) 
-print(kmeans.labels_)```
+print(kmeans.labels_)
+```
 
 ---
 
@@ -2033,7 +2036,10 @@ kmeans = KMeans(n_clusters=2, random_state=0).fit(data)  labels = kmeans.labels_
 centers = kmeans.cluster_centers_  
 # find points in smallest cluster unique, 
 counts = np.unique(labels, return_counts=True) outlier_cluster = unique[np.argmin(counts)] 
-outliers = data[labels == outlier_cluster]  print("Cluster centers:", centers.ravel()) print("Outliers:", outliers.ravel())```
+outliers = data[labels == outlier_cluster]  
+print("Cluster centers:", centers.ravel())
+print("Outliers:", outliers.ravel())
+ ```
 
 **Visualization:**
 
