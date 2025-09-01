@@ -3420,14 +3420,14 @@ Consider values with labels: [10, 20, 30, 40, 50] with labels [A, A, B, B, B].
 
 **After Table (Entropy-Based, Split at 25)**:
 
-|Value_Bin|Label|
-|---|---|
-|<=25|A|
-|<=25|A|
-|>25|B|
-|>25|B|
-|>25|B|
-|**Calculation**:||
+| Value_Bin        | Label |
+| ---------------- | ----- |
+| <=25             | A     |
+| <=25             | A     |
+| >25              | B     |
+| >25              | B     |
+| >25              | B     |
+| **Calculation**: |       |
 
 - Entropy before split: $H(S) = -\left(\frac{2}{5} \log_2 \frac{2}{5} + \frac{3}{5} \log_2 \frac{3}{5}\right) \approx 0.971$.
 - Split at 25: $S_1 = {10, 20}$ (all A), $S_2 = {30, 40, 50}$ (all B).
