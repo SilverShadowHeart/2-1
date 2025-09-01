@@ -549,13 +549,13 @@ So, Gantt chart has slots $1,2,3,4,5$.
 
 ### Step 1: Schedule J4 (Deadline = 2)
 
-|Time Slot|Job|
-|---|---|
-|1||
-|2|J4|
-|3||
-|4||
-|5||
+| Time Slot | Job |
+| --------- | --- |
+| 1         |     |
+| 2         | J4  |
+| 3         |     |
+| 4         |     |
+| 5         |     |
 
 ---
 
