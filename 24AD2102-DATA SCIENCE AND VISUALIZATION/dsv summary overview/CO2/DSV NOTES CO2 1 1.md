@@ -2241,7 +2241,7 @@ Consider sales data with detailed addresses.
 
 ### 4. Normalization
 
-- **Min-Max**: $v' = \frac{(v - \min A)}{(\max A - \min A)} \times (new_max - new_min) + new_min$
+- **Min-Max**: $v' = \frac{(v - \min A)}{(\max A - \min A)} \times (new_\max - new_\min) + new_\min$
 - **Z-score**:$v' = \frac{v - \text{mean}}{\text{std\_dev}}$
 - **Decimal scaling**: Scale by powers of 10 to bring values into range.
 
