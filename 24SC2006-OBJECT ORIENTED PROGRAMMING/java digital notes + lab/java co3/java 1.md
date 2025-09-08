@@ -42,7 +42,17 @@ catch
 		we use it to handle the error in the try block
 
 throw handling those exceptions 
- user defined errors are used to throw an errors
+ user defined errors are used to throw an errors or any built in exceptions
 
-throws handling those exceptions 
+throws handling those exceptions  which are caused by throw keyword
 finally the block will execute at least once  in the last 
+
+
+
+syntax 
+try {
+// code that might cause  an error
+} catch (exceptionType e){
+// code that handles the exception 
+}
+
