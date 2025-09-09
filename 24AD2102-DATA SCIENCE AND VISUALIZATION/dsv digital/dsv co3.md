@@ -189,4 +189,73 @@ positive co relation
 negative co relation 
 covariance near zero 
 
-note maginitude depends on the units of the
+note magnitude depends on the units of the variables making it difficult to compare for a standardized measure we use correlation 
+
+
+correlation understanding relationships
+
+what is correlation correlation is a stat measure that expresses the extent to which two variables are linearly related 
+
+
+correlation coefficient r
+
+a number between -1 and 1 tells you the strength and direction and relationship between variables
+
+
+r = 0 
+r = 1  perfect pos 
+r = -1 perfect neg
+
+note : a diagrams of all correlations 
+
+
+types of correlation and common coefficients
+
+direction 
+positive 
+negative 
+zero
+
+relationship form 
+linear straight line 
+non linear curve line
+common coefficients
+
+Pearson's
+spearman's
+Kendall's
+
+
+
+
+
+went back to experiment 5
+
+explained about read_csv
+df = data frame 
+it consists this data
+now the df is having the data
+
+df.columns.str.lower().str.strip().str.replace(" ","_")
+
+we are converting all column names to lower case then we are stripping out the white space then we are replaing any white space with underscore
+
+
+we are dropping the rows from employee id explained about dropna
+
+to_numeric explained errors coerce
+explaining data filtering 
+explained describe 
+
+to_datetime 
+dt.year
+dt.date
+
+explained about head()
+
+explained merge command 
+talked about left outer join
+
+he talked about shape command 
+
+
