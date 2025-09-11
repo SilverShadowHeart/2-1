@@ -1,0 +1,1 @@
+throw keyword in java is used to explicitly throw an error from a methpd 
