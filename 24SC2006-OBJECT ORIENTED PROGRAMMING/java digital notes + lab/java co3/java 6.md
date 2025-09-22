@@ -13,4 +13,4 @@ hash map uses keys in the same wau as ana rrray uses index
 overall time complexity o(1)
 
 
-write a program to create a hashmap with rol and marks with 5 ent
+write a program to create a hashmap with rol and marks with 5 entires and print all the rols as an array an print all the values iterating through the hashmap and print the size of the hash map
