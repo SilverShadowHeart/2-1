@@ -16,4 +16,8 @@ remove removes and returns the element at the front of the queue if the queue is
 
 poll removes and returns the element at the front of the queue if the queue is empty it returns null
 
-element returns the element at the front of the queue 
+element returns the element at the front of the queue without removing it if the queue is empty it throws and exception
+
+peek returns the element at the front of the queue without removing it if the queue is empty it returns null
+
+size ??
