@@ -3,84 +3,78 @@ exceptions in java
 ![[Pasted image 20250925185201.png]]
 
 
-### 1. **Throwable**
+### **Errors (JVM-level, don’t handle)**
 
-The root. Everything bad extends from here.
-
----
-
-### 2. **Error** (don’t handle, just die)
-
-- Happens when **Java itself breaks**, not your code.
+- **OutOfMemoryError** → Heap runs out of memory.
     
-- Example:
+- **StackOverflowError** → Infinite recursion eats stack.
     
-    - `OutOfMemoryError` → JVM ran out of memory.
-        
-    - `StackOverflowError` → Infinite recursion.
-        
-- **When to use?** → Never. You don’t catch these. You fix your code or give JVM more memory.
+- **VirtualMachineError** → JVM internal crash.
+    
+- **LinkageError** → Class problems at load time (wrong bytecode, missing defs).
+    
+- **AssertionError** → Failed `assert` statement.
     
 
 ---
 
-### 3. **Exception** (stuff you _can_ handle)
+### **Checked Exceptions (external, must handle/declare)**
 
-Two types:
-
-#### A) **Checked Exceptions** (compiler forces you to handle)
-
-- These are usually **external problems** (files, network, threads).
+- **IOException** → General I/O failure.
     
-- Examples:
+    - **FileNotFoundException** → File doesn’t exist.
+        
+    - **EOFException** → Reached end of file unexpectedly.
+        
+    - **SocketException** → Network socket broke.
+        
+- **SQLException** → Database access error.
     
-    - `IOException` → File not found, network fails.
-        
-    - `ClassNotFoundException` → Reflection can’t find a class.
-        
-    - `InterruptedException` → A sleeping thread was interrupted.
-        
-- **When to use?**
+- **ClassNotFoundException** → Class missing at runtime (reflection/class loader).
     
-    - If your method can face these, declare with `throws`.
-        
-    - Example: `FileReader` → always expect `IOException`.
-        
-
-`try {     FileReader fr = new FileReader("data.txt"); } catch (IOException e) {     System.out.println("File not found or error reading file."); }`
+- **NoSuchMethodException** → Method not found via reflection.
+    
+- **IllegalAccessException** → Trying to access a private/protected field/method reflectively.
+    
+- **CloneNotSupportedException** → Object doesn’t implement `Cloneable`.
+    
+- **InterruptedException** → A thread was interrupted during sleep/wait.
+    
 
 ---
 
-#### B) **Unchecked Exceptions (RuntimeException)**
+### **Unchecked Exceptions (RuntimeException — your bugs)**
 
-- Usually **your code’s fault** (logic mistakes).
+- **ArithmeticException** → Divide by zero.
     
-- Examples:
+- **NullPointerException** → Using `null` like a real object.
     
-    - `NullPointerException` → Used null like an object.
-        
-    - `ArithmeticException` → Division by zero.
-        
-    - `IndexOutOfBoundsException` → Wrong array/list index.
-        
-    - `ClassCastException` → Wrong type casting.
-        
-- **When to use?**
+- **ArrayIndexOutOfBoundsException** → Invalid array index.
     
-    - You don’t “handle” these; you **fix your code**.
-        
-    - Example: if you get `NullPointerException`, check why the variable was null.
-        
+- **StringIndexOutOfBoundsException** → Invalid string index.
+    
+- **NumberFormatException** → Bad string-to-number conversion (`"abc"` → int).
+    
+- **ClassCastException** → Wrong type cast.
+    
+- **IllegalArgumentException** → Passing bad argument to a method.
+    
+- **IllegalStateException** → Method called at the wrong time.
+    
+- **ConcurrentModificationException** → Modify a collection while iterating over it.
+    
+- **UnsupportedOperationException** → Called a method not supported (like modifying unmodifiable list).
+    
 
 ---
 
-### 4. Golden Rule
+### **Golden Usage Rule**
 
-- **Error** → Don’t touch. JVM problem.
+- **Error** → JVM broken → fix environment/code, don’t catch.
     
-- **Checked exception** → External, unpredictable → handle or declare.
+- **Checked Exception** → Unpredictable external issue (files, network, DB) → _handle or declare_.
     
-- **Unchecked exception** → Bug in your logic → fix code, don’t just catch.
+- **Unchecked Exception** → Pure logic bug → _fix your code_, don’t just catch.
 
 **Q1.** Write a program that divides two numbers. Handle the case where the denominator is zero using `try-catch`.
 
@@ -134,6 +128,23 @@ System.out.println("cant access elemnt out side the given array "+e);
 
 
 **Q3.** Write a program that converts a `String` to an integer. Handle the case where the string is `"abc"` (invalid number).
+
+```java 
+try {
+
+Scanner s = new Scanner(System.in);
+
+String aw = s.nextLine();
+
+int a =Integer.parseInt(aw);
+
+} catch (NumberFormatException e) {
+
+System.out.println("cant convert to a number "+e);
+
+}
+
+```
 
 **Q4.** Create your own exception class `InvalidAgeException`. Write a program that throws this exception if age < 18.
 
