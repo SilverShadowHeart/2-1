@@ -89,3 +89,74 @@ for s in strings:
     print(stefan_sort(s))
 
 ```
+
+```python 
+def count_upper(s):
+    return sum(1 for ch in s if ch.isupper())
+
+def sort_by_upper(arr):
+    # Count uppercase for each string
+    counts = [count_upper(s) for s in arr]
+
+    # Zip strings with counts and sort by count
+    paired = list(zip(arr, counts))
+    paired.sort(key=lambda x: x[1])
+
+    return paired
+
+
+# Example
+arr = ["poiNtEr", "aRRAy", "cOde", "foR"]
+print(sort_by_upper(arr))
+
+```
+3rd exp inlab2 
+```python
+
+def odd_even_merge(arr, lo, n, r):
+    step = r * 2
+    if step < n:
+        odd_even_merge(arr, lo, n, step)
+        odd_even_merge(arr, lo + r, n, step)
+        for i in range(lo + r, lo + n - r, step):
+            if arr[i] > arr[i + r]:
+                arr[i], arr[i + r] = arr[i + r], arr[i]
+    else:
+        if arr[lo] > arr[lo + r]:
+            arr[lo], arr[lo + r] = arr[lo + r], arr[lo]
+
+def odd_even_merge_sort(arr, lo, n):
+    if n > 1:
+        m = n // 2
+        odd_even_merge_sort(arr, lo, m) #left
+        odd_even_merge_sort(arr, lo + m, m) #right 
+        odd_even_merge(arr, lo, n, 1)
+
+# Driver
+arr = ["Neil", "Katherine", "Harry", "Stefan", "Dennis"]
+n = len(arr)
+odd_even_merge_sort(arr, 0, n)
+print(arr)
+
+```
+
+post lab exp 3 
+
+```python 
+def secret_decode_simple(s):
+    letters = s[::2]  # every even index → letters
+    digits  = s[1::2] # every odd index → digits
+
+    result = ""
+    for ch, d in zip(letters, digits):
+        shift_amount = int(d)
+        new_char = chr(((ord(ch) - ord('a') + shift_amount) % 26) + ord('a'))
+        result += new_char
+    return result
+
+# Example
+encoded = "a1b2c3d4e5"  # last 'e' without digit will be ignored
+decoded = secret_decode_simple(encoded)
+print(decoded)  # "abbdcfdhj"
+
+```
