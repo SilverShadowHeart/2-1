@@ -160,3 +160,111 @@ decoded = secret_decode_simple(encoded)
 print(decoded)  # "abbdcfdhj"
 
 ```
+
+exp 4 pre lab and inlab
+``` python
+
+def find_pattern(txt, pattern):
+    n = len(txt)
+    m = len(pattern)
+    
+    for i in range(n - m + 1):  # slide the window
+        match = True
+        for j in range(m):
+            if txt[i + j] != pattern[j]:
+                match = False
+                break
+        if match:
+            return i  # pattern found at index i
+    return -1  # not found
+
+# Example usage
+txt1 = "HAVE A NICE DAY"
+pattern1 = "NICE"
+pos1 = find_pattern(txt1, pattern1)
+print(f"Pattern found at index {pos1}" if pos1 != -1 else "Pattern not found")
+
+txt2 = "WELCOME EVERYONE"
+pattern2 = "ONE"
+pos2 = find_pattern(txt2, pattern2)
+print(f"Pattern found at index {pos2}" if pos2 != -1 else "Pattern not found")
+
+
+```
+
+```python 
+
+import time
+
+# ---------- Naive String Search ----------
+def naive_search(txt, pattern):
+    n = len(txt)
+    m = len(pattern)
+    for i in range(n - m + 1):
+        match = True
+        for j in range(m):
+            if txt[i + j] != pattern[j]:
+                match = False
+                break
+        if match:
+            return i
+    return -1
+
+# ---------- KMP Preprocessing ----------
+def compute_lps(pattern):
+    m = len(pattern)
+    lps = [0] * m
+    length = 0
+    i = 1
+    while i < m:
+        if pattern[i] == pattern[length]:
+            length += 1
+            lps[i] = length
+            i += 1
+        else:
+            if length != 0:
+                length = lps[length-1]
+            else:
+                lps[i] = 0
+                i += 1
+    return lps
+
+# ---------- KMP Search ----------
+def kmp_search(txt, pattern):
+    n = len(txt)
+    m = len(pattern)
+    lps = compute_lps(pattern)
+    
+    i = j = 0  # indices for txt and pattern
+    while i < n:
+        if txt[i] == pattern[j]:
+            i += 1
+            j += 1
+        if j == m:
+            return i - j  # pattern found
+        elif i < n and txt[i] != pattern[j]:
+            if j != 0:
+                j = lps[j-1]
+            else:
+                i += 1
+    return -1
+
+# ---------- Execution Time Measurement ----------
+def measure_time(func, *args):
+    start = time.time()
+    pos = func(*args)
+    end = time.time()
+    elapsed = end - start
+    return pos, elapsed
+
+# ---------- Example ----------
+txt = "A" * 100000 + "B"  # large text
+pattern = "AB"
+
+pos_naive, time_naive = measure_time(naive_search, txt, pattern)
+pos_kmp, time_kmp = measure_time(kmp_search, txt, pattern)
+
+print(f"Naive Search: Position={pos_naive}, Time={time_naive:.6f} seconds")
+print(f"KMP Search:   Position={pos_kmp}, Time={time_kmp:.6f} seconds")
+
+```
