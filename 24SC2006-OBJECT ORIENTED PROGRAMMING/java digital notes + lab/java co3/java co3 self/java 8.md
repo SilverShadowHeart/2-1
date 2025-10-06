@@ -14,3 +14,7 @@ usage when you want objects to be sorted in a single natural way
 
 comparable only one object in a single natural way 
 eg ascending order of id name etc
+
+
+
+write a program to 
