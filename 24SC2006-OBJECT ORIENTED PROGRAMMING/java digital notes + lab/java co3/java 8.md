@@ -29,3 +29,4 @@ int compareTo(T obj, T obj2):
 
 when to use comparator
 
+define a class named student sort them by all the 3 id age marks 
