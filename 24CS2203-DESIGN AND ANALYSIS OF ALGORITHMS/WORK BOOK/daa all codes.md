@@ -191,7 +191,7 @@ print(f"Pattern found at index {pos2}" if pos2 != -1 else "Pattern not found")
 
 
 ```
-
+4th experiment 2 inlab
 ```python 
 
 import time
@@ -266,5 +266,203 @@ pos_kmp, time_kmp = measure_time(kmp_search, txt, pattern)
 
 print(f"Naive Search: Position={pos_naive}, Time={time_naive:.6f} seconds")
 print(f"KMP Search:   Position={pos_kmp}, Time={time_kmp:.6f} seconds")
+
+```
+
+
+4th post lab 
+
+```python 
+# Rabin–Karp pattern search (simple numeric version)
+
+def rabin_karp(text, pattern, q):
+    d = 10                     # base
+    m = len(pattern)
+    n = len(text)
+    h = pow(d, m-1, q)         # d^(m-1) % q
+
+    # initial hashes
+    p = 0
+    t = 0
+    for i in range(m):
+        p = (d*p + pattern[i]) % q
+        t = (d*t + text[i]) % q
+
+    # slide the window
+    for s in range(n - m + 1):
+        if p == t:
+            if text[s:s+m] == pattern:
+                print(f"Match found at index {s}")
+
+        if s < n - m:
+            t = (d*(t - text[s]*h) + text[s+m]) % q
+            if t < 0:
+                t += q
+
+
+# given data
+text = [9,2,7,2,1,8,3,0,5,7,1,2,1,2,1,9,3,6,2,3,9,7]
+pattern = [2,1,9,3,6]
+q = 21
+
+rabin_karp(text, pattern, q)
+
+```
+
+5th pre lab 
+
+```python
+def add(X, Y):
+    n = len(X)
+    R = [[0]*n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            R[i][j] = X[i][j] + Y[i][j]
+    return R
+
+def sub(X, Y):
+    n = len(X)
+    R = [[0]*n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            R[i][j] = X[i][j] - Y[i][j]
+    return R
+
+def strassen(A, B):
+    n = len(A)
+    if n == 1:
+        return [[A[0][0] * B[0][0]]]
+
+    mid = n // 2
+    # Split A
+    a = [row[:mid] for row in A[:mid]]
+    b = [row[mid:] for row in A[:mid]]
+    c = [row[:mid] for row in A[mid:]]
+    d = [row[mid:] for row in A[mid:]]
+    # Split B
+    e = [row[:mid] for row in B[:mid]]
+    f = [row[mid:] for row in B[:mid]]
+    g = [row[:mid] for row in B[mid:]]
+    h = [row[mid:] for row in B[mid:]]
+
+    # Seven products
+    M1 = strassen(add(a, d), add(e, h))
+    M2 = strassen(add(c, d), e)
+    M3 = strassen(a, sub(f, h))
+    M4 = strassen(d, sub(g, e))
+    M5 = strassen(add(a, b), h)
+    M6 = strassen(sub(c, a), add(e, f))
+    M7 = strassen(sub(b, d), add(g, h))
+
+    # Combine
+    p = add(sub(add(M1, M4), M5), M7)
+    q = add(M3, M5)
+    r = add(M2, M4)
+    s = add(sub(add(M1, M3), M2), M6)
+
+    # Merge 4 blocks
+    C = [[0]*n for _ in range(n)]
+    for i in range(mid):
+        for j in range(mid):
+            C[i][j] = p[i][j]
+            C[i][j+mid] = q[i][j]
+            C[i+mid][j] = r[i][j]
+            C[i+mid][j+mid] = s[i][j]
+    return C
+
+# Example
+A = [[1, 2],
+     [3, 4]]
+B = [[5, 6],
+     [7, 8]]
+
+result = strassen(A, B)
+for row in result:
+    print(row)
+
+```
+5th prelab 2
+```python
+def find_max_min(arr, low, high):
+    if low == high:
+        return arr[low], arr[low]       # one element
+
+    elif high == low + 1:
+        if arr[low] > arr[high]:
+            return arr[low], arr[high]
+        else:
+            return arr[high], arr[low]
+
+    else:
+        mid = (low + high) // 2
+        max1, min1 = find_max_min(arr, low, mid)
+        max2, min2 = find_max_min(arr, mid + 1, high)
+
+        return max(max1, max2), min(min1, min2)
+
+
+# Example
+arr = [5, 2, 9, 1, 6, 3]
+maximum, minimum = find_max_min(arr, 0, len(arr) - 1)
+print("Max:", maximum, "Min:", minimum)
+```
+5th inlab 1
+
+```python
+def orientation(p, q, r):
+    # cross product (q - p) x (r - q)
+    val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
+    if val == 0:
+        return 0   # collinear
+    return 1 if val > 0 else 2  # 1=clockwise, 2=counterclockwise
+
+def convex_hull(points):
+    n = len(points)
+    if n <= 1:
+        return points
+
+    # Sort by x, then y
+    points.sort()
+
+    # Build lower hull
+    lower = []
+    for p in points:
+        while len(lower) >= 2 and orientation(lower[-2], lower[-1], p) != 2:
+            lower.pop()
+        lower.append(p)
+
+    # Build upper hull
+    upper = []
+    for p in reversed(points):
+        while len(upper) >= 2 and orientation(upper[-2], upper[-1], p) != 2:
+            upper.pop()
+        upper.append(p)
+
+    # Remove duplicate endpoints
+    return lower[:-1] + upper[:-1]
+
+
+# Input
+points = [(0,0), (0,4), (-4,0), (5,0), (0,-6), (1,0)]
+
+# Output
+hull = convex_hull(points)
+print("Convex Hull:", hull)
+
+
+```
+inlab2 
+```python
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr)//2]
+    left = [x for x in arr if x < pivot]
+    mid = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + mid + quicksort(right)
+
+arr = [15, 5, 24, 8, 1, 3, 16, 10, 20]
+print(quicksort(arr))
 
 ```
