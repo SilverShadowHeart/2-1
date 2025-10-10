@@ -26,3 +26,5 @@ it has some methods like and or negate() etc
 they are functional interface means it has only one method 
 
 to define student marks name grade and create predicate to check if th student passed or failed an exam marks  >60 pass grade a >b
+
+take a string list and add a greeting to them instead of using accept use a for loop to print the greeting 
