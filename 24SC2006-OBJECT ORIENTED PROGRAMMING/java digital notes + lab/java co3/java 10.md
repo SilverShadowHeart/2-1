@@ -8,12 +8,12 @@ how to create a stream
 
 from a collection
 
-List<Integer> list Arrays.asList(1,2,3,4,5);
-Stream<Integer> stream = list.stream();
+List`<Integer>` list Arrays.asList(1,2,3,4,5);
+Stream`<Integer>` stream = list.stream();
 2. from an array 
-	Stream<Integer> stream = Stream.of(1,2,3,4,5);
+	Stream`<Integer>` stream = Stream.of(1,2,3,4,5);
 3. from static methods 
-	Stream<Integer> numbers =
+	Stream`<Integer>` numbers =
 
 common stream operations 
 
@@ -30,3 +30,4 @@ common stream operations
 |               | `reduce()`   | Combines elements to produce one value.   |
 
 
+create a string list convert every string to uppercase using map filter names starting with letter h using filter use the sorted to sort the names then use count the number of names in list 
