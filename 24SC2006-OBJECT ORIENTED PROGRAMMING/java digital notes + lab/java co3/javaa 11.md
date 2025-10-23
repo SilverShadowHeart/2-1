@@ -29,3 +29,4 @@ purpose read from a file FileReader
 Write to a file FileWriter
 Bufferedi/o   BufferedReader
 		BufferdWriter
+create a file name it as java.txt and insert three lines of data on it create one more file javaout.txt and copy those lines using filereader and file fileWriter 
