@@ -1641,3 +1641,197 @@ In frameworks like **TensorFlow** and **PyTorch**, broadcasting is used constant
 You will frequently see highly optimized, broadcasted expressions like the one for a simple linear layer:
 `output = input * weight + bias`
 Here, broadcasting handles the addition of the `bias` vector to every sample in the `input * weight` matrix multiplication result.
+
+Of course. Here is the highly detailed, textbook-style guide on "Time Series and Sorting in NumPy," crafted according to your specifications with detailed explanations, examples, and image placeholders.
+
+---
+
+# Time Series and Sorting in NumPy
+
+## Introduction to Time Series Data
+
+In data analysis, many datasets have a temporal component—meaning the data is collected over a period of time. This type of data is fundamental to understanding trends, forecasting futures, and analyzing patterns.
+
+**Time series data** is formally defined as a sequence of data points indexed in time order. These data points are typically collected at successive, equally spaced points in time. Each data point in the series is associated with a specific timestamp.
+
+-   **Core Components**:
+    -   **Timestamp**: The specific date and/or time a data point was recorded.
+    -   **Value**: The measurement or observation recorded at that timestamp.
+
+-   **Common Examples**:
+    -   **Finance**: Hourly prices of a stock.
+    -   **Meteorology**: Daily maximum temperature readings for a city.
+    -   **Business**: Monthly sales reports for a company.
+    -   **IoT (Internet of Things)**: Sensor readings collected every second from a piece of machinery.
+
+-   **Why it's Important**: Analyzing time series data helps us identify:
+    -   **Trends**: The long-term direction of the data (e.g., are sales generally increasing over the years?).
+    -   **Seasonality**: Regular, predictable patterns that repeat over a fixed period (e.g., ice cream sales peaking every summer).
+    -   **Patterns**: Other non-seasonal cycles or recurring behaviors.
+
+NumPy provides a powerful and efficient foundation for handling date and time data, making it an essential tool for the initial stages of time series analysis.
+
+***
+[Image: A simple line chart illustrating time series data. The x-axis is labeled "Time (Days)" and shows a sequence of dates. The y-axis is labeled "Stock Price ($)". A line connects data points, showing the fluctuation of the stock price over time.]
+***
+
+---
+
+## Handling Date and Time Data in NumPy
+
+To work with temporal data, NumPy provides a specialized data type called `datetime64`.
+
+### The `datetime64` Data Type
+
+The `datetime64` object is an efficient way to represent dates and times. It stores temporal information as a 64-bit integer, which allows for a very wide range of dates and precise timekeeping.
+
+#### Creating a Single Date
+You can create a `datetime64` object by passing a date string in the format `YYYY-MM-DD`.
+
+```python
+import numpy as np
+
+# Create a single datetime64 object for July 11, 2025
+date = np.datetime64('2025-07-11')
+
+print(date)
+# Output: 2025-07-11
+
+print(date.dtype)
+# Output: datetime64[D]
+```
+The `[D]` in the data type indicates that the precision of this object is in **Days**. NumPy can handle many different units of precision, from years (`Y`) down to attoseconds (`as`).
+
+### Date Arithmetic in NumPy
+
+A key feature of `datetime64` is the ability to perform arithmetic operations, which is essential for time-based calculations. These operations involve another NumPy object: `timedelta64`.
+
+-   **`timedelta64`**: Represents a duration or a difference in time (e.g., 10 days, 7 hours, 30 minutes).
+
+#### Finding the Difference Between Two Dates
+When you subtract one `datetime64` object from another, the result is a `timedelta64` object.
+
+```python
+# Create two date objects
+d1 = np.datetime64('2025-07-11')
+d2 = np.datetime64('2025-07-01')
+
+# Calculate the difference
+diff = d1 - d2
+
+print(diff)
+# Output: 10 days
+
+print(type(diff))
+# Output: <class 'numpy.timedelta64'>
+```
+The result is a `timedelta64` object representing a duration of 10 days.
+
+#### Adding or Subtracting Durations
+You can modify a `datetime64` object by adding or subtracting a `timedelta64` object. A `timedelta64` is created with a value and a unit code.
+
+-   **Unit Codes**: `'Y'` (Year), `'M'` (Month), `'W'` (Week), `'D'` (Day), `'h'` (hour), `'m'` (minute), `'s'` (second).
+
+```python
+# Define a starting date
+date = np.datetime64('2025-10-05')
+
+# Add a duration of 7 days
+new_date = date + np.timedelta64(7, 'D')
+
+# Subtract a duration of 30 days
+past_date = date - np.timedelta64(30, 'D')
+
+print(f"Original Date: {date}")        # Output: Original Date: 2025-10-05
+print(f"After 7 days: {new_date}")      # Output: After 7 days: 2025-10-12
+print(f"30 days ago: {past_date}")      # Output: 30 days ago: 2025-09-05
+```
+
+#### Converting `timedelta64` for Calculations
+Sometimes you need the duration as a simple integer (e.g., the number of days). You can do this by changing the object's type.
+
+```python
+start = np.datetime64('2025-01-01')
+end = np.datetime64('2025-10-05')
+
+difference = end - start
+print(f"Difference: {difference}")  # Output: Difference: 277 days
+
+# Convert the timedelta64 object to a simple integer
+days_as_int = difference.astype('timedelta64[D]').astype(int)
+print(f"Days as integer: {days_as_int}") # Output: Days as integer: 277
+```
+
+---
+
+## Sorting Arrays in NumPy
+
+Sorting is a fundamental operation for organizing data, making it easier to analyze and interpret. NumPy provides highly efficient, built-in functions for sorting arrays.
+
+### `np.sort()`: Sorting the Values
+
+The `np.sort()` function returns a **new, sorted copy** of the input array. The original array remains unchanged.
+
+```python
+# Create an unsorted 1D array of numbers
+arr = np.array([30, 10, 50, 20])
+
+# Sort the array
+sorted_arr = np.sort(arr)
+
+print(f"Original array: {arr}")          # Output: Original array: [30 10 50 20]
+print(f"Sorted array: {sorted_arr}")    # Output: Sorted array: [10 20 30 50]
+```
+
+### `np.argsort()`: Sorting by Index
+
+In many data analysis scenarios, you don't want to sort the array itself, but rather get the **indices that would sort the array**. This is extremely useful for rearranging multiple related arrays based on the order of a single one. The `np.argsort()` function does exactly this.
+
+It returns an array of indices of the same shape as the input array.
+
+#### Example and Explanation:
+```python
+arr = np.array([30, 10, 50, 20])
+# Original indices: 0,  1,  2,  3
+
+# Get the indices that would sort the array
+sorted_indices = np.argsort(arr)
+
+print(f"Original array: {arr}")
+print(f"Sorted indices (argsort): {sorted_indices}")
+# Output: Sorted indices (argsort): [1 3 0 2]
+```**How to interpret this output `[1 3 0 2]`:**
+-   The smallest value in `arr` is `10`, which is at **index 1**.
+-   The second smallest value is `20`, which is at **index 3**.
+-   The third smallest value is `30`, which is at **index 0**.
+-   The largest value is `50`, which is at **index 2**.
+
+You can use these indices to reconstruct the sorted array:
+```python
+print(f"Reconstructing sorted array using argsort: {arr[sorted_indices]}")
+# Output: Reconstructing sorted array using argsort: [10 20 30 50]
+```
+
+***
+[Image: A two-part diagram. The top part shows the array `[30, 10, 50, 20]` with its indices `0, 1, 2, 3` written below each element. The bottom part shows the `argsort` result `[1, 3, 0, 2]`. Arrows connect the values in the bottom array to the corresponding indices in the top array to show the relationship.]
+***
+
+### Sorting Custom Data (with Dates)
+
+NumPy's sorting functions work seamlessly with `datetime64` arrays, which is essential for arranging time series data in chronological order.
+
+#### Example: Sorting Dates
+```python
+# Create an array of dates in a random order
+dates = np.array(['2025-07-04', '2025-07-01', '2025-07-03'], dtype='datetime64')
+
+print(f"Original dates: {dates}")
+# Output: Original dates: ['2025-07-04' '2025-07-01' '2025-07-03']
+
+# Sort the dates
+sorted_dates = np.sort(dates)
+
+print(f"Sorted dates: {sorted_dates}")
+# Output: Sorted dates: ['2025-07-01' '2025-07-03' '2025-07-04']
+```
+As shown, the dates are correctly sorted in ascending order, from the oldest (earliest) to the newest (latest). This is a critical first step in nearly any time series analysis task.
