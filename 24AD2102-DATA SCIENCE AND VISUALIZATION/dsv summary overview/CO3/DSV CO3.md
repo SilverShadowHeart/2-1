@@ -1835,3 +1835,263 @@ print(f"Sorted dates: {sorted_dates}")
 # Output: Sorted dates: ['2025-07-01' '2025-07-03' '2025-07-04']
 ```
 As shown, the dates are correctly sorted in ascending order, from the oldest (earliest) to the newest (latest). This is a critical first step in nearly any time series analysis task.
+
+# Pandas Series
+
+## Introduction: Beyond NumPy
+
+While NumPy provides a powerful foundation for numerical computing with its efficient, homogeneous arrays, real-world data analysis requires more flexibility. Data often comes with labels, needs to handle missing values gracefully, and can be of various types (not just numbers). This is where the **Pandas** library comes in.
+
+Pandas is the most popular data manipulation and analysis library in Python. It introduces two fundamental data structures: the **Series** and the **DataFrame**. This guide will provide a deep dive into the **Pandas Series**, the building block for single-column data in Pandas.
+
+### The NumPy Foundation
+A **NumPy array** is a homogeneous, n-dimensional container for numerical data. It is prized for its fast, memory-efficient operations, which are executed using compiled C code. It forms the base upon which Pandas objects, including the Series, are built.
+```python
+import numpy as np
+# A basic NumPy array
+arr = np.array([10, 20, 30])
+```
+
+### The Pandas Series: NumPy with Labels
+
+A **Pandas Series** can be best understood as a **one-dimensional labeled array**. It enhances the NumPy array by adding an explicit **index**, which provides meaningful labels for each data point. This seemingly simple addition transforms the array from a simple sequence of numbers into a powerful and flexible data structure.
+
+-   **Structure**: A Series is composed of two main parts:
+    1.  A sequence of **data values** (built on a NumPy array).
+    2.  An associated **index** (a sequence of labels).
+-   **Data Type Flexibility**: Unlike a NumPy array, a Series can store data of **any type**—integers, floats, strings, booleans, Python objects, etc.
+-   **The Index**: The index allows for powerful ways to access and manipulate data. It can be the default integer index (`0, 1, 2, ...`) or a custom index (e.g., names, dates, or other unique identifiers).
+-   **Primary Use Case**: A Series is the go-to structure for handling **single-column data**, such as a time series of stock prices, a list of student marks, or a column of temperatures.
+
+***
+[Image: A diagram showing a Pandas Series. On the left, a column labeled "Index" contains labels like 'a', 'b', 'c'. On the right, a column labeled "Data" contains values like 100, 200, 300. An arrow indicates that the underlying data is a NumPy array.]
+***
+
+---
+
+## Creating a Pandas Series
+
+You can create a Pandas Series from various data inputs. The standard convention is to import the library with the alias `pd`.
+
+```python
+import pandas as pd
+```
+
+### From a Python List
+
+#### 1. With a Default Index
+If you provide only a list of data, Pandas will automatically create a default integer index starting from 0.
+
+```python
+# Create a Series from a simple list
+s1 = pd.Series([10, 20, 30])
+
+print(s1)
+# Output:
+# 0    10
+# 1    20
+# 2    30
+# dtype: int64
+```
+The output clearly shows the index on the left and the data values on the right.
+
+#### 2. With a Custom Index
+You can provide meaningful labels for your data by passing a list to the `index` parameter. The length of the index must match the length of the data.
+
+```python
+# Create a Series with custom string labels
+s2 = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+
+print(s2)
+# Output:
+# a    10
+# b    20
+# c    30
+# dtype: int64
+```
+This is extremely useful when the labels have real-world meaning, such as student names, dates, or product IDs.
+
+### From a Python Dictionary
+
+Creating a Series from a dictionary is a very intuitive process. Pandas automatically uses the dictionary's **keys as the index labels** and the dictionary's **values as the data**.
+
+```python
+# A dictionary of data
+data = {'x': 100, 'y': 200, 'z': 300}
+
+# Create a Series from the dictionary
+s3 = pd.Series(data)
+
+print(s3)
+# Output:
+# x    100
+# y    200
+# z    300
+# dtype: int64
+```
+
+---
+
+## Accessing Elements in a Series
+
+A key advantage of a Pandas Series is its flexible indexing, which allows you to access data by its position or by its label.
+
+Let's use the following Series for our examples:
+```python
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+```
+
+### 1. Access by Position (Positional Indexing)
+
+This method works just like accessing elements in a Python list or a NumPy array, using the 0-based integer position.
+
+```python
+# Access the first element by its position (0)
+print(s[0])
+# Output: 10
+```
+
+### 2. Access by Label (Label-based Indexing)
+
+This is the more powerful and common method in Pandas. You can use the custom index labels to access data directly.
+
+```python
+# Access the element with the label 'a'
+print(s['a'])
+# Output: 10
+```
+
+### 3. Slicing by Position
+
+You can retrieve a subset of the Series using the familiar `[start:stop]` slice notation. As with Python lists, the `stop` position is **exclusive**.
+
+```python
+# Get a slice from position 1 up to (but not including) the end
+print(s[1:])
+# Output:
+# b    20
+# c    30
+# dtype: int64```
+
+### 4. Slicing by Label
+
+You can also slice using the index labels. A crucial difference here is that when slicing with labels, the `stop` label is **inclusive**.
+
+```python
+# Get a slice from label 'a' up to and INCLUDING label 'c'
+print(s['a':'c'])
+# Output:
+# a    10
+# b    20
+# c    30
+# dtype: int64
+```
+
+### 5. Filtering (Conditional Indexing)
+
+This powerful technique, similar to NumPy's boolean indexing, allows you to filter values based on a condition.
+
+```python
+s_filter = pd.Series([10, 25, 30, 15])
+
+# Create a boolean condition
+condition = s_filter > 20  # This results in: [False, True, True, False]
+
+# Use the condition to filter the Series
+print(s_filter[condition])
+# Output:
+# 1    25
+# 2    30
+# dtype: int64
+```
+
+---
+
+## Arithmetic Operations on a Series
+
+Pandas Series supports **element-wise**, **vectorized** operations, just like NumPy arrays. When you perform an arithmetic operation, it is applied to all elements in the Series without needing a `for` loop.
+
+#### Example: Element-wise Addition
+```python
+s1 = pd.Series([1, 2, 3])
+s2 = pd.Series([4, 5, 6])
+
+# Add the two Series
+result = s1 + s2
+
+print(result)
+# Output:
+# 0    5
+# 1    7
+# 2    9
+# dtype: int64
+```
+A key feature of Pandas is **index alignment**. When performing operations between two Series, Pandas will align the data based on the index labels. If an index is present in one Series but not the other, the result for that index will be `NaN` (Not a Number).
+
+---
+
+## Handling Missing Values
+
+Real-world data is often incomplete. Pandas represents missing or null values as `NaN`. It provides a robust set of tools to detect, remove, or replace these values.
+
+#### 1. Creating a Series with Missing Values
+You can use Python's `None` or NumPy's `np.nan` to introduce missing values. Pandas will automatically convert them to `NaN`.
+
+```python
+s_missing = pd.Series([10, None, 30, np.nan, 50])
+print(s_missing)
+# Output:
+# 0    10.0
+# 1     NaN
+# 2    30.0
+# 3     NaN
+# 4    50.0
+# dtype: float64
+```
+*Note: The `dtype` was automatically converted to `float64` because `NaN` is a floating-point value.*
+
+#### 2. Detecting Missing Values
+-   `s.isnull()`: Returns a boolean Series indicating `True` for each `NaN` value.
+-   `s.notnull()`: The opposite of `isnull()`.
+
+#### 3. Filling Missing Values
+-   `s.fillna(value)`: Replaces all `NaN` values with the specified `value`.
+
+```python
+# Replace NaNs with 0
+filled_series = s_missing.fillna(0)
+print(filled_series)
+# Output:
+# 0    10.0
+# 1     0.0
+# 2    30.0
+# 3     0.0
+# 4    50.0
+# dtype: float64
+```
+
+#### 4. Dropping Missing Values
+-   `s.dropna()`: Returns a new Series with all `NaN` entries removed.
+
+```python
+# Drop rows with NaNs
+dropped_series = s_missing.dropna()
+print(dropped_series)
+# Output:
+# 0    10.0
+# 2    30.0
+# 4    50.0
+# dtype: float64
+```
+
+---
+
+## Real-World Use Cases of a Pandas Series
+
+A Series is not just an abstract object; it is used constantly to represent single-dimensional data in real-world scenarios.
+
+-   **Time Series Data**: Storing stock prices or temperature readings where the index is a sequence of dates (`DatetimeIndex`).
+-   **Survey or Polling Data**: Storing answers to a question where the index contains the respondent IDs.
+-   **Sensor Readings (IoT)**: Storing pressure or temperature values from a sensor, where the index is a high-frequency timestamp.
+-   **Extracting a Column from a DataFrame**: When you select a single column from a Pandas DataFrame, the object that is returned is a Pandas Series. This is the most common way you will encounter a Series.
+-   **Preprocessing Before Modeling**: A Series is often used to represent a single feature (or variable) that needs to be cleaned, scaled, transformed, or filtered before being used in a machine learning model.
