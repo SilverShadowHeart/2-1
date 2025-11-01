@@ -1623,7 +1623,7 @@ plt.colorbar(extend='both') # Add arrows for values outside the limits
 plt.show()
 ```
 ***
-[Image: A heatmap with some "speckle" noise. The color bar to the right now has triangular arrows at the top and bottom, indicating that there are values in the data that are greater than the top of the scale (+1) and less than the bottom of the scale (-1).]
+![[Pasted image 20251101131225.png]]
 ***
 
 #### 2. Discrete Color Bars
@@ -1640,7 +1640,7 @@ plt.clim(-1, 1)
 plt.show()
 ```
 ***
-[Image: A heatmap where the colors are not a smooth gradient but are instead in discrete, blocky steps of blue, corresponding to the 6 bins. The color bar on the right also shows these 6 distinct color steps.]
+![[Pasted image 20251101131326.png]]
 ***
 
 # Visualizing Multiple Datasets with Subplots
@@ -1683,7 +1683,7 @@ ax2 = plt.axes([0.65, 0.65, 0.2, 0.2])
 plt.show()
 ```
 ***
-[Image: A large, empty plot axes that fills the entire figure. In the upper-right corner of this axes, there is a smaller, empty inset plot.]
+![[Pasted image 20251101131352.png]]
 ***
 
 ### The Object-Oriented Interface: `fig.add_axes()`
@@ -1706,7 +1706,7 @@ ax2.plot(np.cos(x))
 plt.show()
 ```
 ***
-[Image: Two plots stacked vertically. The top plot shows a sine wave and the bottom plot shows a cosine wave. The axes are precisely aligned and touching, creating a compact layout.]
+![[Pasted image 20251101131427.png]]
 ***
 
 ### Simple Grids of Subplots: `plt.subplot()`
@@ -1726,8 +1726,7 @@ for i in range(1, 7):
 plt.show()
 ```
 ***
-[Image: A 2x3 grid of six empty subplots. Each subplot contains text identifying its position in the grid, such as "(2, 3, 1)", "(2, 3, 2)", etc., demonstrating the 1-based indexing of `subplot`.]
-***
+![[Pasted image 20251101131509.png]]
 
 ---
 
@@ -1774,8 +1773,7 @@ fig.suptitle('Stacked subplots in two directions')
 plt.show()
 ```
 ***
-[Image: A 2x2 grid of four plots. The top-left shows sin(x), top-right shows sin(x^2), bottom-left shows sin(x)^2, and bottom-right shows sin(x^2)^2. Because the axes are shared, only the outer plots have tick labels, resulting in a clean, compact, and easy-to-compare visualization.]
-***
+![[Pasted image 20251101131543.png]]
 
 ---
 
@@ -1805,7 +1803,7 @@ plt.subplot(grid[1, 2])
 plt.show()
 ```
 ***
-[Image: An irregular grid of plots. There is a single small plot in the top-left. Next to it is a wide plot that spans the space of two columns. Below that is another wide plot spanning two columns, and next to it is a single small plot in the bottom-right.]
+![[Pasted image 20251101131633.png]]
 ***
 
 ### Use Case: Scatter Plot with Marginal Histograms
@@ -1837,7 +1835,7 @@ y_hist.hist(y, 40, histtype='stepfilled', orientation='horizontal', color='gray'
 plt.show()
 ```
 ***
-[Image: A sophisticated plot showing a central scatter plot of correlated data points. To the left is a horizontal histogram showing the distribution of the y-values. Below the scatter plot is a vertical histogram showing the distribution of the x-values. The axes are shared, creating a cohesive and informative visualization.]
+![[Pasted image 20251101131705.png]]
 ***
 
 # Text and Annotation in Data Science and Visualization
@@ -1926,7 +1924,7 @@ plt.title('Annotated Plot')
 plt.show()
 ```
 ***
-[Image: A line plot with five data points. An arrow originates from the text "Peak" (located at coordinate (3.5, 6)) and points directly to the data point at (3, 5).]
+![[Pasted image 20251101131731.png]]
 ***
 
 ### Example 2: Annotating a Scatter Plot
@@ -1968,7 +1966,7 @@ plt.ylabel('Y-axis')
 plt.show()
 ```
 ***
-[Image: A scatter plot with 30 random data points. Three annotations are present: a black arrow points to a point in the upper right labeled "Outlier"; a red arrow points to a point in the lower middle labeled "Important point"; and a green arrow points to a dense group of points on the left labeled "Cluster of points".]
+![[Pasted image 20251101131801.png]]
 ***
 
 ### Advanced Example: Annotating the Effect of Holidays on US Births
@@ -2005,7 +2003,8 @@ ax.annotate('Halloween', xy=('2012-10-31', 4600), xycoords='data',
 **Interpretation**: The annotations make it immediately clear how birth rates tend to dip on major public holidays like Christmas, New Year's Day, and Independence Day, and also show interesting spikes around others. This level of detailed annotation gives you the power to create nearly any style you wish, but it often requires manual tweaking of coordinates and properties to produce a publication-quality graphic.
 
 ***
-[Image: A time-series plot showing the average daily births over a year. The plot has several annotations pointing to specific dates. For example, an arrow points to the dip on July 4th with the label "Independence Day," and another points to the sharp drop on December 25th with the label "Christmas".]
+![[Pasted image 20251101132342.png]]
+![[Pasted image 20251101132441.png]]
 ***
 
 # Customizing Ticks in Matplotlib Visualizations
@@ -2075,7 +2074,7 @@ ax.set_title('Major and Minor Ticks Example')
 plt.show()
 ```
 ***
-[Image: A bar chart titled "Major and Minor Ticks Example". The y-axis has labeled major ticks at 0, 10, 20, and 30. Between each major tick, there is a smaller, unlabeled minor tick (e.g., at 5, 15, 25). Faint, dashed gridlines correspond to both the major and minor ticks, providing a detailed scale.]
+![[Pasted image 20251101132503.png]]
 ***
 
 ---
@@ -2112,7 +2111,7 @@ for i in range(5):
         ax[i, j].imshow(faces[10 * i + j], cmap="bone")
 ```
 ***
-[Image: A 5x5 grid of 25 different grayscale face images. There are no gaps, axes, ticks, or labels between the images, creating a seamless collage.]
+![[Pasted image 20251101132705.png]]
 ***
 
 ### Reducing or Increasing the Number of Ticks
@@ -2162,7 +2161,7 @@ ax.legend()
 plt.show()
 ```
 ***
-[Image: A sine/cosine plot where the x-axis ticks are no longer integers but are located at decimal values corresponding to multiples of π/2 (0, 1.57, 3.14, 4.71, etc.).]
+![[Pasted image 20251101132754.png]]
 ***
 
 ### Creating Custom Tick Labels
@@ -2206,5 +2205,5 @@ plt.show()
 3.  `FuncFormatter(format_func)` creates a formatter object from our function, which is then applied to the major ticks of the x-axis.
 
 ***
-[Image: The same sine/cosine plot as before, but now the x-axis tick labels have been replaced with beautifully formatted mathematical text: "0", "π/2", "π", "3π/2", "2π", etc., making the plot much more readable and professional.]
+![[Pasted image 20251101133008.png]]
 ***
