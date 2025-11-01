@@ -1,5 +1,3 @@
-
-
 #  Pandas DataFrame and Indexing
 
 ## From One Dimension to Two: Introducing the DataFrame
@@ -32,7 +30,7 @@ A **Pandas DataFrame** is a **two-dimensional, labeled data structure with colum
 A DataFrame is more than just a grid of data; it is an object with three distinct structural components that make it a powerful tool for analysis.
 
 ***
-[Image: A diagram of a simple DataFrame with columns "Name", "Age", "Marks" and a default index 0, 1, 2. Arrows point to and label the three main components: The vertical labels on the left are "Index (Rows)", the horizontal labels on top are "Columns", and the grid of data in the middle is "Data Values (Cells)".]
+![[Pasted image 20251101122402.png]]
 ***
 
 1.  **The Index (Rows)**
@@ -550,10 +548,38 @@ print(f"Number of Students: {num_students}") # Output: Number of Students: 6
 While aggregating an entire column is useful, the real power comes from applying aggregations to specific **groups** within the data. The `groupby()` function in Pandas is the workhorse for this, operating on a principle known as **Split-Apply-Combine**.
 
 ***
-[Image: A three-stage diagram illustrating the Split-Apply-Combine strategy.
-1.  **Split**: A DataFrame is shown being split into several smaller DataFrames based on a key (e.g., rows for 'Dept A', 'Dept B', etc.).
-2.  **Apply**: An arrow points from each small DataFrame to a box labeled `mean()`, indicating a function is applied to each group. The result (a single number) is shown for each.
-3.  **Combine**: The individual results are collected and combined into a new, final Series or DataFrame.]
+**Original DataFrame**
+
+| Employee | Dept | Salary |
+|-----------|------|--------|
+| John      | A    | 50000  |
+| Jane      | A    | 55000  |
+| Mark      | B    | 48000  |
+| Sara      | B    | 52000  |
+
+**After Split**
+
+**Dept A**
+
+| Employee | Salary |
+| -------- | ------ |
+| John     | 50000  |
+| Jane     | 55000  |
+
+**Dept B**
+
+| Employee | Salary |
+|-----------|--------|
+| Mark      | 48000  |
+| Sara      | 52000  |
+
+**Final Combined Result**
+
+| Dept | Avg_Salary |
+|------|-------------|
+| A    | 52500       |
+| B    | 50000       |
+
 ***
 
 1.  **Split**: The initial DataFrame is partitioned into smaller groups based on the unique values in one or more specified columns (the "grouping keys").
@@ -787,7 +813,7 @@ plt.show()
 ```
 
 ***
-[Image: A simple line plot generated from the code above. The X-axis is labeled "Year" and ranges from 2018 to 2022. The Y-axis is labeled "Sales (in Thousands)" and ranges from 120 to 210. A single line connects the five data points, showing a general upward trend. The title "Company Sales Performance (2018-2022)" is displayed at the top.]
+![[Pasted image 20251101123006.png]]
 ***
 
 ### Customizing Line Plots
@@ -819,7 +845,7 @@ plt.legend()                # Display the legend
 plt.show()
 ```
 ***
-[Image: A customized line plot showing the same data. The line is now green, dashed, slightly thicker, and has a circle marker at each data point. A grid is visible in the background, and a legend box in the corner says "Annual Sales".]
+![[Pasted image 20251101123054.png]]
 ***
 ---
 
@@ -2161,3 +2187,568 @@ plt.show()
 [Image: A heatmap where the colors are not a smooth gradient but are instead in discrete, blocky steps of blue, corresponding to the 6 bins. The color bar on the right also shows these 6 distinct color steps.]
 ***
 
+# Visualizing Multiple Datasets with Subplots
+
+## Introduction to Subplots
+
+In data analysis, it is often helpful to compare different views of data side-by-side. Instead of creating multiple separate figures, Matplotlib allows you to place groups of smaller axes, known as **subplots**, within a single figure.
+
+A **figure** can be thought of as a single container that holds all the elements of a plot, while an **axis** (plural: axes) is the individual plot or chart where data is displayed with ticks and labels. The `subplots()` function in Matplotlib simplifies the creation of multiple subplots within a single figure, allowing for organized and simultaneous visualization of various datasets.
+
+### Why Use Subplots?
+-   **Comparison**: Easily compare trends and patterns across different datasets or different views of the same data.
+-   **Organization**: Keep related plots together in a single, organized figure, making reports and presentations cleaner and more professional.
+-   **Context**: Display a main plot alongside contextual information, such as marginal distributions.
+
+---
+
+## Creating Subplots in Matplotlib
+
+Matplotlib provides several ways to create subplots, ranging from manual placement to highly convenient grid-creation functions.
+
+### Manual Subplot Creation with `plt.axes`
+
+The most basic method is to manually specify the position and size of each axes within the figure. The `plt.axes()` function takes an optional list of four numbers: `[left, bottom, width, height]`, where each value is in figure coordinates (ranging from 0 at the bottom-left to 1 at the top-right).
+
+#### Example: Creating an Inset Axes
+This method is useful for creating an inset plot, which is a smaller plot shown inside a larger one.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create the main axes that fills the figure
+ax1 = plt.axes()
+
+# Create a smaller inset axes in the upper right
+# [left, bottom, width, height]
+ax2 = plt.axes([0.65, 0.65, 0.2, 0.2])
+
+plt.show()
+```
+***
+[Image: A large, empty plot axes that fills the entire figure. In the upper-right corner of this axes, there is a smaller, empty inset plot.]
+***
+
+### The Object-Oriented Interface: `fig.add_axes()`
+
+A more robust and flexible approach is to use Matplotlib's object-oriented interface. Here, you create a `figure` object first and then add `axes` objects to it.
+
+#### Example: Creating Vertically Stacked Axes
+```python
+fig = plt.figure()
+x = np.linspace(0, 10, 100)
+
+# Add the top axes: [left, bottom, width, height]
+ax1 = fig.add_axes([0.1, 0.5, 0.8, 0.4], xticklabels=[], ylim=(-1.2, 1.2))
+ax1.plot(np.sin(x))
+
+# Add the bottom axes
+ax2 = fig.add_axes([0.1, 0.1, 0.8, 0.4], ylim=(-1.2, 1.2))
+ax2.plot(np.cos(x))
+
+plt.show()
+```
+***
+[Image: Two plots stacked vertically. The top plot shows a sine wave and the bottom plot shows a cosine wave. The axes are precisely aligned and touching, creating a compact layout.]
+***
+
+### Simple Grids of Subplots: `plt.subplot()`
+
+For creating simple, regular grids, `plt.subplot()` is a convenient function. It takes three integer arguments: `plt.subplot(number_of_rows, number_of_columns, plot_number)`. The `plot_number` starts at 1 in the upper-left corner and increases from left to right.
+
+#### Example: Creating a 2x3 Grid
+```python
+fig = plt.figure()
+# Adjust spacing between plots
+fig.subplots_adjust(hspace=0.4, wspace=0.4)
+
+for i in range(1, 7):
+    ax = fig.add_subplot(2, 3, i)
+    ax.text(0.5, 0.5, str((2, 3, i)),
+            fontsize=18, ha='center')
+plt.show()
+```
+***
+[Image: A 2x3 grid of six empty subplots. Each subplot contains text identifying its position in the grid, such as "(2, 3, 1)", "(2, 3, 2)", etc., demonstrating the 1-based indexing of `subplot`.]
+***
+
+---
+
+## The Recommended Approach: `plt.subplots()`
+
+The methods described above can become tedious for large or complex grids. The most powerful and convenient tool for creating grids of subplots is the `plt.subplots()` function (note the plural `s`).
+
+This function creates the entire grid of subplots in a single line and returns both the `figure` object and a NumPy array of the `axes` objects.
+
+### Syntax
+`fig, ax = plt.subplots(nrows, ncols, sharex=False, sharey=False)`
+
+-   `nrows`, `ncols`: The number of rows and columns in the subplot grid.
+-   `sharex`, `sharey`: These are extremely useful parameters that allow subplots to share axes.
+    -   `sharex=True` or `'col'`: All subplots will use the same x-axis ticks and labels. Inner x-axis labels are automatically hidden.
+    -   `sharey=True` or `'row'`: All subplots in the same row will share the same y-axis. Inner y-axis labels are automatically hidden.
+
+### Example: A 2x2 Grid of Subplots
+Let's create four plots that share their axes for a cleaner look.
+
+```python
+# Create a 2x2 grid of subplots.
+# Axes in the same column will share their x-axis.
+# Axes in the same row will share their y-axis.
+fig, ax = plt.subplots(2, 2, sharex='col', sharey='row')
+
+# The `ax` object is a 2D NumPy array
+# Access each subplot using array indexing: ax[row, col]
+x = np.linspace(0, 2 * np.pi, 400)
+ax[0, 0].plot(x, np.sin(x), c='red')
+ax[0, 0].set_title('Simple plot with sin(x)')
+
+ax[0, 1].plot(x, np.sin(x**2), c='red')
+ax[0, 1].set_title('Simple plot with sin(x**2)')
+
+ax[1, 0].plot(x, np.sin(x)**2, c='blue')
+ax[1, 0].set_title('Simple plot with sin(x)**2')
+
+ax[1, 1].plot(x, np.sin(x**2)**2, c='blue')
+ax[1, 1].set_title('Simple plot with sin(x**2)**2')
+
+# Add a single, overarching title for the entire figure
+fig.suptitle('Stacked subplots in two directions')
+plt.show()
+```
+***
+[Image: A 2x2 grid of four plots. The top-left shows sin(x), top-right shows sin(x^2), bottom-left shows sin(x)^2, and bottom-right shows sin(x^2)^2. Because the axes are shared, only the outer plots have tick labels, resulting in a clean, compact, and easy-to-compare visualization.]
+***
+
+---
+
+## Advanced Layouts with `plt.GridSpec`
+
+To create more complex subplot arrangements where some plots span multiple rows or columns, `plt.GridSpec` is the ideal tool.
+
+The `GridSpec` object itself does not create a plot; it is a helper object that you use with `plt.subplot()` to specify the location and extent of your subplots using familiar Python slicing syntax.
+
+### Example: An Irregular Grid
+Let's create a layout with one large plot on the right and two smaller plots stacked on the left.
+
+```python
+# Create a 2x3 grid specification with adjusted spacing
+grid = plt.GridSpec(2, 3, wspace=0.4, hspace=0.3)
+
+# Add subplots to the grid using slicing
+# Top-left plot (one cell)
+plt.subplot(grid[0, 0])
+# Top-right plot that spans two columns
+plt.subplot(grid[0, 1:])
+# Bottom plot that spans the first two columns
+plt.subplot(grid[1, :2])
+# Bottom-right plot (one cell)
+plt.subplot(grid[1, 2])
+
+plt.show()
+```
+***
+[Image: An irregular grid of plots. There is a single small plot in the top-left. Next to it is a wide plot that spans the space of two columns. Below that is another wide plot spanning two columns, and next to it is a single small plot in the bottom-right.]
+***
+
+### Use Case: Scatter Plot with Marginal Histograms
+A common and powerful visualization is a central scatter plot showing the relationship between two variables, with histograms along the margins showing the distribution of each individual variable. `GridSpec` is perfect for this.
+
+```python
+# 1. Create the data
+mean = [0, 0]
+cov = [[1, 1], [1, 2]]
+x, y = np.random.multivariate_normal(mean, cov, 3000).T
+
+# 2. Set up the axes with GridSpec
+fig = plt.figure(figsize=(6, 6))
+grid = plt.GridSpec(4, 4, hspace=0.2, wspace=0.2)
+
+# Define the locations of the three plots
+main_ax = fig.add_subplot(grid[:-1, 1:])  # The main scatter plot area
+y_hist = fig.add_subplot(grid[:-1, 0], sharey=main_ax) # Histogram for y
+x_hist = fig.add_subplot(grid[-1, 1:], sharex=main_ax) # Histogram for x
+
+# 3. Plot the data
+# Scatter points on the main axes
+main_ax.plot(x, y, 'ok', markersize=3, alpha=0.2)
+
+# Histograms on the attached axes
+x_hist.hist(x, 40, histtype='stepfilled', orientation='vertical', color='gray')
+y_hist.hist(y, 40, histtype='stepfilled', orientation='horizontal', color='gray')
+
+plt.show()
+```
+***
+[Image: A sophisticated plot showing a central scatter plot of correlated data points. To the left is a horizontal histogram showing the distribution of the y-values. Below the scatter plot is a vertical histogram showing the distribution of the x-values. The axes are shared, creating a cohesive and informative visualization.]
+***
+
+# Text and Annotation in Data Science and Visualization
+
+## The Dual Role of Annotation
+
+The term "annotation" has two important but distinct meanings in the world of data science. The first relates to the preparation of data for **machine learning**, while the second relates to the clarification of information in **data visualization**. Understanding both is crucial for a well-rounded data scientist.
+
+1.  **Text Annotation for Machine Learning**: The process of identifying and labeling unstructured text data to create a high-quality, structured dataset (ground-truth) that can be used to train supervised machine learning models.
+2.  **Plot Annotation for Data Visualization**: The process of adding explanatory text, arrows, and other markers to a plot to highlight key features, provide context, and guide the viewer's attention.
+
+---
+
+## Text Annotation for Machine Learning
+
+In the context of machine learning, especially Natural Language Processing (NLP), text annotation is the systematic process of labeling sentences, phrases, or words with metadata to define their characteristics. This labeled data is then fed to machine learning algorithms, allowing them to learn and understand the complexities of human language.
+
+### Types of Text Annotation Techniques
+
+1.  **Sentiment Annotation**: This technique is used to identify the emotion or attitude behind a piece of text. Each sentence or document is labeled with a sentiment, typically **positive**, **negative**, or **neutral**. This is crucial for tasks like analyzing customer reviews or social media feedback, especially for understanding nuances like sarcasm, where a positive-sounding sentence might actually be negative.
+
+2.  **Intent Annotation**: This is used to differentiate the intentions of a user, particularly in the context of chatbots and virtual assistants. User inputs are classified into distinct intents, such as `request_information`, `command_action`, or `confirm_transaction`. This allows the system to understand what the user wants to accomplish.
+
+3.  **Entity Annotation (Named Entity Recognition - NER)**: This is one of the most important annotation techniques. It involves identifying, tagging, and attributing specific "entities" in a text. This can be broken down further:
+    -   **Named Entity Recognition**: Annotating proper nouns such as names of people, organizations, places, countries, and dates.
+    -   **Keyphrase Tagging**: Locating and identifying important keywords or phrases in a text.
+    -   **Parts of Speech (POS) Annotation**: Identifying and tagging grammatical elements like nouns, verbs, adjectives, prepositions, etc.
+
+4.  **Text Classification**: Also known as document classification, this involves assigning a predefined category to a chunk of text (a sentence, paragraph, or entire article). This could be as simple as classifying a news article as "Sports" or "Entertainment," or as complex as categorizing products in an e-commerce store based on their descriptions.
+
+5.  **Linguistic Annotation**: This is a broader category that includes annotating linguistic features of language data, such as phonetics (intonations, stress) and syntax (grammatical structure).
+
+---
+
+## Text and Annotations in Data Visualization
+
+While titles and axis labels provide the basic context for a plot, **annotations** are used to add a deeper layer of explanation. They are descriptive text, arrows, and shapes used to highlight specific points, regions, or features within a visualization to draw the viewer's attention and explain important patterns.
+
+The primary tool for creating sophisticated annotations in Matplotlib is the `plt.annotate()` function.
+
+### The `plt.annotate()` Function
+
+Drawing text with arrows in Matplotlib can be complex. While a `plt.arrow()` function exists, it is often difficult to control. The recommended approach is to use `plt.annotate()`, which provides a highly flexible interface for creating both text and an arrow in a coordinated way.
+
+#### Syntax and Key Parameters
+```python
+plt.annotate(text, xy, xytext=None, arrowprops=None, **kwargs)
+```
+-   `text` (str): The text of the annotation.
+-   `xy` (tuple): The coordinate `(x, y)` of the point you want to **annotate** (i.e., where the arrow tip points).
+-   `xytext` (tuple): The coordinate `(x, y)` where you want to **place the text**. If not provided, it defaults to the `xy` position.
+-   `arrowprops` (dict): A dictionary of properties to configure the arrow. This controls everything from color to style and is the key to creating customized arrows.
+-   `xycoords` and `textcoords` (str): Specify the coordinate system for `xy` and `xytext`. The default, `'data'`, uses the plot's data coordinates, which is usually what you want. Another useful option is `'offset points'`, which allows you to place the text at a fixed pixel offset from the `xy` point.
+-   `**kwargs`: Additional keyword arguments that are passed to the text object, such as `fontsize`, `color`, and alignment (`ha`, `va`).
+
+### Example 1: Simple Line Plot Annotation
+Let's add an annotation to a simple line plot to highlight a peak.
+
+**Code:**
+```python
+import matplotlib.pyplot as plt
+
+# 1. Data for the plot
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
+
+# 2. Create the plot
+plt.plot(x, y, marker='o', linestyle='-', color='blue')
+plt.grid(True)
+
+# 3. Add the annotation
+plt.annotate(
+    'Peak',                           # The text to display
+    xy=(3, 5),                        # The point to annotate (x=3, y=5)
+    xytext=(3.5, 6),                  # The position to place the text
+    arrowprops=dict(facecolor='black', arrowstyle='->'), # Arrow properties
+    fontsize=10
+)
+
+# 4. Add labels and title
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Annotated Plot')
+
+# 5. Show the plot
+plt.show()
+```
+***
+[Image: A line plot with five data points. An arrow originates from the text "Peak" (located at coordinate (3.5, 6)) and points directly to the data point at (3, 5).]
+***
+
+### Example 2: Annotating a Scatter Plot
+Annotations are excellent for calling out specific points or regions in a scatter plot.
+
+**Code:**
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Create random data points
+np.random.seed(42) # for reproducibility
+x = np.random.rand(30)
+y = np.random.rand(30)
+
+# 2. Create the scatter plot
+fig, ax = plt.subplots()
+ax.scatter(x, y)
+
+# 3. Add multiple annotations
+# Annotate an outlier
+ax.annotate('Outlier', xy=(0.9, 0.9), xytext=(0.7, 0.8),
+            arrowprops=dict(facecolor='black', shrink=0.05))
+
+# Annotate an important point
+ax.annotate('Important point', xy=(0.5, 0.3), xytext=(0.3, 0.1),
+            arrowprops=dict(facecolor='red', shrink=0.05))
+
+# Annotate a cluster of points
+ax.annotate('Cluster of points', xy=(0.2, 0.5), xytext=(0.05, 0.7),
+            arrowprops=dict(facecolor='green', shrink=0.05))
+
+# 4. Add labels and title
+plt.title('Annotated Scatter Plot')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+
+# 5. Show the plot
+plt.show()
+```
+***
+[Image: A scatter plot with 30 random data points. Three annotations are present: a black arrow points to a point in the upper right labeled "Outlier"; a red arrow points to a point in the lower middle labeled "Important point"; and a green arrow points to a dense group of points on the left labeled "Cluster of points".]
+***
+
+### Advanced Example: Annotating the Effect of Holidays on US Births
+
+A powerful use of annotation is to add real-world context to a time-series plot. Let's analyze the average number of births per day in the US and annotate major holidays to see their effect.
+
+**Process:**
+1.  Load the US births dataset and create a pivot table to get the average number of births for each day of the year.
+2.  Plot this data as a line plot.
+3.  Use a loop or individual calls to `ax.annotate()` or `ax.text()` to place labels for key holidays at their corresponding dates on the plot.
+
+**Code Snippet for Annotation:**
+```python
+# (Assuming `fig` and `ax` are created and the birth data is plotted)
+
+# Add annotations with various styles
+# Simple text with an arrow
+ax.annotate("New Year's Day", xy=('2012-1-1', 4100), xycoords='data',
+            xytext=(50, -30), textcoords='offset points',
+            arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=-0.2"))
+
+# Text with a bounding box
+ax.annotate("Independence Day", xy=('2012-7-4', 4250), xycoords='data',
+            bbox=dict(boxstyle="round", fc="none", ec="gray"),
+            xytext=(10, -40), textcoords='offset points', ha='center',
+            arrowprops=dict(arrowstyle="->"))
+
+# More complex arrow style
+ax.annotate('Halloween', xy=('2012-10-31', 4600), xycoords='data',
+            xytext=(-80, -40), textcoords='offset points',
+            arrowprops=dict(arrowstyle="fancy", fc="0.6", ec="none",
+                            connectionstyle="angle3,angleA=0,angleB=-90"))
+```
+**Interpretation**: The annotations make it immediately clear how birth rates tend to dip on major public holidays like Christmas, New Year's Day, and Independence Day, and also show interesting spikes around others. This level of detailed annotation gives you the power to create nearly any style you wish, but it often requires manual tweaking of coordinates and properties to produce a publication-quality graphic.
+
+***
+[Image: A time-series plot showing the average daily births over a year. The plot has several annotations pointing to specific dates. For example, an arrow points to the dip on July 4th with the label "Independence Day," and another points to the sharp drop on December 25th with the label "Christmas".]
+***
+
+# Customizing Ticks in Matplotlib Visualizations
+
+## The Importance of Ticks in a Graph
+
+While plot content like lines and points represents the data, the axes provide the context. **Ticks** and **tick labels** are the fundamental components of a plot's axes that allow us to interpret the data's scale and position.
+
+-   **Ticks**: The small markers that denote specific data points or intervals along an axis.
+-   **Tick Labels**: The text labels that provide a name or value for each tick.
+
+By default, Matplotlib does an excellent job of automatically placing ticks at reasonable locations. However, for publication-quality graphics or specialized plots, you often need fine-grained control over the placement, formatting, and appearance of these ticks. This guide explores the various ways to customize ticks in Matplotlib.
+
+---
+
+## The Tick Object Hierarchy: Locators and Formatters
+
+Matplotlib's control over ticks is managed through a hierarchical system of **Locators** and **Formatters**.
+
+-   **Locators**: Determine **where** the ticks are placed on the axis.
+-   **Formatters**: Control the **appearance** of the tick labels (e.g., number of decimal places, adding symbols).
+
+This separation of concerns provides a highly flexible system for customization.
+
+### Major and Minor Ticks
+
+Each axis has two levels of ticks, which allows for a clearer representation of scale:
+
+-   **Major Ticks**: These are the primary ticks that separate the axis into major units. They are typically larger and always have labels.
+-   **Minor Ticks**: These subdivide the major tick units, providing a finer grid for more precise readings. They are usually smaller and do not have labels by default. Minor ticks can only appear on value axes, not categorical axes.
+
+#### Example: Setting Major and Minor Ticks
+Let's create a bar chart and explicitly define the location of major and minor ticks on the y-axis.
+
+**Code:**
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 1. Sample data
+categories = ['Category A', 'Category B', 'Category C', 'Category D', 'Category E']
+values = [10, 20, 15, 30, 25]
+
+# 2. Create a figure and axis
+fig, ax = plt.subplots()
+
+# 3. Plot the data
+ax.bar(np.arange(len(categories)), values)
+
+# 4. Customize the Y-axis ticks
+# Set major ticks to appear at every 10 units
+ax.set_yticks(np.arange(0, max(values) + 1, 10))
+# Use a MultipleLocator to set minor ticks at every 5 units
+ax.yaxis.set_minor_locator(plt.MultipleLocator(5))
+
+# 5. Add gridlines for both major and minor ticks for clarity
+ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+# 6. Set labels and title
+ax.set_xticks(np.arange(len(categories)))
+ax.set_xticklabels(categories)
+ax.set_xlabel('Categories')
+ax.set_ylabel('Values')
+ax.set_title('Major and Minor Ticks Example')
+
+# 7. Show the plot
+plt.show()
+```
+***
+[Image: A bar chart titled "Major and Minor Ticks Example". The y-axis has labeled major ticks at 0, 10, 20, and 30. Between each major tick, there is a smaller, unlabeled minor tick (e.g., at 5, 15, 25). Faint, dashed gridlines correspond to both the major and minor ticks, providing a detailed scale.]
+***
+
+---
+
+## Advanced Tick Customization
+
+### Hiding Ticks or Labels
+
+In some cases, ticks and labels can be distracting or irrelevant, such as in a grid of images. Matplotlib provides `NullLocator` and `NullFormatter` for this purpose.
+
+-   `plt.NullLocator()`: Hides the ticks entirely.
+-   `plt.NullFormatter()`: Hides the tick labels but keeps the tick marks and gridlines.
+
+#### Example: Hiding Ticks in a Plot Grid
+When displaying a grid of images, the pixel coordinates on the axes are often meaningless and should be hidden to create a cleaner visualization.
+
+**Code:**
+```python
+from sklearn.datasets import fetch_olivetti_faces
+
+# Load the dataset
+faces = fetch_olivetti_faces().images
+
+# Create a 5x5 grid of subplots
+fig, ax = plt.subplots(5, 5, figsize=(5, 5))
+fig.subplots_adjust(hspace=0, wspace=0) # Remove spacing between plots
+
+# Loop through the axes and display an image in each
+for i in range(5):
+    for j in range(5):
+        # Hide the ticks and labels for both axes
+        ax[i, j].xaxis.set_major_locator(plt.NullLocator())
+        ax[i, j].yaxis.set_major_locator(plt.NullLocator())
+        ax[i, j].imshow(faces[10 * i + j], cmap="bone")
+```
+***
+[Image: A 5x5 grid of 25 different grayscale face images. There are no gaps, axes, ticks, or labels between the images, creating a seamless collage.]
+***
+
+### Reducing or Increasing the Number of Ticks
+
+By default, Matplotlib's automatic tick placement works well, but for very small or crowded subplots, the labels can overlap. The `MaxNLocator` allows you to specify the maximum number of ticks you want on an axis.
+
+#### Example: Cleaning Up Crowded Subplots
+```python
+from matplotlib.ticker import MaxNLocator
+
+# Create a crowded 4x4 grid
+fig, axes = plt.subplots(4, 4, sharex=True, sharey=True)
+
+# For each axis, set the maximum number of ticks to 3
+for ax in axes.flat:
+    ax.xaxis.set_major_locator(MaxNLocator(3))
+    ax.yaxis.set_major_locator(MaxNLocator(3))
+```
+This will force Matplotlib to choose at most 3 "nice" tick locations for each axis, preventing the labels from overlapping.
+
+---
+
+## Fancy Tick Formats
+
+For more specialized plots, you may need to format tick labels in non-standard ways, such as displaying multiples of π. This is where custom **Locators** and **Formatters** shine.
+
+### Spacing Ticks at Multiples of a Value
+
+Let's consider a plot of sine and cosine functions. It's more natural to place the x-axis ticks at multiples of π.
+
+-   `plt.MultipleLocator()`: This locator places ticks at multiples of a given base value.
+
+#### Example: Ticks at Multiples of π
+```python
+fig, ax = plt.subplots()
+x = np.linspace(0, 3 * np.pi, 1000)
+ax.plot(x, np.sin(x), lw=3, label='Sine')
+ax.plot(x, np.cos(x), lw=3, label='Cosine')
+
+# Set the major ticks to be at multiples of π/2
+ax.xaxis.set_major_locator(plt.MultipleLocator(np.pi / 2))
+# Set minor ticks to be at multiples of π/4
+ax.xaxis.set_minor_locator(plt.MultipleLocator(np.pi / 4))
+
+ax.grid(True)
+ax.legend()
+plt.show()
+```
+***
+[Image: A sine/cosine plot where the x-axis ticks are no longer integers but are located at decimal values corresponding to multiples of π/2 (0, 1.57, 3.14, 4.71, etc.).]
+***
+
+### Creating Custom Tick Labels
+
+The decimal tick labels in the previous example are correct but not very intuitive. We can create our own custom labels using `plt.FuncFormatter`. This powerful tool takes a Python function that you define, which will be called for each tick to generate a custom label string.
+
+#### Example: Formatting Ticks as Multiples of π
+**Code:**
+```python
+from matplotlib.ticker import FuncFormatter
+
+def format_func(value, tick_number):
+    """
+    A custom function to format a value as a multiple of pi.
+    """
+    # Find the number of multiples of pi/2
+    N = int(np.round(2 * value / np.pi))
+    if N == 0:
+        return "0"
+    elif N == 1:
+        return r"$\pi/2$"
+    elif N == 2:
+        return r"$\pi$"
+    elif N % 2 > 0:
+        return r"${0}\pi/2$".format(N)
+    else:
+        return r"${0}\pi$".format(N // 2)
+
+# (Previous plot code...)
+# ax.plot(...)
+# ax.xaxis.set_major_locator(plt.MultipleLocator(np.pi / 2))
+
+# Apply the custom formatter to the x-axis
+ax.xaxis.set_major_formatter(FuncFormatter(format_func))
+
+plt.show()
+```
+**Explanation**:
+1.  The `format_func` takes a `value` (the tick's location) and calculates how many multiples of π/2 it represents.
+2.  It then uses a series of `if/elif` statements to return a nicely formatted string using LaTeX for the π symbol.
+3.  `FuncFormatter(format_func)` creates a formatter object from our function, which is then applied to the major ticks of the x-axis.
+
+***
+[Image: The same sine/cosine plot as before, but now the x-axis tick labels have been replaced with beautifully formatted mathematical text: "0", "π/2", "π", "3π/2", "2π", etc., making the plot much more readable and professional.]
+***
