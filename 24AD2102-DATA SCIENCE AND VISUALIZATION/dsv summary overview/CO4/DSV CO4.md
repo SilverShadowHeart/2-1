@@ -847,8 +847,6 @@ plt.show()
 ***
 ![[Pasted image 20251101123054.png]]
 ***
----
-
 ## The Scatter Plot: Visualizing Relationships
 
 A **scatter plot** is a diagram where each value in the dataset is represented by a dot. Its primary purpose is to **observe and visualize the relationship (or correlation) between two numerical variables**.
@@ -869,6 +867,7 @@ The process is very similar to creating a line plot, but we use the `plt.scatter
 
 #### Example:
 Let's visualize the relationship between hours spent studying and the exam score received.
+
 ```python
 import matplotlib.pyplot as plt
 
@@ -885,8 +884,9 @@ plt.ylabel("Exam Score")
 plt.title("Relationship Between Study Hours and Exam Score")
 
 plt.show()
-```***
-[Image: A scatter plot generated from the code above. The X-axis is "Hours Studied" and the Y-axis is "Exam Score". Seven dots are plotted, showing a clear positive trend: as hours studied increase, the exam score tends to increase as well.]
+```
+***
+![[Pasted image 20251101123437.png]]
 ***
 
 ### Customizing Scatter Plots
@@ -900,6 +900,7 @@ plt.show()
 
 #### Example: Advanced Scatter Plot
 Let's visualize customer data, where we plot `age` vs. `spending`, and use the `customer_satisfaction` score to determine both the color and size of the dots.
+
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
@@ -928,7 +929,7 @@ plt.colorbar(label="Satisfaction Score (1-10)") # Add a color bar legend
 plt.show()
 ```
 ***
-[Image: An advanced scatter plot. The X-axis is "Customer Age", and the Y-axis is "Customer Spending". There are 50 dots of varying sizes and colors. A color bar on the right shows that purple/dark blue dots represent low satisfaction and yellow/bright green dots represent high satisfaction. The plot shows a positive correlation between age and spending, and the color/size variation adds another layer of information about satisfaction levels.]
+![[Pasted image 20251101123522.png]]
 ***
 # Data Visualization: Line and Scatter Plots
 
@@ -1027,7 +1028,7 @@ plt.show()
 ```
 
 ***
-[Image: A simple line plot generated from the first example code. The X-axis is labeled "X-axis" and ranges from 1 to 4. The Y-axis is labeled "Y-axis" and ranges from 2 to 8. A straight, solid blue line connects the four data points, showing a linear relationship. The title "Any suitable title" is displayed at the top.]
+![[Pasted image 20251101123632.png]]
 ***
 
 #### Plotting Multiple Charts
@@ -1050,8 +1051,9 @@ plt.title("Second Plot")
 plt.show() # Renders and shows the second plot
 ```
 ***
-[Image: Two separate line plots. The first, titled "First Plot," shows a positive linear trend. The second, titled "Second Plot," is in a new window and shows a negative linear trend with a dash-dot line style.]
-***
+![[Pasted image 20251101123904.png]]
+![[Pasted image 20251101123924.png]]
+
 
 ### Customizing Line Plots
 
@@ -1097,513 +1099,9 @@ plt.legend()                # Display the legend
 plt.show()
 ```
 ***
-[Image: A customized line plot showing sales data. The line is green, dashed, slightly thicker, and has a circle marker at each data point. A grid is visible in the background, and a legend box in the corner says "Annual Sales".]
-***
-
+![[Pasted image 20251101124147.png]]
 ---
 
-## The Scatter Plot: Visualizing Relationships
-
-A **scatter plot** is a diagram where each value in the dataset is represented by a dot. Its primary purpose is to **observe and visualize the relationship (or correlation) between two numerical variables**.
-
-Each dot on the plot represents a single observation, with its position on the X-axis determined by one variable (the independent variable) and its position on the Y-axis determined by the other (the dependent variable).
-
-### Purpose of Scatter Plotting
--   **Relationship Analysis**: To see if there is a positive, negative, or no correlation between two variables.
--   **Pattern Detection**: To identify patterns such as linear trends, curved relationships, or clusters of data points.
--   **Outlier Identification**: To easily spot data points that deviate significantly from the main cluster.
-
-### Step-by-Step Guide to Building a Scatter Plot
-
-The `plt.scatter()` function is used to create scatter plots.
-
-#### Syntax:
-`plt.scatter(x_axis_data, y_axis_data, s=None, c=None, marker=None, cmap=None, alpha=None)`
-
-#### Example:
-Let's visualize the relationship between hours spent studying and the exam score received.
-```python
-import matplotlib.pyplot as plt
-
-# Data
-hours_studied = [2, 3, 5, 1, 6, 4, 7]
-exam_score = [65, 70, 85, 50, 90, 75, 95]
-
-# Create the scatter plot
-plt.scatter(hours_studied, exam_score)
-
-# Add labels and title
-plt.xlabel("Hours Studied")
-plt.ylabel("Exam Score")
-plt.title("Relationship Between Study Hours and Exam Score")
-
-plt.show()
-```
-***
-[Image: A scatter plot generated from the code above. The X-axis is "Hours Studied" and the Y-axis is "Exam Score". Seven dots are plotted, showing a clear positive trend: as hours studied increase, the exam score tends to increase as well.]
-***
-
-### Customizing Scatter Plots
-
-`plt.scatter()` offers powerful customization options to encode more information into the plot, effectively visualizing up to four variables at once.
-
--   **Size (`s`)**: Varies the size of each dot. This can be a single value for a uniform size or an array of values to make each dot's size correspond to a third variable.
--   **Color (`c`)**: Varies the color of each dot.
--   **Colormap (`cmap`)**: When `c` is an array of numbers, `cmap` specifies the color gradient to use (e.g., `'viridis'`, `'plasma'`, `'coolwarm'`). A colormap maps numerical values to colors. For example, in 'viridis', low values are purple and high values are yellow.
--   **Transparency (`alpha`)**: A float between 0 (fully transparent) and 1 (fully opaque). This is very helpful when many points overlap.
-
-#### Example: Advanced Scatter Plot with Size, Color, and Transparency
-Let's visualize a dataset where each point has an x and y value, and also encode a third and fourth variable using color and size.
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data with four variables
-x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6])
-y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86])
-colors = np.array([0, 10, 20, 30, 40, 45, 50, 55, 60, 70, 80, 90, 100]) # Third variable for color
-sizes = np.array([20,50,100,200,500,1000,60,90,10,300,600,800,75]) # Fourth variable for size
-
-# Create the scatter plot
-plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='viridis')
-
-# Add a color bar to act as a legend for the colors
-plt.colorbar()
-
-plt.show()
-```
-***
-[Image: An advanced scatter plot showing the data from the code. The 13 dots are scattered across the plot. Their sizes and colors vary according to the `sizes` and `colors` arrays. The colors range from purple (for low `colors` values) to yellow (for high `colors` values), following the 'viridis' colormap. The dots are semi-transparent due to `alpha=0.5`. A color bar is present on the right side of the plot, showing the mapping from numbers (0-100) to colors.]
-***
-
-# Data Visualization: Plotting Fundamentals, Line Plots, and Scatter Plots
-
-## The Purpose of Plotting in Data Science
-
-**Plotting** is the process of generating visual representations of data, such as maps, graphs, and charts. In the context of data science, this practice is fundamental to enhancing the comprehension, analysis, and communication of information. Visual aids provide an intuitive and user-friendly method for interpreting complex data that might be difficult to understand from raw numbers or tables alone.
-
-The primary purposes of plotting include:
-
--   **Data Exploration**: Plots are essential for exploring the fundamental characteristics and patterns within a dataset. They make it easier to identify underlying trends, spot anomalies or outliers, and understand the distribution of variables.
--   **Data Analysis**: Visualizations can reveal insights and relationships that are not immediately apparent from raw data. They are a critical tool in statistical analysis, hypothesis testing, and guiding decision-making processes.
--   **Communication and Storytelling**: Visualizations are a powerful and effective medium for communicating data-driven findings. They can convey complex information more comprehensibly than text or tables, enabling analysts to tell a compelling, data-driven story in presentations, reports, and articles.
-
----
-
-## Understanding Data Types for Plotting
-
-Before creating a plot, it's crucial to understand the types of data you are working with, as the data type dictates the most appropriate kind of visualization. Python offers a variety of fundamental data types that are used extensively in data analysis.
-
--   **`int` (Integer)**: Represents whole numbers (e.g., `5`, `-10`). Used for counting, indexing, and discrete measurements.
--   **`float` (Floating-Point Number)**: Represents numbers with decimal points (e.g., `3.14159`, `-0.5`). Used for continuous measurements and precise numerical calculations.
--   **`str` (String)**: Represents textual data (e.g., `"Hello, world"`, `'Alice'`). Used for categorical labels, names, and descriptions.
--   **`list`**: A mutable (changeable) sequence of elements. Supports indexing and slicing. Example: `[1, 2, 3, 4, 5]`.
--   **`tuple`**: An immutable (unchangeable) sequence of elements. Used for data that should not be modified, like coordinates. Example: `(10, 20)`.
--   **`dict` (Dictionary)**: Stores data as key-value pairs. Excellent for structured data where items have named attributes. Example: `{'name': 'Alice', 'age': 30}`.
--   **`datetime`**: A specialized object for handling date and time data. Essential for time series analysis and plotting data over time. Example: `datetime(2023, 11, 2)`.
--   **`bool` (Boolean)**: Represents `True` or `False` values. Crucial for logical operations, filtering, and conditional statements.
--   **`set`**: An unordered collection of unique elements. Useful for finding distinct values or performing set operations.
--   **`NaN` (Not a Number)**: A special floating-point value used across libraries like NumPy and Pandas to represent missing or undefined data. Handling `NaN` is a critical step in data cleaning.
-
--   **Type Casting**: The process of converting data from one type to another (e.g., converting a string `'5'` to an integer `5`). This is often necessary to ensure data compatibility before plotting or performing calculations.
-
----
-
-## Categories of Plots for Data Visualization
-
-Visualizations can be categorized based on the structure of the data they are designed to represent.
-
-1.  **Pairwise Data**: Plots that show the relationship between two variables, `(x, y)`. This is the most common category and includes **line plots**, **scatter plots**, **bar charts**, and more.
-2.  **Statistical Distribution**: Plots that visualize the distribution of a single variable. Examples include **histograms**, **box plots**, and **violin plots**.
-3.  **Gridded Data**: Plots used for visualizing 2D arrays or images, such as heatmaps (`imshow`) and contour plots.
-4.  **3D and Volumetric Data**: Plots used to represent data in three dimensions, including 3D scatter plots and surface plots.
-
-This guide will focus on two of the most fundamental types of pairwise plots: the Line Plot and the Scatter Plot.
-
----
-
-## Overview of Python Visualization Libraries
-
-Python's strength in data visualization comes from its rich ecosystem of specialized libraries.
-
--   **Matplotlib**: The foundational library for plotting in Python. It offers extensive control over every aspect of a plot and is the backbone for many other libraries.
--   **Seaborn**: Built on top of Matplotlib, Seaborn provides a high-level interface for creating aesthetically pleasing and informative statistical graphics with less code.
--   **Pandas**: The core data manipulation library in Python, Pandas also has built-in plotting functions that use Matplotlib to allow for quick and easy visualizations directly from DataFrames.
--   **Plotly and Bokeh**: These libraries are designed for creating interactive, web-based visualizations that can be embedded in websites and dashboards.
-
----
-
-## The Line Plot: Visualizing Trends Over Time
-
-A **line plot** (or line chart) is a powerful tool used to represent the relationship between two variables, typically to visualize the change in a value over a continuous interval or sequence. Its primary purpose is to display **trends and patterns in data over time**.
-
-Line plots are best suited for **continuous data with a natural ordering**, such as time series data.
-
-### Step-by-Step Guide to Building a Line Plot with Matplotlib
-
-#### Step 1: Import Libraries
-The `matplotlib.pyplot` module is conventionally imported with the alias `plt`.
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-```
-
-#### Step 2: Define Data Values
-You need data for both the X and Y axes.
-
-```python
-x = np.array([1, 2, 3, 4])
-y = x * 2
-```
-
-#### Step 3: Create the Plot and Add Labels
-A plot without labels is uninformative. Always label your axes and give the plot a descriptive title.
-
-```python
-# Create the plot
-plt.plot(x, y)
-
-# Add labels and a title
-plt.xlabel("X-axis")
-plt.ylabel("Y-axis")
-plt.title("Simple Line Plot")
-```
-
-#### Step 4: Display the Plot
-Use `plt.show()` to render and display the plot.
-
-```python
-plt.show()
-```
-
-### Customizing Line Plots
-
-Matplotlib provides a wide array of options to customize the appearance of your plot.
-
--   **Line Color (`color`)**: Sets the color of the line.
--   **Line Width (`linewidth`)**: A float that controls the line's thickness.
--   **Line Style (`linestyle`)**: A string defining the line's pattern (e.g., `'solid'`, `'--'`, `':'`, `'-.'`).
--   **Markers**: Symbols placed at each data point, set with the `marker` parameter (e.g., `'o'`, `'s'`, `'x'`).
--   **Grid Lines**: Use `plt.grid(True)` to add a grid for better readability.
--   **Legend**: If plotting multiple lines, use `plt.legend()` to display labels for each line.
-
-#### Example: Customized Line Plot
-```python
-x_data = [2018, 2019, 2020, 2021, 2022]
-y_data = [120, 150, 135, 180, 210]
-
-plt.plot(
-    x_data,
-    y_data,
-    color='green',
-    linestyle='--',
-    linewidth=2,
-    marker='o',
-    label='Annual Sales'
-)
-
-plt.xlabel("Year")
-plt.ylabel("Sales (in Thousands)")
-plt.title("Company Sales Performance")
-plt.grid(True)
-plt.legend()
-plt.show()
-```
-***
-[Image: A customized line plot showing sales data. The line is green, dashed, and has a circle marker at each data point. A grid is visible in the background, and a legend box identifies the line as "Annual Sales".]
-***
-
----
-
-## The Scatter Plot: Visualizing Relationships
-
-A **scatter plot** is a diagram where each value in the dataset is represented by a dot. Its primary purpose is to **observe and visualize the relationship (or correlation) between two numerical variables**.
-
-Each dot's position is determined by its values on the X and Y axes. Scatter plots are essential for identifying:
--   The strength and direction of a relationship (positive, negative, or none).
--   The presence of patterns like linearity, curves, or clusters.
--   Outliers that deviate from the main pattern.
-
-### Step-by-Step Guide to Building a Scatter Plot
-
-The `plt.scatter()` function is used to create scatter plots.
-
-#### Syntax:
-`plt.scatter(x_axis_data, y_axis_data, s=None, c=None, marker=None, cmap=None, alpha=None)`
-
-#### Example:
-Let's visualize the relationship between hours spent studying and exam scores.
-```python
-import matplotlib.pyplot as plt
-
-hours_studied = [2, 3, 5, 1, 6, 4, 7]
-exam_score = [65, 70, 85, 50, 90, 75, 95]
-
-# Create the scatter plot
-plt.scatter(hours_studied, exam_score)
-
-# Add labels and title
-plt.xlabel("Hours Studied")
-plt.ylabel("Exam Score")
-plt.title("Study Hours vs. Exam Score")
-
-plt.show()
-```
-***
-[Image: A scatter plot showing a clear positive trend between "Hours Studied" on the x-axis and "Exam Score" on the y-axis. As x increases, y tends to increase.]
-***
-
-### Customizing Scatter Plots
-
-`plt.scatter()` can visualize more than two variables by encoding data into the visual properties of the dots.
-
--   **Size (`s`)**: Varies the size of each dot.
--   **Color (`c`)**: Varies the color of each dot.
--   **Colormap (`cmap`)**: When `c` is an array of numbers, `cmap` specifies the color gradient (e.g., `'viridis'`, `'plasma'`). A colormap maps numbers to colors (e.g., low values are purple, high values are yellow).
--   **Transparency (`alpha`)**: A float from 0 (transparent) to 1 (opaque), useful for visualizing dense data where points overlap.
-
-#### Example: Advanced Scatter Plot
-Let's visualize a dataset where each point has an x, y, color, and size value.
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data with four variables
-x = np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
-y = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
-colors = np.array([0, 10, 20, 30, 40, 45, 50, 55, 60, 70, 80, 90, 100])
-sizes = np.array([20, 50, 100, 200, 500, 1000, 60, 90, 10, 300, 600, 800, 75])
-
-# Create the scatter plot
-plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='viridis')
-
-# Add a color bar as a legend for the colors
-plt.colorbar(label="Customer Segment ID")
-
-plt.xlabel("Feature X")
-plt.ylabel("Feature Y")
-plt.title("Multi-variable Scatter Plot")
-
-plt.show()
-```
-***
-[Image: An advanced scatter plot with dots of varying sizes and colors. The colors range from purple to yellow, following the 'viridis' colormap. The dots are semi-transparent. A color bar on the right side of the plot shows the mapping from numbers to colors.]
-***
-
-# Data Visualization: Plotting Fundamentals, Line Plots, and Scatter Plots
-
-## The Purpose of Plotting in Data Science
-
-**Plotting** is the process of generating visual representations of data, such as maps, graphs, and charts. In the context of data science, this practice is fundamental to enhancing the comprehension, analysis, and communication of information. Visual aids provide an intuitive and user-friendly method for interpreting complex data that might be difficult to understand from raw numbers or tables alone.
-
-The primary purposes of plotting include:
-
--   **Data Exploration**: Plots are essential for exploring the fundamental characteristics and patterns within a dataset. They make it easier to identify underlying trends, spot anomalies or outliers, and understand the distribution of variables.
--   **Data Analysis**: Visualizations can reveal insights and relationships that are not immediately apparent from raw data. They are a critical tool in statistical analysis, hypothesis testing, and guiding decision-making processes.
--   **Communication and Storytelling**: Visualizations are a powerful and effective medium for communicating data-driven findings. They can convey complex information more comprehensibly than text or tables, enabling analysts to tell a compelling, data-driven story in presentations, reports, and articles.
-
----
-
-## Understanding Data Types for Plotting
-
-Before creating a plot, it's crucial to understand the types of data you are working with, as the data type dictates the most appropriate kind of visualization. Python offers a variety of fundamental data types that are used extensively in data analysis.
-
--   **`int` (Integer)**: Represents whole numbers (e.g., `5`, `-10`). Used for counting, indexing, and discrete measurements.
--   **`float` (Floating-Point Number)**: Represents numbers with decimal points (e.g., `3.14159`, `-0.5`). Used for continuous measurements and precise numerical calculations.
--   **`str` (String)**: Represents textual data (e.g., `"Hello, world"`, `'Alice'`). Used for categorical labels, names, and descriptions.
--   **`list`**: A mutable (changeable) sequence of elements. Supports indexing and slicing. Example: `[1, 2, 3, 4, 5]`.
--   **`tuple`**: An immutable (unchangeable) sequence of elements. Used for data that should not be modified, like coordinates. Example: `(10, 20)`.
--   **`dict` (Dictionary)**: Stores data as key-value pairs. Excellent for structured data where items have named attributes. Example: `{'name': 'Alice', 'age': 30}`.
--   **`datetime`**: A specialized object for handling date and time data. Essential for time series analysis and plotting data over time. Example: `datetime(2023, 11, 2)`.
--   **`bool` (Boolean)**: Represents `True` or `False` values. Crucial for logical operations, filtering, and conditional statements.
--   **`set`**: An unordered collection of unique elements. Useful for finding distinct values or performing set operations.
--   **`NaN` (Not a Number)**: A special floating-point value used across libraries like NumPy and Pandas to represent missing or undefined data. Handling `NaN` is a critical step in data cleaning.
-
--   **Type Casting**: The process of converting data from one type to another (e.g., converting a string `'5'` to an integer `5`). This is often necessary to ensure data compatibility before plotting or performing calculations.
-
----
-
-## Categories of Plots for Data Visualization
-
-Visualizations can be categorized based on the structure of the data they are designed to represent.
-
-1.  **Pairwise Data**: Plots that show the relationship between two variables, `(x, y)`. This is the most common category and includes **line plots**, **scatter plots**, **bar charts**, and more.
-2.  **Statistical Distribution**: Plots that visualize the distribution of a single variable. Examples include **histograms**, **box plots**, and **violin plots**.
-3.  **Gridded Data**: Plots used for visualizing 2D arrays or images, such as heatmaps (`imshow`) and contour plots.
-4.  **3D and Volumetric Data**: Plots used to represent data in three dimensions, including 3D scatter plots and surface plots.
-
-This guide will focus on two of the most fundamental types of pairwise plots: the Line Plot and the Scatter Plot.
-
----
-
-## Overview of Python Visualization Libraries
-
-Python's strength in data visualization comes from its rich ecosystem of specialized libraries.
-
--   **Matplotlib**: The foundational library for plotting in Python. It offers extensive control over every aspect of a plot and is the backbone for many other libraries.
--   **Seaborn**: Built on top of Matplotlib, Seaborn provides a high-level interface for creating aesthetically pleasing and informative statistical graphics with less code.
--   **Pandas**: The core data manipulation library in Python, Pandas also has built-in plotting functions that use Matplotlib to allow for quick and easy visualizations directly from DataFrames.
--   **Plotly and Bokeh**: These libraries are designed for creating interactive, web-based visualizations that can be embedded in websites and dashboards.
-
----
-
-## The Line Plot: Visualizing Trends Over Time
-
-A **line plot** (or line chart) is a powerful tool used to represent the relationship between two variables, typically to visualize the change in a value over a continuous interval or sequence. Its primary purpose is to display **trends and patterns in data over time**.
-
-Line plots are best suited for **continuous data with a natural ordering**, such as time series data.
-
-### Step-by-Step Guide to Building a Line Plot with Matplotlib
-
-#### Step 1: Import Libraries
-The `matplotlib.pyplot` module is conventionally imported with the alias `plt`.
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-```
-
-#### Step 2: Define Data Values
-You need data for both the X and Y axes.
-
-```python
-x = np.array([1, 2, 3, 4])
-y = x * 2
-```
-
-#### Step 3: Create the Plot and Add Labels
-A plot without labels is uninformative. Always label your axes and give the plot a descriptive title.
-
-```python
-# Create the plot
-plt.plot(x, y)
-
-# Add labels and a title
-plt.xlabel("X-axis")
-plt.ylabel("Y-axis")
-plt.title("Simple Line Plot")
-```
-
-#### Step 4: Display the Plot
-Use `plt.show()` to render and display the plot.
-
-```python
-plt.show()
-```
-
-### Customizing Line Plots
-
-Matplotlib provides a wide array of options to customize the appearance of your plot.
-
--   **Line Color (`color`)**: Sets the color of the line.
--   **Line Width (`linewidth`)**: A float that controls the line's thickness.
--   **Line Style (`linestyle`)**: A string defining the line's pattern (e.g., `'solid'`, `'--'`, `':'`, `'-.'`).
--   **Markers**: Symbols placed at each data point, set with the `marker` parameter (e.g., `'o'`, `'s'`, `'x'`).
--   **Grid Lines**: Use `plt.grid(True)` to add a grid for better readability.
--   **Legend**: If plotting multiple lines, use `plt.legend()` to display labels for each line.
-
-#### Example: Customized Line Plot
-```python
-x_data = [2018, 2019, 2020, 2021, 2022]
-y_data = [120, 150, 135, 180, 210]
-
-plt.plot(
-    x_data,
-    y_data,
-    color='green',
-    linestyle='--',
-    linewidth=2,
-    marker='o',
-    label='Annual Sales'
-)
-
-plt.xlabel("Year")
-plt.ylabel("Sales (in Thousands)")
-plt.title("Company Sales Performance")
-plt.grid(True)
-plt.legend()
-plt.show()
-```
-***
-[Image: A customized line plot showing sales data. The line is green, dashed, and has a circle marker at each data point. A grid is visible in the background, and a legend box identifies the line as "Annual Sales".]
-***
-
----
-
-## The Scatter Plot: Visualizing Relationships
-
-A **scatter plot** is a diagram where each value in the dataset is represented by a dot. Its primary purpose is to **observe and visualize the relationship (or correlation) between two numerical variables**.
-
-Each dot's position is determined by its values on the X and Y axes. Scatter plots are essential for identifying:
--   The strength and direction of a relationship (positive, negative, or none).
--   The presence of patterns like linearity, curves, or clusters.
--   Outliers that deviate from the main pattern.
-
-### Step-by-Step Guide to Building a Scatter Plot
-
-The `plt.scatter()` function is used to create scatter plots.
-
-#### Syntax:
-`plt.scatter(x_axis_data, y_axis_data, s=None, c=None, marker=None, cmap=None, alpha=None)`
-
-#### Example:
-Let's visualize the relationship between hours spent studying and exam scores.
-```python
-import matplotlib.pyplot as plt
-
-hours_studied = [2, 3, 5, 1, 6, 4, 7]
-exam_score = [65, 70, 85, 50, 90, 75, 95]
-
-# Create the scatter plot
-plt.scatter(hours_studied, exam_score)
-
-# Add labels and title
-plt.xlabel("Hours Studied")
-plt.ylabel("Exam Score")
-plt.title("Study Hours vs. Exam Score")
-
-plt.show()
-```
-***
-[Image: A scatter plot showing a clear positive trend between "Hours Studied" on the x-axis and "Exam Score" on the y-axis. As x increases, y tends to increase.]
-***
-
-### Customizing Scatter Plots
-
-`plt.scatter()` can visualize more than two variables by encoding data into the visual properties of the dots.
-
--   **Size (`s`)**: Varies the size of each dot.
--   **Color (`c`)**: Varies the color of each dot.
--   **Colormap (`cmap`)**: When `c` is an array of numbers, `cmap` specifies the color gradient (e.g., `'viridis'`, `'plasma'`). A colormap maps numbers to colors (e.g., low values are purple, high values are yellow).
--   **Transparency (`alpha`)**: A float from 0 (transparent) to 1 (opaque), useful for visualizing dense data where points overlap.
-
-#### Example: Advanced Scatter Plot
-Let's visualize a dataset where each point has an x, y, color, and size value.
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data with four variables
-x = np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
-y = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
-colors = np.array([0, 10, 20, 30, 40, 45, 50, 55, 60, 70, 80, 90, 100])
-sizes = np.array([20, 50, 100, 200, 500, 1000, 60, 90, 10, 300, 600, 800, 75])
-
-# Create the scatter plot
-plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='viridis')
-
-# Add a color bar as a legend for the colors
-plt.colorbar(label="Customer Segment ID")
-
-plt.xlabel("Feature X")
-plt.ylabel("Feature Y")
-plt.title("Multi-variable Scatter Plot")
-
-plt.show()
-```
-***
-[Image: An advanced scatter plot with dots of varying sizes and colors. The colors range from purple to yellow, following the 'viridis' colormap. The dots are semi-transparent. A color bar on the right side of the plot shows the mapping from numbers to colors.]
 ***
 # Visualizing Data Distributions: Density & Contour Plots
 
