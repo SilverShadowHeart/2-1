@@ -16,6 +16,7 @@ When analyzing data, skewness helps us understand:
 ---
 
 ## Types of Skewness: Visual & Conceptual Overview
+![[Pasted image 20251101114224.png]]
 
 | 1. Negative Skew (Left) | 2. Zero Skew | 3. Positive Skew (Right) |
 | :--- | :--- | :--- |
@@ -49,7 +50,8 @@ Best for distributions with a **strong, identifiable mode** where the most frequ
 -   Works well for unimodal distributions.
 
 **Formula**:
-Skewness=Mean−ModeStandard Deviation\text{Skewness} = \frac{\text{Mean} - \text{Mode}}{\text{Standard Deviation}}Skewness=Standard DeviationMean−Mode​
+
+$\text{Skewness} = \frac{\text{Mean} - \text{Mode}}{\text{Standard Deviation}}$
 
 ---
 
@@ -62,7 +64,8 @@ Let's say we have exam scores of 10 students:
 -   **Standard Deviation (spread of scores)** ≈ **15**
 
 Now apply the formula:
-Skewness=51−4015=1115≈0.73\text{Skewness} = \frac{51 - 40}{15} = \frac{11}{15} \approx 0.73Skewness=1551−40​=1511​≈0.73
+
+$\text{Skewness} = \frac{51 - 40}{15} = \frac{11}{15} \approx 0.73$
 
 **Interpretation**:
 -   If **Mean > Mode** → Right skew (positive).
@@ -86,7 +89,9 @@ More **robust** than mode skewness for:
 -   Distributions with outliers.
 
 **Formula**:
-Skewness=3(Mean−Median)Standard Deviation\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Standard Deviation}}Skewness=Standard Deviation3(Mean−Median)​
+
+$\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Standard Deviation}}$
+
 > *The coefficient 3 scales the result to make it more comparable with other skewness measures.*
 
 ---
