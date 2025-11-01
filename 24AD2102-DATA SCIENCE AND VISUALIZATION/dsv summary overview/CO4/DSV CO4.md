@@ -966,69 +966,6 @@ Python offers a rich ecosystem of libraries for data visualization, each with it
 
 For this guide, we will focus on **Matplotlib**, as it is the bedrock of Python plotting.
 
----
-
-## The Line Plot: Visualizing Trends Over Time
-
-A **line plot** (or line chart) is a powerful tool used to represent the relationship between two variables, typically to visualize the change in a value over a continuous interval or sequence. Its primary purpose is to display **trends and patterns in data over time**.
-
-Line plots are best suited for **continuous data with a natural ordering**, such as time series data.
-
-### Anatomy of a Line Plot
-
-A well-constructed line plot has several key components that make it informative and easy to read:
--   **X-axis and Y-axis**: The horizontal and vertical axes that define the coordinate system.
--   **Data Points**: The individual values plotted on the graph.
--   **Lines**: The lines that connect the data points, illustrating the progression or trend.
--   **Title**: A descriptive title that explains what the plot is about.
--   **Axis Labels**: Labels for the X and Y axes that describe the variables being plotted.
--   **Legend**: An explanatory key used to identify different lines when plotting multiple datasets on the same graph.
-
-### Step-by-Step Guide to Building a Line Plot with Matplotlib
-
-#### Step 1: Import Libraries
-The first step is always to import the necessary libraries. The `matplotlib.pyplot` module is the workhorse for creating plots and is conventionally imported with the alias `plt`.
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-```
-
-#### Step 2: Define Data Values
-You need data for both the X and Y axes. Typically, the X-axis represents a sequence (like time), and the Y-axis represents the measured quantity.
-
-```python
-# Example 1 Data
-x = np.array([1, 2, 3, 4])
-y = x * 2
-```
-
-#### Step 3: Create the Plot
-Use the `plt.plot()` function to create the line plot. It takes the x and y data as its primary arguments.
-
-```python
-plt.plot(x, y)
-```
-
-#### Step 4: Add Labels and a Title
-A plot without labels is meaningless. Always label your axes and give the plot a descriptive title.
-
-```python
-plt.xlabel("X-axis")
-plt.ylabel("Y-axis")
-plt.title("Any suitable title")
-```
-
-#### Step 5: Display the Plot
-Finally, use `plt.show()` to render and display the plot.
-
-```python
-plt.show()
-```
-
-***
-![[Pasted image 20251101123632.png]]
 ***
 
 #### Plotting Multiple Charts
@@ -1159,7 +1096,20 @@ plt.show()
 **Interpretation**: The plot shows a distinct peak around 4-5. This indicates that the most frequent value for the `speeding` variable in this dataset is within that range, suggesting it's a common factor in the recorded crashes.
 
 ***
-[Image: A density plot titled "Density plot for Speeding". The x-axis represents the 'speeding' value, and the y-axis represents density. There is a smooth green curve with a single prominent peak centered around the x-value of 4.5.]
+![[Pasted image 20251101125513.png]]
+```
+total  speeding  alcohol  not_distracted  no_previous  ins_premium  \
+0   18.8     7.332    5.640          18.048       15.040       784.55   
+1   18.1     7.421    4.525          16.290       17.014      1053.48   
+2   18.6     6.510    5.208          15.624       17.856       899.47   
+3   22.4     4.032    5.824          21.056       21.280       827.34   
+
+   ins_losses abbrev  
+0      145.08     AL  
+1      133.93     AK  
+2      110.35     AZ  
+3      142.39     AR
+```
 ***
 
 #### Example 2: Distribution of Customer Tips
@@ -1187,7 +1137,15 @@ plt.show()
 **Interpretation**: The density plot for tips shows a strong peak between \\$2 and \\$3, indicating that this is the most common range for tip amounts in this dataset. The curve has a long tail to the right, showing that larger tips are less frequent but do occur.
 
 ***
-[Image: A density plot titled "Density plot for Tip". The x-axis is the tip amount. The y-axis is density. A smooth green curve shows a high, sharp peak between x-values 2 and 3, followed by a long, gradual decline to the right.]
+![[Pasted image 20251101125608.png]]
+
+```
+total_bill   tip     sex smoker  day    time  size
+0       16.99  1.01  Female     No  Sun  Dinner     2
+1       10.34  1.66    Male     No  Sun  Dinner     3
+2       21.01  3.50    Male     No  Sun  Dinner     3
+3       23.68  3.31    Male     No  Sun  Dinner     2
+```
 ***
 
 ### Common Uses of Density Plots in Data Science
@@ -1253,7 +1211,7 @@ plt.show()
 **Interpretation**: The resulting plot displays a series of concentric rings. Each ring is a contour line representing a constant value of `Z`. The color of the lines, mapped via the 'viridis' colormap and the color bar, indicates the function's value. The pattern of rings shows how the function oscillates as you move away from the origin (0,0).
 
 ***
-[Image: A contour plot titled "Contour Plot". The x and y axes range from -5 to 5. The plot consists of many concentric, circular contour lines. A color bar on the right, labeled "Function Value," shows that the colors of the lines range from dark purple (for low values like -0.9) to bright yellow (for high values like +0.9), corresponding to the value of the Z function.]
+![[Pasted image 20251101125800.png]]
 ***
 # Histograms & Binning: Understanding Data Distributions
 
@@ -1299,7 +1257,7 @@ plt.ylabel("Frequency")
 plt.show()
 ```
 ***
-[Image: A histogram titled "Histogram of Normally Distributed Data". The x-axis is "Value" and the y-axis is "Frequency". The bars form a clear bell-shaped curve, centered around 0, which is characteristic of a normal distribution.]
+![[Pasted image 20251101125820.png]]
 ***
 
 ### Example 2: Using Seaborn for Enhanced Histograms
@@ -1327,7 +1285,7 @@ plt.ylabel("Count")
 plt.show()
 ```
 ***
-[Image: A histogram titled "Histogram with KDE". The plot shows green bars representing the frequency counts, and a smooth green line (the KDE) is overlaid, closely following the shape of the bars, illustrating the underlying probability distribution.]
+![[Pasted image 20251101125850.png]]
 ***
 
 ### Example 3: Creating a Histogram from a Pandas DataFrame
@@ -1355,7 +1313,7 @@ plt.ylabel("Frequency")
 plt.show()
 ```
 ***
-[Image: A histogram titled "Histogram of Age Distribution". The x-axis is "Age" and the y-axis is "Frequency". The orange bars show the frequency of ages within 5 different bins, with the highest concentration in the 30-35 age range.]
+![[Pasted image 20251101125920.png]]
 ***
 
 ### Example 4: Comparing Distributions with Multiple Histograms
@@ -1383,10 +1341,11 @@ plt.ylabel("Frequency")
 plt.legend()
 
 # 4. Display the plot
-plt.show()```
+plt.show()
+```
 ***
-[Image: A plot titled "Comparison of Two Distributions" showing two overlapping histograms. "Data 1" (blue) is centered around 0, and "Data 2" (orange) is centered around 2 and is more spread out. The transparency allows the user to see the shape and position of both distributions simultaneously.]
-***
+![[Pasted image 20251101125949.png]]
+
 
 ---
 
@@ -1491,7 +1450,7 @@ ax.legend()
 plt.show()
 ```
 ***
-[Image: A plot showing a solid blue sine wave and a dashed red cosine wave. A legend box in the upper right corner correctly identifies the blue line as "Sine" and the red line as "Cosine".]
+![[Pasted image 20251101130032.png]]
 ***
 
 ### Customizing the Legend's Appearance and Position
@@ -1516,7 +1475,7 @@ By default, the legend is drawn with a box around it. You can remove this for a 
 ax.legend(loc='upper left', frameon=False)
 ```
 ***
-[Image: The same sine/cosine plot, but now the legend is in the upper left corner and has no border or background, blending directly with the plot.]
+![[Pasted image 20251101130206.png]]
 ***
 
 #### 3. Arranging into Columns with `ncol`
@@ -1527,7 +1486,7 @@ If you have many legend entries, you can arrange them horizontally by specifying
 ax.legend(loc='lower center', frameon=False, ncol=2)
 ```
 ***
-[Image: The sine/cosine plot with the legend now at the bottom center. The "Sine" and "Cosine" entries are arranged side-by-side in two columns.]
+![[Pasted image 20251101130234.png]]
 ***
 
 #### 4. Advanced Styling
@@ -1543,7 +1502,7 @@ ax.legend(
 )
 ```
 ***
-[Image: The sine/cosine plot with a legend that has rounded corners, a visible shadow behind it, and more space between the text and the border.]
+![[Pasted image 20251101130304.png]]
 ***
 
 ### Choosing Which Elements Appear in the Legend
@@ -1563,7 +1522,7 @@ plt.legend(lines[:2], ['first', 'second'])
 plt.show()
 ```
 ***
-[Image: A plot showing four overlapping sine waves of different colors. The legend, however, only shows entries for "first" and "second", corresponding to the first two lines plotted.]
+![[Pasted image 20251101130835.png]]
 ***
 
 #### Method 2: Label Only the Desired Elements (Recommended)
@@ -1611,8 +1570,7 @@ plt.title('California Cities: Area and Population')
 plt.show()
 ```
 ***
-[Image: A scatter plot showing the locations of California cities. The color of each point represents population (with a color bar), and the size represents the city's area. A custom legend in the corner shows three gray circles of increasing size, labeled "100 km²", "300 km²", and "500 km²", providing a key for the point sizes.]
-***
+![[Pasted image 20251101130614.png]]
 
 ---
 
@@ -1636,7 +1594,7 @@ plt.colorbar()
 plt.show()
 ```
 ***
-[Image: A heatmap showing a colorful checkerboard pattern. To the right of the heatmap is a vertical color bar showing the gradient from dark blue (for low values like -0.8) to bright yellow (for high values like +0.8).]
+![[Pasted image 20251101130957.png]]
 ***
 
 ### Choosing and Understanding Colormaps (`cmap`)
