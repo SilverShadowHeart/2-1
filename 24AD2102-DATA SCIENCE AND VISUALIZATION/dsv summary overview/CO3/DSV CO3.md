@@ -518,6 +518,7 @@ A university wants to estimate the average final exam score (`μ`) for a large i
     For a 95% confidence level, the critical value (Z-score) is **1.96**.
 
 -   **Step 2: Calculate the Standard Error (SE).**
+
 $\text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{15}{\sqrt{100}} = \frac{15}{10} = 1.5$
 
 -   **Step 3: Calculate the Margin of Error.**
@@ -544,8 +545,8 @@ A manufacturer wants to estimate the average battery life (`μ`) of a new smartp
     For a 99% confidence level, the critical value (Z-score) is **2.576**.
 
 -   **Step 2: Calculate the Standard Error (SE).**
-    SE=n​s​=50​2.5​≈7.0712.5​≈0.354\text{SE} = \frac{s}{\sqrt{n}} = \frac{2.5}{\sqrt{50}} \approx \frac{2.5}{7.071} \approx 0.354SE=n​s​​=50​2.5​≈7.0712.5​≈0.354
 
+$\text{SE} = \frac{s}{\sqrt{n}} = \frac{2.5}{\sqrt{50}} \approx \frac{2.5}{7.071} \approx 0.354$
 -   **Step 3: Calculate the Margin of Error.**
     Margin of Error = Critical Value × SE = 2.576 × 0.354 ≈ **0.912**
 
@@ -590,8 +591,9 @@ This is the most critical step. Your entire test is based on the hypotheses you 
 
 ***
 
-[Image: Three bell curves side-by-side. The first, labeled "Left-Tailed Test," has the far-left tail shaded. The second, labeled "Right-Tailed Test," has the far-right tail shaded. The third, labeled "Two-Tailed Test," has both the far-left and far-right tails shaded.]
-
+![[Pasted image 20251102165624.png]]
+![[Pasted image 20251102165638.png]]
+![[Pasted image 20251102165655.png]]
 ***
 
 #### Example 1: Insurance Premiums (Right-Tailed Test)
@@ -652,9 +654,10 @@ A pharmaceutical company claims a new medicine reduces recovery time to a mean o
 
 ***
 
-[Image: A bell curve representing the sampling distribution, centered at μ=5. The sample mean of 5.8 is marked on the right. The area to the right of 5.8 is shaded and labeled "p-value = 0.0038". The rejection region starting at the critical value for α=0.05 is also shown, with the p-value area being clearly inside it.]
+![[Pasted image 20251102170248.png]]
 
-
+![[Pasted image 20251102170255.png]]
+![[Pasted image 20251102170303.png]]
 ---
 
 # A Comprehensive Comparison: Python Lists vs. NumPy Arrays
@@ -699,7 +702,8 @@ A Python list does not store the actual data elements in a contiguous block of m
 Each Python object contains not only its value but also metadata, such as its type and reference count.
 
 ***
-[Image: A diagram illustrating the Python list memory model. A box labeled "Python List" has pointers going to separate, scattered boxes in "Computer Memory". One box contains an integer `2`, another contains an integer `3`, and another contains an integer `5`. Each pointer originates from the list's internal array of references. The diagram emphasizes the non-contiguous and pointer-based nature.]
+![[Pasted image 20251102170524.png]]
+
 ***
 
 ### Limitations of Python Lists for Numerical Operations
@@ -745,8 +749,8 @@ A NumPy array is essentially a block of raw data accompanied by metadata that de
 Because the data is stored contiguously, the computer can access elements much faster, especially for sequential operations, which benefits from modern CPU cache performance.
 
 ***
-[Image: A diagram illustrating the NumPy array memory model. A box labeled "NumPy Array Metadata (Type, Shape, Strides)" has a single pointer to a large, contiguous block in "Computer Memory". Inside this block, the numbers `1, 2, 3, 4, 5` are shown side-by-side in adjacent memory cells, emphasizing the compact, contiguous storage.]
-***
+![[Pasted image 20251102170539.png]]
+
 
 ---
 
