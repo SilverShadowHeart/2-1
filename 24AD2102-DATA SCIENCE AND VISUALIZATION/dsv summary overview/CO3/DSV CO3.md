@@ -193,8 +193,7 @@ When calculating variance from a sample, we use the sample mean (x̄), which is 
 
 ## Sample Covariance (Sxy)
 
-Sxy​=∑i=1n​(xi​−xˉ)(yi​−yˉ​)n−1S_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n-1}Sxy​=n−1∑i=1n​(xi​−xˉ)(yi​−yˉ​)​
-
+$S_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n - 1}$
 ### Definition
 Sample covariance measures the degree to which two variables change together in a sample. It indicates the direction of their linear relationship and estimates the **population covariance (Σxy)**.
 
@@ -246,8 +245,7 @@ A number between **-1 and 1** that tells you the strength and direction of a rel
 -   **r = 0**: Zero correlation (no relationship)
 -   **r = -1**: Perfect negative correlation
 
-r=∑i=1n​(xi​−xˉ)2∑i=1n​(yi​−yˉ​)2​∑i=1n​(xi​−xˉ)(yi​−yˉ​)​r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}r=∑i=1n​(xi​−xˉ)2∑i=1n​(yi​−yˉ​)2​∑i=1n​(xi​−xˉ)(yi​−yˉ​)​
-
+$r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}$
 ---
 
 ## Types of Correlation & Common Coefficients
@@ -288,7 +286,7 @@ For a Pearson's `r` to be a valid and reliable measure, the following assumption
 **Formula**:
 The formula for the sample Pearson's correlation coefficient (`r`) is:
 
-r=∑(xi​−xˉ)2∑(yi​−yˉ​)2​∑(xi​−xˉ)(yi​−yˉ​)​r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}r=∑(xi​−xˉ)2∑(yi​−yˉ​)2​∑(xi​−xˉ)(yi​−yˉ​)​
+$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$
 
 Where:
 -   `xi`, `yi`: The individual sample points.
@@ -331,7 +329,7 @@ The calculation is performed on the **ranks** of the data, not the raw values.
 2.  Calculate the difference (`d_i`) between the ranks for each pair of observations.
 3.  Use the following formula:
 
-ρ=1−n(n2−1)6∑di2​​\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}ρ=1−n(n2−1)6∑di2​​​
+$\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$
 
 Where:
 -   `d_i`: The difference between the ranks of corresponding variables.
@@ -422,7 +420,7 @@ The fundamental goal is to use the sample statistic (e.g., `x̄`) to make an int
 
 ***
 
-[Image: A large circle labeled "Population (Parameters are Unknown, e.g., μ, σ)" with a smaller circle inside it labeled "Sample (Statistics are Calculated, e.g., x̄, s)". An arrow points from the Sample to the Population with the label "Inference".]
+![[Pasted image 20251102164124.png]]
 
 ***
 
@@ -501,8 +499,7 @@ The critical value determines the width of the margin of error and is based on t
 | 99% | The middle 99% of the normal distribution. This leaves 0.5% in each tail. | 2.576 |
 
 ***
-
-[Image: A bell curve (normal distribution) showing the mean at the center. The middle 95% of the area is shaded, with boundaries marked at -1.96 and +1.96 on the Z-axis. The unshaded areas in the tails are each labeled "2.5%".]
+![[Pasted image 20251102164504.png]]
 
 ***
 
@@ -521,7 +518,7 @@ A university wants to estimate the average final exam score (`μ`) for a large i
     For a 95% confidence level, the critical value (Z-score) is **1.96**.
 
 -   **Step 2: Calculate the Standard Error (SE).**
-    SE=n​σ​=100​15​=1015​=1.5\text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{15}{\sqrt{100}} = \frac{15}{10} = 1.5SE=n​σ​​=100​15​=1015​=1.5
+$\text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{15}{\sqrt{100}} = \frac{15}{10} = 1.5$
 
 -   **Step 3: Calculate the Margin of Error.**
     Margin of Error = Critical Value × SE = 1.96 × 1.5 = **2.94**
