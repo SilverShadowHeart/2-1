@@ -106,8 +106,7 @@ $\text{Skewness} = \frac{3(\text{Mean} - \text{Median})}{\text{Standard Deviatio
 -   **Standard deviation**: 10
 
 ### Calculation
-
-Skewness=3(70−65)10=3×510=1.5\text{Skewness} = \frac{3(70 - 65)}{10} = \frac{3 \times 5}{10} = 1.5Skewness=103(70−65)​=103×5​=1.5
+$\text{Skewness} = \frac{3(70 - 65)}{10} = \frac{3 \times 5}{10} = 1.5$
 
 ### Interpretation
 
@@ -166,7 +165,7 @@ The process of inferring characteristics of an entire population based on a repr
 ### Definition
 The sample mean is the average of all values in a sample. It serves as an estimate for the **population mean (μ)**.
 
-xˉ=∑i=1n​Xin\bar{x} = \frac{\sum_{i=1}^{n} X_i}{n}xˉ=n∑i=1n​Xi​​
+$\bar{x} = \frac{\sum_{i=1}^{n} X_i}{n}$
 
 **Where**:
 -   **x̄** = Sample Mean
@@ -179,8 +178,7 @@ xˉ=∑i=1n​Xin\bar{x} = \frac{\sum_{i=1}^{n} X_i}{n}xˉ=n∑i=1n​Xi​​
 
 ## Sample Variance (s²)
 
-s2=∑i=1n​(Xi​−xˉ)2n−1s^2 = \frac{\sum_{i=1}^{n} (X_i - \bar{x})^2}{n-1}s2=n−1∑i=1n​(Xi​−xˉ)2​
-
+$s^2 = \frac{\sum_{i=1}^{n} (X_i - \bar{x})^2}{n - 1}$
 ### 1. Definition
 Sample variance measures how much individual data points in a sample deviate from the sample mean. It estimates the **population variance (σ²)**.
 
