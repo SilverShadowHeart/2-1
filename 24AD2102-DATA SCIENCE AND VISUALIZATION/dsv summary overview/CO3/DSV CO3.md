@@ -1678,8 +1678,7 @@ In data analysis, many datasets have a temporal component—meaning the data is 
 NumPy provides a powerful and efficient foundation for handling date and time data, making it an essential tool for the initial stages of time series analysis.
 
 ***
-[Image: A simple line chart illustrating time series data. The x-axis is labeled "Time (Days)" and shows a sequence of dates. The y-axis is labeled "Stock Price ($)". A line connects data points, showing the fluctuation of the stock price over time.]
-***
+
 
 ---
 
@@ -1819,8 +1818,6 @@ print(f"Reconstructing sorted array using argsort: {arr[sorted_indices]}")
 ```
 
 ***
-[Image: A two-part diagram. The top part shows the array `[30, 10, 50, 20]` with its indices `0, 1, 2, 3` written below each element. The bottom part shows the `argsort` result `[1, 3, 0, 2]`. Arrows connect the values in the bottom array to the corresponding indices in the top array to show the relationship.]
-***
 
 ### Sorting Custom Data (with Dates)
 
@@ -1869,9 +1866,6 @@ A **Pandas Series** can be best understood as a **one-dimensional labeled array*
 -   **The Index**: The index allows for powerful ways to access and manipulate data. It can be the default integer index (`0, 1, 2, ...`) or a custom index (e.g., names, dates, or other unique identifiers).
 -   **Primary Use Case**: A Series is the go-to structure for handling **single-column data**, such as a time series of stock prices, a list of student marks, or a column of temperatures.
 
-***
-[Image: A diagram showing a Pandas Series. On the left, a column labeled "Index" contains labels like 'a', 'b', 'c'. On the right, a column labeled "Data" contains values like 100, 200, 300. An arrow indicates that the underlying data is a NumPy array.]
-***
 
 ---
 
