@@ -1231,8 +1231,6 @@ print(f"Original 2D Array:\n{arr_2d}")
     ```
 
 ***
-[Image: A diagram of the 3x3 `arr_2d` matrix. An arrow points to the number `2` with the label `arr_2d[0, 1]`. Another arrow points to the number `7` with the label `arr_2d[2, 0]`.]
-***
 
 -   **Fancy Indexing:**
     This technique lets you select a specific set of non-contiguous elements by providing arrays of indices for each dimension. The indices are paired up to define the coordinates of the desired elements.
@@ -1546,17 +1544,18 @@ Let's see if their shapes are compatible by comparing them from right to left:
     -   Are they compatible? Yes, because one of them is **1**. NumPy will stretch `B`'s dimension to match `A`'s size of 3.
 
 **Conclusion**: The arrays are compatible. The resulting array will have a shape of `(3, 3)`.
+#### Visual Diagram of the Broadcast
 
-#### Visual Diagram of the Broadcast:
-```
-Array A (3, 1)      Array B (1, 3)          Result (3, 3)
-[[1],      +      [10, 20, 30]     =>   [[1, 1, 1],   +   [[10, 20, 30],  =>  [[11, 21, 31],
- [2],                                     [2, 2, 2],       [10, 20, 30],      [12, 22, 32],
- [3]]                                     [3, 3, 3]]       [10, 20, 30]]      [13, 23, 33]]
-```
+| Array A (3×1) |   | Array B (1×3) |   | Result (3×3) |
+|:--------------:|:-:|:--------------:|:-:|:--------------:|
+| `[[1],`        | + | `[10, 20, 30]` | ⇒ | `[[11, 21, 31],` |
+| `[2],`         |   |                |   | `[12, 22, 32],` |
+| `[3]]`         |   |                |   | `[13, 23, 33]]` |
+
+Expanded view:
 
 ***
-[Image: A visual representation of the above process. A 3x1 column vector `A` is shown. Arrows indicate it is stretched horizontally to become a 3x3 matrix. A 1x3 row vector `B` is shown below it. Arrows indicate it is stretched vertically to become a 3x3 matrix. The two resulting 3x3 matrices are then added together.]
+![[Pasted image 20251102174433.png]]
 ***
 
 ---
