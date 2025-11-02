@@ -791,8 +791,11 @@ This is arguably the most significant advantage of NumPy. **Vectorization** is t
 -   **NumPy Array**: Stores only the raw data in a compact, contiguous block. This results in significantly lower memory consumption and excellent cache performance, as the CPU can load large chunks of the data into its cache at once.
 
 ***
-[Image: A side-by-side comparison diagram. On the left, a "Python List" `[27, "Python", 27.11]` shows pointers from a central structure to three separate, differently sized memory blocks for an integer, a string, and a float. On the right, a "NumPy Array" `[27, 105, 1]` shows three equally sized integer blocks stored right next to each other in a contiguous memory block.]
-***
+![[Pasted image 20251102171328.png]]
+![[Pasted image 20251102171348.png]]
+![[Pasted image 20251102171400.png]]
+
+---
 
 ### Limited Built-in Numerical Functions
 
@@ -974,7 +977,7 @@ a = np.array([10, 20, 30, 40], dtype=np.int32)
 -   **Strides**: `(4,)`. To move from one element to the next, NumPy must jump **4 bytes** in memory.
 
 ***
-[Image: A diagram showing a 1D array `[10, 20, 30, 40]` stored in a contiguous memory block. Below the block, byte positions `0, 4, 8, 12` are marked. An arrow points from `10` to `20` with the label "+4 bytes", illustrating the stride.]
+![[Pasted image 20251102171502.png]]
 ***
 
 #### Example 2: Strides of a 2D Array
@@ -988,9 +991,9 @@ b = np.array([[1, 2, 3], [4, 5, 6]], dtype=np.int32)
     -   To move to the next element in the **same column** (down a row, the outermost dimension), NumPy must skip over an entire row (3 elements × 4 bytes/element), so it jumps **12 bytes**.
 
 ***
-[Image: A diagram showing a 2D array `[[1, 2, 3], [4, 5, 6]]`. Below it is the flat, contiguous memory block `[1, 2, 3, 4, 5, 6]`. An arrow points from `1` to `2` labeled "+4 bytes (stride for dim 1)". Another arrow points from `1` to `4` labeled "+12 bytes (stride for dim 0)".]
-***
-
+![[Pasted image 20251102171647.png]]
+![[Pasted image 20251102171720.png]]
+![[Pasted image 20251102171731.png]]
 ---
 
 ## The Art of Reshaping with `.reshape()`
