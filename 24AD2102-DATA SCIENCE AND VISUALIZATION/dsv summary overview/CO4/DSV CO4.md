@@ -1406,6 +1406,7 @@ Binning is widely used in marketing to segment customers. A business can take a 
 -   **Pattern Discovery**: Converting a continuous variable into a categorical one can sometimes make relationships with other categorical variables easier to spot.
 -   **Overfitting Prevention**: In machine learning, binning can reduce the complexity of a model, making it less likely to overfit to the training data. the training data.
 
+![[Pasted image 20251101133149.png]]
 # Customizing Matplotlib Plots: Legends and Color Bars
 
 ## The Importance of Plot Annotations
@@ -2205,5 +2206,5 @@ plt.show()
 3.  `FuncFormatter(format_func)` creates a formatter object from our function, which is then applied to the major ticks of the x-axis.
 
 ***
-![[Pasted image 20251101133008.png]]
+![[Pasted image 20251101133008.png]]****
 ***
