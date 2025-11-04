@@ -31,6 +31,7 @@ critical sections
 
 
 readers writers problem
-
-
-
+read-read-no
+read-write-yes
+write-read-yes
+write-write-yes
