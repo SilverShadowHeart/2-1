@@ -361,8 +361,7 @@ Similar to Spearman's, Kendall's Tau is non-parametric and requires at least ord
 
 **Formula**:
 The most common variant is Tau-b, which accounts for tied ranks. The basic principle is:
-
-τ=Total Number of Pairs(Number of Concordant Pairs)−(Number of Discordant Pairs)​\tau = \frac{(\text{Number of Concordant Pairs}) - (\text{Number of Discordant Pairs})}{\text{Total Number of Pairs}}τ=Total Number of Pairs(Number of Concordant Pairs)−(Number of Discordant Pairs)​
+$τ=Total Number of Pairs(Number of Concordant Pairs)−(Number of Discordant Pairs)​\tau = \frac{(\text{Number of Concordant Pairs}) - (\text{Number of Discordant Pairs})}{\text{Total Number of Pairs}}τ=Total Number of Pairs(Number of Concordant Pairs)−(Number of Discordant Pairs)​$
 
 The total number of pairs is given by `n(n-1)/2`.
 
