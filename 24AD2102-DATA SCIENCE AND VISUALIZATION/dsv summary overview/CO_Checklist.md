@@ -1,0 +1,138 @@
+# DSV Summary Checklist
+
+## CO1: Introduction to Data Science and Python Libraries
+
+- [ ] **Data Science Fundamentals**
+    - [ ] Definition of Data Science
+    - [ ] Importance of Data Science
+    - [ ] Data Science Workflow and Lifecycle
+    - [ ] Roles in Data Science (Data Scientist, ML Engineer, Data Analyst, etc.)
+    - [ ] Difference between Data Science and Data Visualization
+    - [ ] Difference between Data Science and Big Data
+    - [ ] Relationship between Data Science and AI
+    - [ ] Applications of Data Science (Healthcare, Finance, Retail, etc.)
+        - [ ] Fraud Detection
+        - [ ] Recommender Systems
+        - [ ] Patient Readmission Prediction
+        - [ ] Smart Cities
+- [ ] **Python Basics for Data Science**
+    - [ ] `import` statement
+    - [ ] `dir()` function
+- [ ] **NumPy**
+    - [ ] Creating arrays (`np.array`)
+    - [ ] Array indexing (positive and negative)
+    - [ ] Creating arrays of zeros and ones (`np.zeros`, `np.ones`)
+    - [ ] Slicing arrays
+    - [ ] 2D array indexing
+    - [ ] Mathematical operations on arrays
+    - [ ] Searching elements (`np.where`)
+    - [ ] Filtering arrays
+    - [ ] Checking for empty arrays (`.size`)
+    - [ ] `ndim`, `size`, `shape`, and `reshape`
+    - [ ] Creating an identity matrix (`np.eye`)
+    - [ ] `np.arange()` and `np.linspace()`
+    - [ ] Creating random arrays (`np.random.rand`)
+    - [ ] Matrix operations (trace, transpose)
+    - [ ] Statistical functions (mean, std)
+- [ ] **Pandas**
+    - [ ] Introduction to Pandas
+    - [ ] Basic Operations (Preprocessing, Cleaning, Transformation, Visualization)
+    - [ ] Creating a DataFrame (from list, list of lists, list of dictionaries, dictionary)
+    - [ ] Reading data from CSV (`pd.read_csv`)
+    - [ ] Handling missing data (`dropna`, `fillna`, `na_values`)
+    - [ ] Basic DataFrame operations (adding/deleting columns, filtering)
+    - [ ] Viewing data (`.head`, `.tail`, `.info`, `.describe`)
+    - [ ] Accessing columns and rows (`loc`, `iloc`)
+- [ ] **Data Objects and Attribute Types**
+    - [ ] Record, Transaction, Graph, Spatial, Time-Series, Text, Sequence, Hierarchical Data
+    - [ ] Categorical, Numerical, Ordinal, and Binary data types
+
+## CO2: Data Preprocessing
+
+- [ ] **Types of Data Sources**
+    - [ ] Structured Data (SQL, CSV)
+    - [ ] Unstructured Data (Text, Media)
+    - [ ] Semi-Structured Data (JSON, XML)
+- [ ] **Data Collection and Security**
+    - [ ] Data Collection Strategies
+    - [ ] Data Security in Analysis and Visualization
+- [ ] **Data Preprocessing Overview**
+    - [ ] Why data is "dirty" (incomplete, noisy, inconsistent)
+    - [ ] Importance of Data Preprocessing
+    - [ ] Measures of Data Quality (Accuracy, Completeness, etc.)
+- [ ] **Data Cleaning**
+    - [ ] Data Acquisition (from DBMS, flat files)
+    - [ ] Metadata (field types, roles, descriptions)
+    - [ ] Reformatting (standardizing formats, handling missing values, binning)
+    - [ ] Filling Missing Values (imputation methods: mean, median, model-based)
+    - [ ] Unified Date Formats (Unix time, SAS date)
+    - [ ] Conversion of Data Types (Nominal, Binary, Ordinal to Numeric)
+    - [ ] Handling Noisy Data (Binning, Clustering, Regression)
+- [ ] **Data Integration**
+    - [ ] Entity Identification Problem
+    - [ ] Schema Integration
+    - [ ] Handling Data Value Conflicts and Redundancy
+- [ ] **Data Transformation**
+    - [ ] Smoothing, Aggregation, Generalization, Normalization (Min-Max, Z-score, Decimal Scaling)
+    - [ ] Attribute/Feature Construction
+- [ ] **Data Reduction**
+    - [ ] Dimensionality Reduction (PCA, Wavelet Transforms)
+    - [ ] Data Cube Aggregation
+    - [ ] Attribute Selection
+    - [ ] Data Sampling (Random, Stratified, Systematic)
+- [ ] **Data Discretization**
+    - [ ] Unsupervised Methods (Equal-width, Equal-frequency binning)
+    - [ ] Supervised Methods (Entropy-based)
+- [ ] **Statistics and Data Preparation**
+    - [ ] Descriptive Statistics (Mean, Median, Mode, Variance, Std Dev)
+    - [ ] Data Distribution and Skewness (Pearson's Coefficient)
+    - [ ] Handling Missing Values in Pandas (`dropna`, `fillna`, interpolation)
+
+## CO3: Statistical Concepts
+
+- [ ] **Skewness**
+    - [ ] Definition and types (Negative, Zero, Positive)
+    - [ ] Measuring Skewness (Pearson's Mode and Median Skewness)
+- [ ] **Estimation and Correlation**
+    - [ ] Sample vs. Population Parameters (Mean, Variance, Covariance)
+    - [ ] Concept of Correlation vs. Causation
+    - [ ] Correlation Coefficients
+        - [ ] Pearson's `r` (for linear relationships)
+        - [ ] Spearman's `ρ` (for monotonic relationships, rank-based)
+        - [ ] Kendall's `τ` (for monotonic relationships, robust to ties)
+- [ ] **Statistical Inference**
+    - [ ] Population vs. Sample
+    - [ ] Sampling Techniques (Simple Random, Stratified)
+    - [ ] Estimation (Point vs. Interval Estimates)
+    - [ ] Confidence Intervals (understanding and calculating)
+    - [ ] Hypothesis Testing (Null and Alternative Hypotheses)
+    - [ ] P-value and Significance Level (α)
+
+## CO4: Data Visualization
+
+- [ ] **Introduction to Data Visualization**
+    - [ ] Python Visualization Ecosystem (Matplotlib, Seaborn, Plotly)
+- [ ] **Line and Scatter Plots**
+    - [ ] Anatomy and creation of Line Plots for trends
+    - [ ] Anatomy and creation of Scatter Plots for relationships
+    - [ ] Customizing plots (color, style, markers)
+- [ ] **Visualizing Data Distributions**
+    - [ ] Density Plots (KDE) for understanding distribution shape
+    - [ ] Contour Plots for visualizing 3D data in 2D
+    - [ ] Histograms and Binning for frequency distribution
+- [ ] **Customizing Plots**
+    - [ ] Legends for identifying plot elements
+    - [ ] Color bars for interpreting continuous color scales
+- [ ] **Advanced Layouts**
+    - [ ] Creating subplots for comparing multiple views (`plt.subplots`, `GridSpec`)
+    - [ ] Annotating plots to highlight key information
+- [ ] **Pandas Specifics**
+    - [ ] Understanding DataFrames and their structure (Index, Columns, Data)
+    - [ ] Creating DataFrames (from dictionaries, lists)
+    - [ ] Indexing DataFrames with `.loc` (label-based) and `.iloc` (position-based)
+    - [ ] Sorting DataFrames (`sort_index`, `sort_values`)
+    - [ ] Loading data from CSV files (`pd.read_csv`)
+    - [ ] Aggregation and Grouping (`groupby`, `.agg`)
+        - [ ] Split-Apply-Combine strategy
+        - [ ] Multi-level grouping
+        - [ ] Aggregation vs. Filtering vs. Transformation
