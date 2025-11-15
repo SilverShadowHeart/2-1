@@ -1,4 +1,5 @@
-# Measuring Skewness in Data Science: Understanding Skewness & Pearson's Median Skewness
+
+"# Measuring Skewness in Data Science: Understanding Skewness & Pearson's Median Skewness
 
 **Skewness** is a fundamental statistical concept that helps data scientists understand the shape and asymmetry of data distributions. This document explores how to measure and interpret skewness for more accurate analysis and modeling.
 
@@ -23,7 +24,7 @@ When analyzing data, skewness helps us understand:
 | Tail extends to the left | Symmetrical distribution | Tail extends to the right |
 | **Mean < Median < Mode** | **Mean = Median = Mode** | **Mean > Median > Mode** |
 | **Example**: Exam scores in an easy test (many high scores, few low ones). | **Example**: Height distribution in a homogeneous population. | **Example**: Income distribution (many low incomes, fewer very high ones). |
-# diag needed
+
 ---
 
 ## Why Skewness Matters in Data Science
