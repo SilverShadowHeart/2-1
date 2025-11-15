@@ -71,7 +71,7 @@ Q Difference Between Data Science and Data Visualization?
 
 
 
-<p align="center" style="font-size:24px"><b>ROLES IN DATA SCIENCE<b></p>
+<p align="center" style="font-size:24px">ROLES IN DATA SCIENCE</p>
 
 ### 1. Data Scientist
 
@@ -369,7 +369,7 @@ flowchart TD
 
 --- 
 
-**Fraud Detection **
+**Fraud Detection**
 
 - **Goal:** Identify fraudulent activity **before it causes major damage**.
     
@@ -1692,13 +1692,13 @@ print(df)
 
  Output:
 
-||First Name|Email|
-|---|---|---|
-|1|Shelby|[elijahS7@example.net](mailto:elijahS7@example.net)|
-|2|Phillip|[bethany14@example.com](mailto:bethany14@example.com)|
-|3|Kristine|[bthompson@example.com](mailto:bthompson@example.com)|
-|4|Yesenia|[kaitlinkaiser@example.com](mailto:kaitlinkaiser@example.com)|
-|5|Lori|[buchananmanuel@example.net](mailto:buchananmanuel@example.net)|
+| #   | First Name | Email                                                           |
+| --- | ---------- | --------------------------------------------------------------- |
+| 1   | Shelby     | [elijahS7@example.net](mailto:elijahS7@example.net)             |
+| 2   | Phillip    | [bethany14@example.com](mailto:bethany14@example.com)           |
+| 3   | Kristine   | [bthompson@example.com](mailto:bthompson@example.com)           |
+| 4   | Yesenia    | [kaitlinkaiser@example.com](mailto:kaitlinkaiser@example.com)   |
+| 5   | Lori       | [buchananmanuel@example.net](mailto:buchananmanuel@example.net) |
 
 
 #### Setting an Index Column using `read_csv`
@@ -1992,7 +1992,7 @@ if you cant see that
 ![[Pasted image 20250816200822.png]]
 
 
-###Attributes & its Types
+### Attributes & its Types
 
 #### Attribute (or dimensions, features, variables)
 **Definition:** A data field representing a characteristic or feature of a data object  
