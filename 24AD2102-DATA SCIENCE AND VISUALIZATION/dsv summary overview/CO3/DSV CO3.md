@@ -1971,7 +1971,8 @@ print(s[1:])
 # Output:
 # b    20
 # c    30
-# dtype: int64```
+# dtype: int64
+```
 
 ### 4. Slicing by Label
 
