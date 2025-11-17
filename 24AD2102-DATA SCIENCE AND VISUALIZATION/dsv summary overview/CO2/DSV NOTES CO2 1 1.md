@@ -815,11 +815,11 @@ Missing values = **gaps in the dataset** where information should exist but does
 
 **Result (Global Mean Imputation):**
 
-|Customer|Income|Region|
-|---|---|---|
-|Alice|20000|North|
-|Bob|25000|South|
-|Charlie|30000|North|
+| Customer | Income | Region |
+| -------- | ------ | ------ |
+| Alice    | 20000  | North  |
+| Bob      | 25000  | South  |
+| Charlie  | 30000  | North  |
 
 **Python (Class-Based Fill):**
 
