@@ -3901,18 +3901,18 @@ Entries in a dataset where data is absent.
 
 **Techniques:**
 
-|Method|Description|Pros|Cons|
-|---|---|---|---|
-|Constant|Fill with fixed value (e.g., 0, 'Unknown')|Simple, keeps dataset size|May introduce bias|
-|Mean|Fill with column mean|Easy, retains mean|Distorts relationships, underestimates variance|
-|Median|Fill with middle value|Robust to outliers|Less informative if uniform|
-|Mode|Most frequent value|Simple for categorical|Frequency bias, not for continuous|
-|Forward Fill (`ffill`)|Use previous row|Maintains temporal consistency|Propagates errors|
-|Backward Fill (`bfill`)|Use next row|Quick|Not valid for real-time prediction|
-|Linear Interpolation|Linear trend estimation|Keeps trend|Only numeric, misleads non-linear trends|
-|KNN Imputation|Based on nearest neighbors|Multivariate, non-parametric|Expensive, sensitive to scaling/outliers|
-|Regression Imputation|Predict missing via regression|Captures relationships|Needs model, can introduce errors|
-|MICE|Iterative regression for multiple variables|More accurate, accounts for uncertainty|Complex, slow|
+| Method                  | Description                                 | Pros                                    | Cons                                            |
+| ----------------------- | ------------------------------------------- | --------------------------------------- | ----------------------------------------------- |
+| Constant                | Fill with fixed value (e.g., 0, 'Unknown')  | Simple, keeps dataset size              | May introduce bias                              |
+| Mean                    | Fill with column mean                       | Easy, retains mean                      | Distorts relationships, underestimates variance |
+| Median                  | Fill with middle value                      | Robust to outliers                      | Less informative if uniform                     |
+| Mode                    | Most frequent value                         | Simple for categorical                  | Frequency bias, not for continuous              |
+| Forward Fill (`ffill`)  | Use previous row                            | Maintains temporal consistency          | Propagates errors                               |
+| Backward Fill (`bfill`) | Use next row                                | Quick                                   | Not valid for real-time prediction              |
+| Linear Interpolation    | Linear trend estimation                     | Keeps trend                             | Only numeric, misleads non-linear trends        |
+| KNN Imputation          | Based on nearest neighbors                  | Multivariate, non-parametric            | Expensive, sensitive to scaling/outliers        |
+| Regression Imputation   | Predict missing via regression              | Captures relationships                  | Needs model, can introduce errors               |
+| MICE                    | Iterative regression for multiple variables | More accurate, accounts for uncertainty | Complex, slow                                   |
 
 **Example (Mean Imputation):**
 
