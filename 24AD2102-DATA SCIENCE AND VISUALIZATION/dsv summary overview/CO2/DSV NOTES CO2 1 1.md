@@ -138,11 +138,11 @@ Data is the backbone of DSV, and its structure determines storage, processing, a
 **Sample Log Table**:
 
 
-| Log_ID | Data                                                                 |
-|--------|----------------------------------------------------------------------|
-| 1      | {"user":"alice","action":"login","time":"2025-08-19T10:30:00Z"}      |
-| 2      | {"user":"bob","action":"purchase","item":"book","price":12.99}      |
-| 3      | {"user":"carol","action":"logout","time":"2025-08-19T12:15:00Z"}    |
+| Log_ID | Data                                                             |
+| ------ | ---------------------------------------------------------------- |
+| 1      | {"user":"alice","action":"login","time":"2025-08-19T10:30:00Z"}  |
+| 2      | {"user":"bob","action":"purchase","item":"book","price":12.99}   |
+| 3      | {"user":"carol","action":"logout","time":"2025-08-19T12:15:00Z"} |
 
 
 **Processing**:
