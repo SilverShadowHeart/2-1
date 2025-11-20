@@ -1,4 +1,4 @@
-comparator : java.util
+ comparator : java.util
 purpose defines custom or multiple sorting logic externally 
 
 method 
