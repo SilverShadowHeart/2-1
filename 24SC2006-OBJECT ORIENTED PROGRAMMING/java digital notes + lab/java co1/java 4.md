@@ -404,21 +404,21 @@ hour (24-hour clock 10
 
 ## ✅ Notes for Reference
 
-|Field|Description|Range / Values|
-|---|---|---|
-|`Calendar.YEAR`|Year (e.g., 2025)|1900+|
-|`Calendar.MONTH`|Month (0-based)|0 (Jan) to 11 (Dec)|
-|`Calendar.DAY_OF_MONTH`|Day in month|1–31|
-|`Calendar.DAY_OF_YEAR`|Day in year|1–365/366|
-|`Calendar.DAY_OF_WEEK`|Day in week|1 (Sun) – 7 (Sat)|
-|`Calendar.HOUR`|Hour (12-hour format)|0–11|
-|`Calendar.HOUR_OF_DAY`|Hour (24-hour format)|0–23|
-|`Calendar.MINUTE`|Minute|0–59|
-|`Calendar.SECOND`|Second|0–59|
-|`Calendar.AM_PM`|AM or PM indicator|0 = AM, 1 = PM|
-|`Calendar.WEEK_OF_YEAR`|Week number in year|1–52/53|
-|`Calendar.getFirstDayOfWeek()`|Usually returns `1 (Sunday)` or `2 (Monday)`|Locale-dependent|
-|`getTime()`|Converts `Calendar` to `Date`|
+| Field                          | Description                                  | Range / Values      |
+| ------------------------------ | -------------------------------------------- | ------------------- |
+| `Calendar.YEAR`                | Year (e.g., 2025)                            | 1900+               |
+| `Calendar.MONTH`               | Month (0-based)                              | 0 (Jan) to 11 (Dec) |
+| `Calendar.DAY_OF_MONTH`        | Day in month                                 | 1–31                |
+| `Calendar.DAY_OF_YEAR`         | Day in year                                  | 1–365/366           |
+| `Calendar.DAY_OF_WEEK`         | Day in week                                  | 1 (Sun) – 7 (Sat)   |
+| `Calendar.HOUR`                | Hour (12-hour format)                        | 0–11                |
+| `Calendar.HOUR_OF_DAY`         | Hour (24-hour format)                        | 0–23                |
+| `Calendar.MINUTE`              | Minute                                       | 0–59                |
+| `Calendar.SECOND`              | Second                                       | 0–59                |
+| `Calendar.AM_PM`               | AM or PM indicator                           | 0 = AM, 1 = PM      |
+| `Calendar.WEEK_OF_YEAR`        | Week number in year                          | 1–52/53             |
+| `Calendar.getFirstDayOfWeek()` | Usually returns `1 (Sunday)` or `2 (Monday)` | Locale-dependent    |
+| `getTime()`                    | Converts `Calendar` to `Date`                |                     |
 
 
 
