@@ -250,24 +250,28 @@ for row in result_matrix:
 ![[Pasted image 20251010200102.png]]
 
 ```python 
-def compress(input_str):
-    if not input_str:
+def compress(s):
+    if not s:
         return ""
 
-    input_str += '\0'
-    res = ''
+    res = ""
     count = 1
-    
-    for i in range(1, len(input_str)):
-        if input_str[i-1] != input_str[i]:
-            res += input_str[i-1]
+
+    for i in range(1, len(s)):
+        if s[i] == s[i-1]:
+            count += 1
+        else:
+            res += s[i-1]
             if count > 1:
                 res += str(count)
             count = 1
-        else:
-            count += 1
-    
+
+    res += s[-1]
+    if count > 1:
+        res += str(count)
+
     return res
+
 
 user_input = input()
 result_string = compress(user_input)
