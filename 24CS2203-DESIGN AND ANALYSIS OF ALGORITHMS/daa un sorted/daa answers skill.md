@@ -1,4 +1,4 @@
-## week 1
+# week 1
 
 ![[WhatsApp Image 2025-10-09 at 08.35.20_f3b1fe85.jpg]]
 
